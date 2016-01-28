@@ -1,0 +1,78 @@
+---
+title: "CMT & APY Rates"
+author: "George Fisher"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{cmt-rates}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
+---
+
+The *ustreasuries* package provides a **USTreasuryRates** function which 
+downloads the daily CMT rates from 1960 to the most-recently completed
+business day. Also provided is an **APY** function which converts CMT rates
+to APY.
+
+
+CMT Yield Definition
+--------------------
+Constant-Maturity Treasury (CMT) yields are derived from a 'quasi-cubic hermite
+spline function' proprietary to the US Treasury Department.
+
+At the end of business each day the bid yields for on-the-run securities
+(which trade close to par) are input as the knot points and splines are used
+to derive a continuous curve. The yields for the exact maturity points are read
+from this curve, which are the yields available from 
+the *USTreasuryRates* function.
+
+
+Yields on all Treasury securities are based on actual day counts on a 365- or 366-day year basis, not a 30/360 basis, and the yield curve is based on securities that pay semiannual interest; the yields *at any point* on the yield curve are consistent with a semiannual coupon security with that amount of time remaining to maturity.  
+
+All yield curve rates are considered "bond-equivalent" yields. 
+
+The yield curve is considered a Par Yield Curve.  
+
+APY Definition
+---------------------------
+**CMT yields represent "bond equivalent yields" for securities that pay semiannual
+interest, expressed on a simple annualized basis**.  This is consistent
+with market practices for quoting bond yields in the market and makes the CMT
+yields directly comparable to quotations on other bond market yields.  As such,
+these yields are **not** effective annualized yields or **Annualized Percentage Yields
+(APY), which include the effect of compounding**.  
+
+To convert a CMT yield to an
+APY the following formula is applied:
+                                          
+                                          APY = (1 + i/2)**2 - 1
+
+Where *i* is the CMT rate expressed in decimals.  
+
+For example, if the 5-year CMT rate was 8.00%, then the annualized effective yield, or APY, would be:
+
+                                          APY =  (1 + .0800/2)**2 - 1 
+                                          APY =  1.081600 - 1 
+                                          APY =  0.081600
+
+And, expressed as a percent:
+
+                                          APY =  8.16%
+
+References
+----------
+Daily Treasury Yield Curve Rates   
+https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yield
+
+Interest Rates - Frequently Asked Questions   
+https://www.treasury.gov/resource-center/faqs/Interest-Rates/Pages/faq.aspx
+
+Treasury Yield Curve Methodology   
+https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/yieldmethod.aspx
+
+Selected historical average rates are available from the FRB at   
+http://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15
+
+Most-recently viewed on 01/25/2016
+

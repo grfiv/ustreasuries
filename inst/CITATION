@@ -1,0 +1,23 @@
+citHeader("To cite ustreasuries please use:")
+
+citEntry(
+  entry        = "Misc",
+  title        = "Data, analyses and visualizations for US Treasury bonds",
+  author       = personList(as.person("George Fisher"),
+                            as.person("Pratik Biswas")),
+  year         = "2016",
+  howpublished = "https://github.com/grfiv/ustreasuries",
+  note         = "US Treasury bonds, particularly on-the-run Treasuries are the
+                  basis of a great deal of fixed-income analyses.
+                  This package provides an R data.frame with the Daily
+                  Treasury Yield Curve (also known as Constant-Maturity
+                  Treasury (CMT)) rates for the years 1962 to the most-recently
+                  completed business day. Also included are visualization and
+                  analytical functions including all of the 'greeks' for
+                  derivative analysis.",
+
+  textVersion  =
+  paste("George Fisher, Pratik Biswas (2016)",
+        "Data, analyses and visualizations for US Treasury bonds",
+        "URL https://github.com/grfiv/ustreasuries")
+        )

@@ -1,0 +1,73 @@
+---
+title: "Examples of US Treasury Yield Curves"
+author: "George Fisher"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{yield-curves}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## May you live in interesting times   
+
+Yield curve shapes and changes in shape often presage changes in the economy
+and/or the securities markets. Here are some examples of yield curves 
+during some recent interesting times.
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(collapse=TRUE,                # hadley
+                      comment = "#>",               # hadley
+                      error=TRUE, purl=FALSE,       # to be able to see errors
+                      fig.width=7.25, fig.height=6) # nice-sized pictures
+```
+
+```{r library}
+library(ustreasuries)
+```
+```{r load}
+all_data = USTreasuryRates()
+```
+
+```{r YC_dotcom}
+PrintYieldCurves(dplyr::filter(all_data, 
+                                 all_data$NEW_DATE>=as.Date("1999-01-01") &
+                                 all_data$NEW_DATE<=as.Date("2001-12-31")), 
+                 rows=c(1, 272, 272*2, as.integer(272*2.5),as.integer(272*2.75)), 
+                 title="Yield Curves Before & During the Dot-Com Bust")
+```
+
+```{r YC_ltcm}
+ltcm_period <- dplyr::filter(all_data, 
+                                 all_data$NEW_DATE>=as.Date("1996-06-01") &
+                                 all_data$NEW_DATE<=as.Date("1999-03-01"))
+
+nrows <- nrow(ltcm_period)
+bits  <- as.integer(nrows/5)
+
+PrintYieldCurves(ltcm_period, 
+                 rows=c(1, bits, 2*bits, 3*bits, 4*bits, nrows), 
+                 title="1997 Asia Crisis, 1998 Russia Crisis & LTCM Collapse")
+```
+
+
+```{r YC_fincrisis}
+PrintYieldCurves(dplyr::filter(all_data, 
+                                   all_data$NEW_DATE>=as.Date("2006-01-01") &
+                                   all_data$NEW_DATE<=as.Date("2009-12-31")), 
+                 rows=c(1, 272, 272*2, 272*3), 
+                 title="Yield Curves Before & During the Financial Crisis", tabprt=TRUE)
+```
+
+```{r YC_now}
+last_two_years <- dplyr::filter(all_data, 
+                                    all_data$NEW_DATE>=Sys.Date()-365*2 &
+                                    all_data$NEW_DATE<=Sys.Date())
+
+nrows <- nrow(last_two_years)
+bits <- as.integer(nrows/5)
+
+PrintYieldCurves(last_two_years, 
+                 rows=c(1, bits, 2*bits, 3*bits, 4*bits, nrows), 
+                 title="Yield Curves For The Last Two Years")
+```

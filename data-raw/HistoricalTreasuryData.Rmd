@@ -1,0 +1,50 @@
+---
+title: "Historical Treasury Data"
+author: "George Fisher"
+date: "January 25, 2016"
+output: html_document
+---
+
+The FRB (http://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15) provides Treasury-rate data back to 1962. I downloaded it, reformatted it to have the columns of the XML data, and spot checked that the rates were the same as the XML-downloaded data; they were.
+
+# Read the raw file   
+```{r readH1501}
+FRB_H15_1962_2015 = read.csv('FRB_H15_1962-2015.csv', 
+                             as.is=TRUE, stringsAsFactors = FALSE, 
+                             na.strings = "ND")
+str(FRB_H15_1962_2015)
+```
+
+# Remove rows that are all NA    
+(except the NEW_DATE field)   
+```{r readH1502, message=FALSE}
+row.has.na <- apply(FRB_H15_1962_2015[,-2], 1, function(x){all(is.na(x))})
+
+print(paste(sum(row.has.na), "all-NA rows out of", nrow(FRB_H15_1962_2015), 
+            "total; resulting total:",nrow(FRB_H15_1962_2015)-sum(row.has.na)))
+            
+library(dplyr)
+FRB_H15_1962_2015_mod <- FRB_H15_1962_2015[!row.has.na,]
+```
+
+# Fix the Id and NEW_DATE fields
+```{r readH1503}
+FRB_H15_1962_2015_mod <- mutate(FRB_H15_1962_2015_mod, 
+                                NEW_DATE = as.Date(FRB_H15_1962_2015_mod$NEW_DATE))
+
+# make the Id field numeric
+class(FRB_H15_1962_2015_mod$Id) = "numeric" 
+```
+
+# Look at the result
+```{r readH1504}
+
+str(FRB_H15_1962_2015_mod)
+head(FRB_H15_1962_2015_mod)
+tail(FRB_H15_1962_2015_mod)
+```
+
+# Save the FRB_H15_1962_2015_mod data.frame
+```{r readH1505}
+save(FRB_H15_1962_2015_mod, file="FRB_H15_1962_2015_mod.Rdata")
+```

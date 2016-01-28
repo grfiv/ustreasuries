@@ -1,0 +1,47 @@
+---
+title: "Plot of the 10-Year US Treasury Bond from 1962 to present"
+author: "George Fisher"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{plot-10year}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(collapse=TRUE,                # hadley
+                      comment = "#>",               # hadley
+                      error=TRUE, purl=FALSE,       # to be able to see errors
+                      fig.width=7.25, fig.height=6) # nice-sized pictures
+```
+
+```{r library}
+library(ustreasuries)
+```
+```{r load}
+all_data = USTreasuryRates()
+```
+
+```{r plot10yr}
+max_idx  <- which.max(all_data$BC_10YEAR)
+max_rate <- all_data$BC_10YEAR[max_idx]
+max_date <- all_data$NEW_DATE[max_idx]
+
+min_idx  <- which.min(all_data$BC_10YEAR)
+min_rate <- all_data$BC_10YEAR[min_idx]
+min_date <- all_data$NEW_DATE[min_idx]
+
+x_label <- paste0("Max: ",max_rate," (",max_date,"), ",
+                  "Min: ",min_rate," (",min_date,")")
+
+plot(1:nrow(all_data), all_data$BC_10YEAR,
+     xaxt="n", xlab=x_label, ylab='Interest Rates',
+     pch = ".",cex=1.5,
+     main="10-Year US Treasury Yields")
+grid()
+
+label_vec <- c(1, max_idx, min_idx, nrow(all_data))
+axis(1, at=label_vec, labels=all_data$NEW_DATE[label_vec])
+abline(v=label_vec)
+```
