@@ -22,10 +22,19 @@ Installation
 Get the development version from github:
 
 ``` r
-# install.packages("devtools")
+# see https://github.com/hadley/devtools for the
+# best procedure to install *devtools* on your
+# system; Windows in particular has unexpected
+# requirements
+
 devtools::install_github("grfiv/treasuries")
 
-# Note: if you receive a message about corrupt databases or fetch(key), 
+# Notes: 
+#    1. Add 'build_vignettes=TRUE' parameter to include vignettes 
+#       (recommended but a current version of pandoc is required)
+#    2. add 'auth_token="..."' if you get a 404
+#       contact the author for this
+#    3. if you receive a message about corrupt databases or fetch(key), 
 #       restarting R will fix the problem;
 #       these appear to be issues with devtools 1.10.0.9000
 ```

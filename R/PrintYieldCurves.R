@@ -31,37 +31,7 @@
 #'
 #' @export
 PrintYieldCurves <- function(YieldCurveDF, rows=c(1), title="Yield Curve", tabprt=FALSE) {
-    # Print one or more yield curves
-    #
-    # Arguments
-    # ---------
-    #   YieldCurveDF (data.frame) YieldCurveRate data.frame
-    #
-    #   rows (vector) the rows to be plotted
-    #                 default: c(1) plot the first row
-    #
-    #   title (chr) plot title
-    #
-    #   tabprt (bool) whether to print a table of rates
-    #
-    # Returns
-    # -------
-    #   nothing: produces a plot
-    #
-    # Throws
-    # ------
-    #   none
-    #
-    # Usage
-    # -----
-    #   PrintYieldCurves(dplyr::filter(all_data,
-    #                                    all_data$NEW_DATE>=as.Date("2006-01-01") &
-    #                                    all_data$NEW_DATE<=as.Date("2009-12-31")),
-    #                    rows=c(1, 272, 272*2, 272*3),
-    #                    title="Yield Curves Before & During the Financial Crisis",
-    #                    tabprt=TRUE)
 
-    # create a subset containing just the rows we're interested in
     slicedDF <- dplyr::slice(YieldCurveDF, rows)
 
     # find the data points for y-axis plotting ylim = c(y_min, y_max)
