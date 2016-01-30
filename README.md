@@ -2,7 +2,9 @@
 ustreasuries
 ============
 
-The *ustreasuries* package downloads daily Constant-Maturity Treasury (CMT) yields and provides visualizations & analytics that use that data (all the 'greeks' for derivative analysis will be included in the next release).
+The *ustreasuries* package downloads daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day and provides visualizations & analytics that use that data (all the 'greeks' for derivative analysis will be included in the next release).
+
+Historical data from 1962 to 2015 was sourced from the Federal Reserve's H15 dataset; data from 2016 is pulled in real time from an XML feed provided by the US Treasury Department.
 
 ### Vignettes
 
@@ -24,8 +26,8 @@ We're not on CRAN yet; get the development version from GitHub:
 ``` r
 # see https://github.com/hadley/devtools for the
 # best procedure to install *devtools* on your
-# system; Windows in particular has unexpected
-# requirements
+# system; Windows in particular has somewhat
+# complicated requirements
 
 devtools::install_github("grfiv/treasuries")
 

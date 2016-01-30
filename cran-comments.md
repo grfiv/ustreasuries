@@ -9,7 +9,11 @@ This is the initial submission of the *ustreasuries* package.
 ## R CMD check results
 
 * For devtools::check() locally, there were no ERRORs, WARNINGs or NOTEs.
-* For devtools::build_win()
+* For devtools::build_win() there was one NOTE   
+     *checking CRAN incoming feasibility ... NOTE   
+    Maintainer: 'George Fisher <george@georgefisher.com>'   
+    New submission   
+    Version contains large components (0.0.0.9000)*
 
 ## Downstream dependencies
 
