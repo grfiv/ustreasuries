@@ -2,7 +2,7 @@
 ustreasuries
 ============
 
-The *ustreasuries* package downloads daily Constant-Maturity Treasury (CMT) yields and provides visualizations & analytics that use that data including all the 'greeks' for derivative analysis.
+The *ustreasuries* package downloads daily Constant-Maturity Treasury (CMT) yields and provides visualizations & analytics that use that data (all the 'greeks' for derivative analysis will be included in the next release).
 
 ### Vignettes
 
