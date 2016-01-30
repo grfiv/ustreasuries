@@ -35,7 +35,7 @@ Percentage Yields (APY)
 
 ## Installation
 
-Get the development version from github:
+We're not on CRAN yet; get the development version from GitHub:
 
 ```R
 # see https://github.com/hadley/devtools for the

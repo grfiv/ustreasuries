@@ -19,7 +19,7 @@ The *ustreasuries* package downloads daily Constant-Maturity Treasury (CMT) yiel
 Installation
 ------------
 
-Get the development version from github:
+We're not on CRAN yet; get the development version from GitHub:
 
 ``` r
 # see https://github.com/hadley/devtools for the
