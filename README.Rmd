@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 ustreasuries      
 ===============   
 
-The *ustreasuries* package downloads daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day and provides visualizations & analytics that use that data (all the 'greeks' for derivative analysis will be included in the next release).   
+*ustreasuries* is an R-language package which downloads daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day and provides visualizations & analytics that use that data (all the 'greeks' for derivative analysis will be included in the next release).   
 
-Historical data from 1962 to 2015 was sourced from the Federal Reserve's H15 dataset; data from 2016 is pulled in real time from an XML feed provided by the US Treasury Department.
+Historical data from 1962 to 2015 was sourced from the Federal Reserve's H15 dataset; data from 2016 onward is pulled in real time from an XML feed provided by the US Treasury Department.
 
 ### Vignettes
 
@@ -48,8 +48,8 @@ We're not on CRAN yet; get the development version from GitHub:
 devtools::install_github("grfiv/treasuries")
 
 # Notes: 
-#    1. Add 'build_vignettes=TRUE' parameter to include vignettes 
-#       (recommended but a current version of pandoc is required)
+#    1. Add 'build_vignettes=TRUE' to include vignettes 
+#       (recommended, but a current version of pandoc is required)
 #    2. add 'auth_token="..."' if you get a 404
 #       contact the author for this
 #    3. if you receive a message about corrupt databases or fetch(key), 
