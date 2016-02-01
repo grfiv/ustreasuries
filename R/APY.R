@@ -7,6 +7,10 @@
 #' @param percent boolean, if TRUE, i should be divided by 100
 #'                  (for example 7.87 becomes 0.0787)
 #' @return APY yield(s) as a decimal (not as a percent)
+#' @references
+#' Interest Rates - Frequently Asked Questions
+#'
+#' \url{https://www.treasury.gov/resource-center/faqs/Interest-Rates/Pages/faq.aspx#2}
 #' @examples
 #' APY(0.0800) #> [1] 0.0816
 #'

@@ -1,8 +1,7 @@
 #' Download Constant-Maturity Treasury (CMT) rates
 #'
 #' For the dates 1962-01-02 to 2015-12-31 the data is retrieved from a static
-#' file that was previously created from the data downloaded from
-#' \url{http://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15}; the
+#' file that was previously created from the data downloaded; the
 #' data for 2016-01-01 to present are pulled from an XML feed from the US
 #' Treasury accessed in real time.
 #'
@@ -50,9 +49,16 @@
 #'
 #'   Y30 1977-02-15
 #'
-#' #@param no parameters
 #' @return \code{data.frame} containing daily rates from 1962 to the
 #'   most-recently completed business day.
+#' @references
+#'   Static Data
+#'
+#'   \url{http://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15}
+#'
+#'   XML Data
+#'
+#'   \url{http://data.treasury.gov/feed.svc/DailyTreasuryYieldCurveRateData}
 #' @examples
 #' all_data <- USTreasuryRates()
 #' head(all_data)

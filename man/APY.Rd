@@ -27,4 +27,9 @@ APY(CMT, percent=TRUE)
 #> [1] 0.08024842 0.08076816 0.08066420 0.08076816 0.08076816 0.08076816
 
 }
+\references{
+Interest Rates - Frequently Asked Questions
+
+\url{https://www.treasury.gov/resource-center/faqs/Interest-Rates/Pages/faq.aspx#2}
+}
 
