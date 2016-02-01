@@ -6,6 +6,10 @@ ustreasuries
 
 Historical data from 1962 to 2015 was sourced from the Federal Reserve's H15 dataset; data from 2016 onward is pulled in real time from an XML feed provided by the US Treasury Department.
 
+### Wiki
+
+See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for further explanation.
+
 ### Vignettes
 
 -   **cmt-rates** a description of Constant Maturity and Annualized Percentage rates
