@@ -1,6 +1,10 @@
-# ustreasuries 0.0.0.9000   
+# ustreasuries 0.0.0.9001   
 
 -------------------------
+
+## Initial Development Release 0.0.0.9001
+
+* ### Modified *yield-curves* vignette to show last three years
 
 ## Initial Development Release 0.0.0.9000
 

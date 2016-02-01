@@ -60,14 +60,14 @@ PrintYieldCurves(dplyr::filter(all_data,
 ```
 
 ```{r YC_now}
-last_two_years <- dplyr::filter(all_data, 
-                                    all_data$NEW_DATE>=Sys.Date()-365*2 &
+last_three_years <- dplyr::filter(all_data, 
+                                    all_data$NEW_DATE>=Sys.Date()-365*3 &
                                     all_data$NEW_DATE<=Sys.Date())
 
-nrows <- nrow(last_two_years)
-bits <- as.integer(nrows/5)
+days_per_year <- round(nrow(last_three_years)/3,digits=0)
+rows          <- c(1, days_per_year, days_per_year*2, nrow(last_three_years))
 
-PrintYieldCurves(last_two_years, 
-                 rows=c(1, bits, 2*bits, 3*bits, 4*bits, nrows), 
-                 title="Yield Curves For The Last Two Years")
+PrintYieldCurves(last_three_years, 
+                 rows  = rows, 
+                 title = "Yield Curves For The Last Three Years")
 ```
