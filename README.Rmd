@@ -16,27 +16,70 @@ knitr::opts_chunk$set(
 ustreasuries      
 ===============   
 
-*ustreasuries* is an R-language package which downloads daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day and provides visualizations & analytics that use that data (all the 'greeks' for derivative analysis will be included in the next release).   
+#### Treasury Rates   
+*ustreasuries* is an R-language package which downloads daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day.   
 
 Historical data from 1962 to 2015 was sourced from the Federal Reserve's H15 dataset; data from 2016 onward is pulled in real time from an XML feed provided by the US Treasury Department.
 
+#### Derivative Pricing   
+Drawing primarily on **[Hull, 7th edition](http://raudys.com/kursas/Options,%20Futures%20and%20Other%20Derivatives%207th%20John%20Hull.pdf)** *ustreasuries* includes all of the options-pricing models, all the greeks and a number of utility functions.
+
 ### Wiki
-See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for further explanation.
-
-### Vignettes
-
-* **cmt-rates** a description of Constant Maturity 
-and Annualized Percentage rates
-* **yield-curves** examples of downloading the data and printing yield curves
-for interesting periods in recent financial history
-* **plot-10year** a plot of the 10-year from 1962 to present
+See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples of the use of all the functions.
 
 ### Functions
 
-* **USTreasuryRates** downloads a data.frame with daily data from 1962
-* **PrintYieldCurves** prints one or more yield curves
-* **APY** converts Constant-Maturity Treasury (CMT) yields to Annualized 
-Percentage Yields (APY)
+* **Treasury Rates**
+    * **USTreasuryRates** downloads a data.frame with daily data from 1962
+    * **PrintYieldCurves** prints one or more yield curves
+    * **APY** converts Constant-Maturity Treasury (CMT) yields to Annualized 
+    Percentage Yields (APY)
+* **Black-Scholes-Merton**
+    * **EuroCall** Calculate the price of a European call option with or without dividends
+    * **EuroPut** Calculate the price of a European put option with or without dividends
+* **Utility Functions**
+    * **CAGR**
+        * **CAGRd** Calculate discrete Compound Annual Growth Rate
+        * **r_continuous** Convert from discrete to continuous CAGR
+        * **r_discrete** Convert from continuous to discrete CAGR
+    * **Put/Call Parity**
+        * **CallParity** Convert from a put-option price using put/call parity
+        * **PutParity** Convert from a call-option price using put/call parity
+    * **Risk Neutral/Forwards**
+        * **RiskNeutralProb** Binomial tree risk-neutral probability
+        * **ForwardPrice** Forward price with or without income or yield
+        * **ForwardRate** Forward rate from Time1 to Time2 (discrete compounding)
+* **Installed but not yet undocumented**
+    * **CashCall**
+    * **CashPut**
+    * **AssetCall**
+    * **AssetPut**
+    * **American_Put_Binomial**
+    * **DeltaCall**
+    * **DeltaPut**
+    * **OptionGamma**
+    * **ThetaCall**
+    * **ThetaPut**
+    * **Vega**
+    * **RhoFuturesCall**
+    * **RhoFuturesPut**
+    * **RhoFXCall**
+    * **RhoFXPut**
+    * **RhoCall**
+    * **RhoPut**
+    * **EuroCallVol**
+    * **EuroPutlVol**
+    * **Black_Scholes_Call_Implied_Vo**l
+    * **Black_Scholes_Put_Implied_Vol**
+    * **ImpVolCall**
+    * **ImpVolPut**
+    * **American_Call_Dividend**
+    
+Many of the functions have examples drawn from **[Hull, 7th edition](http://raudys.com/kursas/Options,%20Futures%20and%20Other%20Derivatives%207th%20John%20Hull.pdf)** to demonstrate their correctness.
+    
+See https://github.com/grfiv/BlackScholesMerton for these functions written in Python and Excel VBA   
+
+See also http://www.philadelphia-reflections.com/topic/230.htm
 
 ## Installation
 

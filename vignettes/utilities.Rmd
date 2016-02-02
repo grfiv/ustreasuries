@@ -1,0 +1,123 @@
+---
+title: "Examples of Finance Utility Functions"
+author: "George Fisher"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{utilities}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(collapse=TRUE,                # hadley
+                      comment = "#>",               # hadley
+                      error=TRUE, purl=FALSE,       # to be able to see errors
+                      fig.width=7.25, fig.height=6) # nice-sized pictures
+```
+
+```{r library}
+library(ustreasuries)
+```
+
+* ## **CAGRd** Calculate discrete Compound Annual Growth Rate
+```{r CAGRd}
+# From Wikipedia
+# https://en.wikipedia.org/wiki/Compound_annual_growth_rate#Example
+
+Starting_value  <- 9000
+Ending_Value    <- 13000
+Number_of_years <- 3
+
+ans <- CAGRd(Starting_value, Ending_Value, Number_of_years)
+
+writeLines(paste0(round(ans*100, 0), "%"))
+```
+* ## **r_continuous** Convert from discrete to continuous CAGR
+```{r r_continuous}
+# Hull 7th edition Ch 5 P 107
+r_d                          <- 0.04
+compounding_periods_per_year <- 2
+
+ans <- r_continuous(r_d, compounding_periods_per_year)
+
+writeLines(paste0(round(ans,4)))
+```
+* ## **r_discrete** Convert from continuous to discrete CAGR
+```{r r_discrete}
+# reverse the example from Hull 7th edition Ch 5 P 107
+r_c                          <- 0.03960525
+compounding_periods_per_year <- 2
+
+ans <- r_discrete(r_c, compounding_periods_per_year)
+
+writeLines(paste0(round(ans,4)))
+```
+* ## **CallParity** Convert from a put-option price using put/call parity
+* ## **PutParity** Convert from a call-option price using put/call parity
+```{r CallParity}
+# Hull 7th edition Ch 17 P 357
+Stock    <- 49
+Exercise <- 50
+Time     <- 20/52
+Interest <- 0.05
+Yield    <- 0
+sigma    <- 0.20
+
+EC = EuroCall(Stock, Exercise, Time, Interest, Yield, sigma)
+EP = EuroPut(Stock, Exercise, Time, Interest, Yield, sigma)
+
+PC = CallParity(Stock, Exercise, Time, Interest, Yield, EP)
+PP = PutParity(Stock, Exercise, Time, Interest, Yield, EC)
+
+writeLines(paste0("European Call Price:\t", EC, "\n",
+                  "Call Parity Price:\t\t", PC, "\n",
+                  "Difference:\t\t\t\t", EC-PC, "\n\n",
+
+                 "European Put Price:\t", EP, "\n",
+                 "Put Parity Price:\t\t", PP, "\n",
+                 "Difference:\t\t\t\t ", EP-PP))
+```
+* ## **RiskNeutralProb** Binomial tree risk-neutral probability
+```{r riskneutral}
+Interest <- 0.05
+Yield    <- 0.10
+sigma    <- 0.20
+deltaT   <- 5
+RiskNeutralProb(Interest, Yield, sigma, deltaT)
+```
+* ## **ForwardPrice** Forward price with or without income or yield
+```{r forwardprice}
+# Hull 7th edition Ch 5 P 103
+# ===========================
+Spot     <- 40
+Time     <- 0.25
+Interest <- 0.05
+Yield    <- 0
+Income   <- 0
+ForwardPrice(Spot, Time, Interest, Yield, Income)
+
+# Hull 7th edition Ch 5 P 105
+# ===========================
+Spot     <- 900
+Time     <- 0.75
+Interest <- 0.04
+Yield    <- 0
+Income   <- 40 * exp(-0.03 * 4/12) # PV(40) = 39.60
+ForwardPrice(Spot, Time, Interest, Yield, Income)
+
+# Hull 7th edition Ch 5 P 107
+# ===========================
+Spot     <- 25
+Time     <- 0.50
+Interest <- 0.10
+
+# convert 0.04 discrete to continuous
+Yield_d  <- 0.04
+Yield    <- r_continuous(Yield_d, 2)
+
+Income   <- 0
+ForwardPrice(Spot, Time, Interest, Yield, Income)
+```
+* ## **ForwardRate** Forward rate from Time1 to Time2 (discrete compounding)

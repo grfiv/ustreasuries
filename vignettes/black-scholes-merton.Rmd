@@ -1,0 +1,39 @@
+---
+title: "Examples of Options Pricing"
+author: "George Fisher"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(collapse=TRUE,                # hadley
+                      comment = "#>",               # hadley
+                      error=TRUE, purl=FALSE,       # to be able to see errors
+                      fig.width=7.25, fig.height=6) # nice-sized pictures
+```
+
+```{r library}
+library(ustreasuries)
+```
+
+* ## **EuroCall** Calculate the price of a European call option with or without dividends
+* ## **EuroPut** Calculate the price of a European put option with or without dividends
+```{r eurocallput}
+# Hull 7th edition Ch 13 P 294
+Stock     <- 42    # S_0
+Exercise  <- 40    # K
+Time      <- 0.50  # T
+Interest  <- 0.10  # r
+Yield     <- 0     # q
+sigma     <- 0.20  
+
+ans_c <- EuroCall(Stock, Exercise, Time, Interest, Yield, sigma)
+ans_p <- EuroPut(Stock, Exercise, Time, Interest, Yield, sigma)
+
+writeLines(paste0("c = ", round(ans_c,2), ", p = ", round(ans_p,2)))
+```

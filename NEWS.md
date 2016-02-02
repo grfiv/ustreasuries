@@ -1,10 +1,60 @@
 # ustreasuries 0.0.0.9001   
 
--------------------------
+-------------------------------------------------------------------------------
+--------
 
-## Initial Development Release 0.0.0.9001
+
+## Second Development Release 0.0.0.9001
+
+* ### Added all the Black Scholes Merton functions
+    * **Black-Scholes-Merton**
+        * **EuroCall** Calculate the price of a European call option with or without dividends
+        * **EuroPut** Calculate the price of a European put option with or without dividends
+    * **Utility Functions**
+        * **CAGR**
+            * **CAGRd** Calculate discrete Compound Annual Growth Rate
+            * **r_continuous** Convert from discrete to continuous CAGR
+            * **r_discrete** Convert from continuous to discrete CAGR
+        * **Put/Call Parity**
+            * **CallParity** Convert from a put-option price using put/call parity
+            * **PutParity** Convert from a call-option price using put/call parity
+        * **Risk Neutral/Forwards**
+            * **RiskNeutralProb** Binomial tree risk-neutral probability
+            * **ForwardPrice** Forward price with or without income or yield
+            * **ForwardRate** Forward rate from Time1 to Time2 (discrete compounding)
+    * **Installed but not yet undocumented**
+        * **CashCall**
+        * **CashPut**
+        * **AssetCall**
+        * **AssetPut**
+        * **American_Put_Binomial**
+        * **DeltaCall**
+        * **DeltaPut**
+        * **OptionGamma**
+        * **ThetaCall**
+        * **ThetaPut**
+        * **Vega**
+        * **RhoFuturesCall**
+        * **RhoFuturesPut**
+        * **RhoFXCall**
+        * **RhoFXPut**
+        * **RhoCall**
+        * **RhoPut**
+        * **EuroCallVol**
+        * **EuroPutlVol**
+        * **Black_Scholes_Call_Implied_Vo**l
+        * **Black_Scholes_Put_Implied_Vol**
+        * **ImpVolCall**
+        * **ImpVolPut**
+        * **American_Call_Dividend**
 
 * ### Modified *yield-curves* vignette to show last three years
+* ### Added two vignettes for the derivatives functions
+    * *utilities* examples of the utility functions
+    * *black-scholes-merton* examples of options pricing
+    
+-------------------------------------------------------------------------------   
+------------------------   
 
 ## Initial Development Release 0.0.0.9000
 

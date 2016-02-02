@@ -6,3 +6,5 @@
 ^\.travis\.yml$
 ^data-raw$
 ^README-.*\.png$
+^test_sctipt.R$
+^johnhulltest.R$
