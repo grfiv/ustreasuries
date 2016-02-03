@@ -2,6 +2,8 @@
 ustreasuries
 ============
 
+[![DOI](https://zenodo.org/badge/5738/grfiv/ustreasuries.svg)](https://zenodo.org/badge/latestdoi/5738/grfiv/ustreasuries)
+
 ### Treasury Rates
 
 *ustreasuries* is an R-language package which downloads daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day.
