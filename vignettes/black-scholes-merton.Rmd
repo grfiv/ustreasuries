@@ -69,6 +69,32 @@ writeLines(paste0("Delta put: when the asset price changes by Delta_S,\n",
                "               the option price changes by Delta_S*",round(dput, 3),
                "\nDelta put = Delta call - 1? ", dput == dcall-1))
 ```
+
+```{r deltaplot}
+x_axis      <- c()
+y_axis_call <- c()
+y_axis_put  <- c()
+for (Stock in seq(0, 100)) {
+    x_axis <- c(x_axis, Stock)
+    y_axis_call <- c(y_axis_call, DeltaCall(Stock, Exercise, Time, Interest, Yield, sigma))
+    y_axis_put  <- c(y_axis_put, DeltaPut(Stock, Exercise, Time, Interest, Yield, sigma))
+}
+plot(x_axis, y_axis_call, ylim=c(-1.5,1.5), type="l",col="red",
+     xlab="Stock Price", ylab="Delta",
+     main="Variation of Delta with Asset Price",
+     sub="K = 50, r = 5%, q = 0, sigma = 20%")
+lines(x_axis, y_axis_put,col="blue")
+
+abline(h=0)
+abline(h=-1, lty=2)
+abline(h=1, lty=2)
+legend("topright",c("DeltaCall","DeltaPut"),lty=c(1,1),col=c("red","blue"))
+abline(v=Exercise)
+text(x=Exercise, y=-1.25, labels="K", cex=1.25)
+#dev.copy(png,filename="../Wiki_images/deltaplot.png");
+#dev.off ();
+```   
+
 * ## **ThetaCall** the decay in the value of an option or a portfolio of options as time passes
 ```{r thetacall}
 # Hull, 7th edition Ch 17 p 367
@@ -84,15 +110,15 @@ thcall <- ThetaCall(Stock, Exercise, Time, Interest, Yield, sigma)
 writeLines(paste0("Theta:            ", round(thcall, 2),     "\n",
                   "per calendar day: ", round(thcall/365, 4), "\n",
                   "per trading day:  ", round(thcall/252, 4)))
-
+```
+```{r thetacallplotstockprice}
 x_axis = c()
 y_axis = c()
 for (Stock in seq(0, 100)) {
     x_axis <- c(x_axis, Stock)
     y_axis <- c(y_axis, ThetaCall(Stock, Exercise, Time, Interest, Yield, sigma))
 }
-```
-```{r thetacallplot}
+
 plot(x_axis, y_axis, type="l",
      xlab="Stock Price", ylab="ThetaCall",
      main="ThetaCall as Stock Price Changes",
@@ -103,4 +129,6 @@ text(x=Exercise, y=0, labels="K", cex=1.5)
 
 abline(h=-Interest*Exercise*exp(-Interest*Time), lty=2)
 text(x=5, y=-Interest*Exercise*exp(-Interest*Time), pos=3, labels=expression(-rKe^{-rT}))
+#dev.copy(png,filename="../Wiki_images/thetacall.png");
+#dev.off ();
 ```
