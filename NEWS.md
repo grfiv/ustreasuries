@@ -9,6 +9,7 @@
     * **ThetaCall** / **ThetaPut**
     * **OptionGamma**
     * **Vega** 
+    * **RhoCall** / **RhoPut**
 * ### Added Utilities
     * **IntrinsicValueCall** / **IntrinsicValuePut**
     * **InTheMoneyCall** / **InTheMoneyPut**

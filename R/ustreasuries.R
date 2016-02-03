@@ -43,6 +43,8 @@
 #'          \item \bold{ThetaPut} the decay in the value of a put or a portfolio of puts as time passes
 #'          \item \bold{OptionGamma} the change in Delta with respect to asset price
 #'          \item \bold{Vega} the sensitivity to changes in the volatility of the underlying
+#'          \item \bold{RhoCall} the sensitivity to changes in the risk-free rate of return
+#'          \item \bold{RhoPut} the sensitivity to changes in the risk-free rate of return
 #'      }
 #'
 #'  \item \bold{Utility Functions}
@@ -85,8 +87,6 @@
 #'          \item \bold{RhoFuturesPut}
 #'          \item \bold{RhoFXCall}
 #'          \item \bold{RhoFXPut}
-#'          \item \bold{RhoCall}
-#'          \item \bold{RhoPut}
 #'          \item \bold{EuroCallVol}
 #'          \item \bold{EuroPutlVol}
 #'          \item \bold{Black_Scholes_Call_Implied_Vol}

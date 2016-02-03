@@ -249,3 +249,40 @@ abline(v=0.20,     lty=2)
 #dev.copy(png,filename="../Wiki_images/vegasigma.png")
 #dev.off ()
 ```   
+
+* ## **RhoCall** the sensitivity to changes in risk-free rate of interest
+```{r rhocall}
+# Hull, 7th edition Ch 17 p 376
+Stock    <- 49     # S_0
+Exercise <- 50     # K
+Time     <- 20/52  # T
+Interest <- 0.05   # r
+Yield    <- 0      # q
+sigma    <- 0.20
+
+rho <- RhoCall(Stock, Exercise, Time, Interest, Yield, sigma)
+round(rho, 2) # 8.91
+```
+
+```{r rhoplotprice}
+x_axis <- c()
+y_axis <- c()
+for (Stock in seq(0, 100,0.01)) {
+    x_axis <- c(x_axis, Stock)
+    y_axis <- c(y_axis, RhoCall(Stock, Exercise, Time, Interest, Yield, sigma))
+}
+
+plot(x_axis, y_axis, type="l", col="black",
+     xlab="Stock Price", ylab="RhoCall",
+     main="Variation in RhoCall as Stock Price Changes",
+     sub="K = 50, r = 5%, q = 0, sigma = 20%")
+
+abline(v=Exercise)
+text(x=Exercise, y=0.01, labels="K", cex=1.5)
+
+#dev.copy(png,filename="../Wiki_images/rhoprice.png");
+#dev.off ();
+```   
+
+
+

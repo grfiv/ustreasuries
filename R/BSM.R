@@ -565,7 +565,38 @@ RhoFXPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
     return(Time * exp(-Yield * Time) * Stock * Nminusd1_)
 }
 
+# ===============
 # "Standard" Rhos
+# ===============
+
+#' Rho of a European Call Option
+#'
+#' Rho is the sensitivity of an option price to changes in the risk-free
+#' rate of interest
+#'
+#' @note for futures and foreign exchange, use the specialized functions
+#' RhoFuturesCall, RhoFuturesPut, RhoFXCall, RhoFXPut
+#'
+#' @inheritParams dOne
+#' @return The Rho of the call option
+#'
+#' @references
+#' Hull, 7th edition ch 17 p375-376
+#'
+#' @examples
+#' # Hull, 7th edition Ch 17 p 376
+#' library(ustreasuries)
+#' Stock    <- 49     # S_0
+#' Exercise <- 50     # K
+#' Time     <- 20/52  # T
+#' Interest <- 0.05   # r
+#' Yield    <- 0      # q
+#' sigma    <- 0.20
+#'
+#' rho <- RhoCall(Stock, Exercise, Time, Interest, Yield, sigma)
+#' round(rho, 2) # 8.91
+#'
+#' @export
 RhoCall <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
     if (sigma == 0) sigma = 0.0000000001
     d2_ = dTwo(Stock, Exercise, Time, Interest, Yield, sigma)

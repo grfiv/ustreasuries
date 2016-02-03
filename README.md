@@ -34,6 +34,8 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     -   **ThetaPut** the decay in the value of a put or a portfolio of puts as time passes
     -   **OptionGamma** the change in Delta with respect to asset price
     -   **Vega** the sensitivity to changes in the volatility of the underlying
+    -   **RhoCall** the sensitivity to changes in the risk-free rate of return
+    -   **RhoPut** the sensitivity to changes in the risk-free rate of return
 -   **Utility Functions**
     -   **CAGR**
         -   **CAGRd** Calculate discrete Compound Annual Growth Rate
@@ -60,8 +62,6 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     -   **RhoFuturesPut**
     -   **RhoFXCall**
     -   **RhoFXPut**
-    -   **RhoCall**
-    -   **RhoPut**
     -   **EuroCallVol**
     -   **EuroPutlVol**
     -   **Black\_Scholes\_Call\_Implied\_Vol**
