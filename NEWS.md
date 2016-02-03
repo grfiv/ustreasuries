@@ -7,6 +7,7 @@
 * ### Added Greeks
     * **DeltaCall** / **DeltaPut**
     * **ThetaCall** / **ThetaPut**
+    * **OptionGamma**
 * ### Added Utilities
     * **IntrinsicValueCall** / **IntrinsicValuePut**
     * **InTheMoneyCall** / **InTheMoneyPut**

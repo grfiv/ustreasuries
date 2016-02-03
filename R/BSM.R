@@ -354,11 +354,34 @@ DeltaPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 # -----
 #
 
+#' Gamma of a European Option; convexity, curvature
+#'
+#' Gamma describes the rate of change in the Delta; it is the second derivative of the option or portfolio of options with respect to the underlying asset's price.
+#'
+#' If \code{abs(Gamma)} is large then the Delta is very sensitive to changes in the price of the underlying asset.
+#'
+#' @inheritParams dOne
+#' @return The Gamma of the option
+#' @references
+#' Hull, 7th edition Ch 17 p 369-373
+#' @examples
+#' # Hull, 7th edition Ch 17 p 371,2
+#' library(ustreasuries)
+#' Stock    <- 49     # S_0
+#' Exercise <- 50     # K
+#' Time     <- 20/52  # T
+#' Interest <- 0.05   # r
+#' Yield    <- 0      # q
+#' sigma    <- 0.20
+#'
+#' gamma <- OptionGamma(Stock, Exercise, Time, Interest, Yield, sigma)
+#' round(gamma, 3) # 0.066
+#'
+#' @export
 OptionGamma <- function (Stock, Exercise, Time, Interest, Yield, sigma) {
 
     if (sigma == 0) sigma = 0.0000000001
 
-    ##Dim d1_
     d1_ = dOne(Stock, Exercise, Time, Interest, Yield, sigma)
 
     return(nprime(d1_) * exp(-Yield * Time)/(Stock * sigma * sqrt(Time)))

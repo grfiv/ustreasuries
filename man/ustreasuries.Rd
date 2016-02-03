@@ -52,6 +52,7 @@ including all the 'greeks' for derivative analysis.
          \item \bold{DeltaPut} Amount put-option price changes for a change in asset price
          \item \bold{ThetaCall} the decay in the value of a call or a portfolio of calls as time passes
          \item \bold{ThetaPut} the decay in the value of a put or a portfolio of puts as time passes
+         \item \bold{OptionGamma} the change in Delta with respect to asset price
      }
 
  \item \bold{Utility Functions}
@@ -90,7 +91,6 @@ including all the 'greeks' for derivative analysis.
          \item \bold{AssetPut}
          \item \bold{American_Put_Binomial}
          \item \bold{American_Call_Dividend}
-         \item \bold{OptionGamma}
          \item \bold{Vega}
          \item \bold{RhoFuturesCall}
          \item \bold{RhoFuturesPut}
@@ -100,7 +100,7 @@ including all the 'greeks' for derivative analysis.
          \item \bold{RhoPut}
          \item \bold{EuroCallVol}
          \item \bold{EuroPutlVol}
-         \item \bold{Black_Scholes_Call_Implied_Vo}l
+         \item \bold{Black_Scholes_Call_Implied_Vol}
          \item \bold{Black_Scholes_Put_Implied_Vol}
          \item \bold{ImpVolCall}
          \item \bold{ImpVolPut}

@@ -101,14 +101,14 @@ devtools::install_github("grfiv/treasuries")
 John Hull citation
 ------------------
 
-@Book{hull2008options,
- Title = {Options, Futures and Other Derivatives},
- Author = {Hull, J.},
- Publisher = {Pearson/Prentice Hall},
- Year = {2008},
- Edition = {Seventh Edition},
- Series = {Options, Futures and Other Derivatives},
-
-ISBN = {9780136015864},
- Url = {<http://www.amazon.com/Options-Futures-Other-Derivatives-Derivagem/dp/0136015867/ref=sr_1_7?s=books&ie=UTF8&qid=1454527583&sr=1-7>}
-}
+    @Book{hull2008options,   
+      Title                    = {Options, Futures and Other Derivatives},   
+      Author                   = {Hull, J.},   
+      Publisher                = {Pearson/Prentice Hall},   
+      Year                     = {2008},   
+      Edition                  = {Seventh Edition},   
+      Series                   = {Options, Futures and Other Derivatives},   
+       
+      ISBN                     = {9780136015864},   
+      Url                      = {http://www.amazon.com/Options-Futures-Other-Derivatives-Derivagem/dp/0136015867/ref=sr_1_7?s=books&ie=UTF8&qid=1454527583&sr=1-7}   
+    }
