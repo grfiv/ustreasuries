@@ -114,8 +114,8 @@ rKe    <- Interest * Exercise * exp(-Interest*Time)
 
 writeLines(paste0("ThetaCall:        ", round(thcall, 2), "\n",
                   "ThetaPut:         ", round(thput, 2),   "\n",
-                  "per calendar day: ", round(thput/365, 4), " (put)", "\n",
-                  "per trading day:  ", round(thput/252, 4), " (put)", "\n\n",
+                  "per calendar day: ", round(thcall/365, 4), " (call)", "\n",
+                  "per trading day:  ", round(thcall/252, 4), " (call)", "\n\n",
     "ThetaPut is always greater than ThetaCall by an amount rKe:", "\n",
     "Diff: ",thput-thcall,"\n",
     "rKe:  ",rKe))
@@ -134,7 +134,7 @@ plot(x_axis, y_axis_call, type="l", col="black",
      xlab="Stock Price", ylab="Theta",
      ylim=c(floor(min(y_axis_call)), ceiling(max(y_axis_put))),
      main="Variation in Theta as Stock Price Changes",
-     sub="K = 50, r = 5%, q = 0, sigma = 20%")
+     sub=expression(paste0("K = 50, r = 5%, q = 0 ", sigma, " = 20%")))
 
 abline(v=Exercise)
 text(x=Exercise, y=0, labels="K", cex=1.5)
