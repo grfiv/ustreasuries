@@ -40,8 +40,9 @@ writeLines(paste0("c = ", round(ans_c,2), ", p = ", round(ans_p,2)))
 -------------------------------------------------------------------------------
 
 # Greeks   
-### Relationship between Delta, Theta and Gamma
-![](../Wiki_images/DeltaThetaGamma.png)
+## Relationship between Delta, Theta and Gamma
+
+# $\Theta + rS\Delta + \frac{1}{2} \sigma^2 S^2 \Gamma = r \Pi$
 
 * ## **DeltaCall** Change in call-option price given change in asset price
 ```{r deltacall}
