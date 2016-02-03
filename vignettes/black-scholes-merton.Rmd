@@ -251,6 +251,8 @@ abline(v=0.20,     lty=2)
 ```   
 
 * ## **RhoCall** the sensitivity to changes in risk-free rate of interest
+* ## **RhoPut** the sensitivity to changes in the risk-free rate of return
+
 ```{r rhocall}
 # Hull, 7th edition Ch 17 p 376
 Stock    <- 49     # S_0
@@ -260,28 +262,40 @@ Interest <- 0.05   # r
 Yield    <- 0      # q
 sigma    <- 0.20
 
-rho <- RhoCall(Stock, Exercise, Time, Interest, Yield, sigma)
-round(rho, 2) # 8.91
+rhocall <- RhoCall(Stock, Exercise, Time, Interest, Yield, sigma)
+rhoput  <- RhoPut(Stock, Exercise, Time, Interest, Yield, sigma)
+
+writeLines(paste0("RhoCall:  ", round(rhocall, 2), "\n",
+                  "RhoPut:  ", round(rhoput, 2)))
 ```
 
 ```{r rhoplotprice}
-x_axis <- c()
-y_axis <- c()
-for (Stock in seq(0, 100,0.01)) {
+x_axis      <- c()
+y_axis_call <- c()
+y_axis_put  <- c()
+for (Stock in seq(0, 100, 0.01)) {
     x_axis <- c(x_axis, Stock)
-    y_axis <- c(y_axis, RhoCall(Stock, Exercise, Time, Interest, Yield, sigma))
+    y_axis_call <- c(y_axis_call, RhoCall(Stock, Exercise, Time, Interest, Yield, sigma))
+    y_axis_put  <- c(y_axis_put,  RhoPut(Stock, Exercise, Time, Interest, Yield, sigma))
 }
 
-plot(x_axis, y_axis, type="l", col="black",
-     xlab="Stock Price", ylab="RhoCall",
-     main="Variation in RhoCall as Stock Price Changes",
+plot(x_axis, y_axis_call, type="l", col="black",
+     xlab="Stock Price", ylab="Rho",
+     ylim=c(floor(min(y_axis_put)),ceiling(max(y_axis_call))),
+     main="Variation in Rho as Stock Price Changes",
      sub="K = 50, r = 5%, q = 0, sigma = 20%")
+
+lines(x=x_axis, y=y_axis_put, lty=5, col="red")
 
 abline(v=Exercise)
 text(x=Exercise, y=0.01, labels="K", cex=1.5)
 
+abline(h=0, lty=2)
+
+legend("topleft", c("RhoCall","RhoPut"), lty=c(1,5), col=c("black","red"))
+
 #dev.copy(png,filename="../Wiki_images/rhoprice.png");
-#dev.off ();
+#dev.off ()
 ```   
 
 

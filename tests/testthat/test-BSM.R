@@ -101,7 +101,9 @@ Yield    <- 0      # q
 sigma    <- 0.20
 
 rhocall <- RhoCall(Stock, Exercise, Time, Interest, Yield, sigma)
+rhoput  <- RhoPut(Stock, Exercise, Time, Interest, Yield, sigma)
 
 test_that("RhoCall/RhoPut", {
     expect_equal(all.equal(rhocall, 8.906961, tolerance=0.0001), TRUE)
+    expect_equal(all.equal(rhoput, -9.957519, tolerance=0.0001), TRUE)
 })
