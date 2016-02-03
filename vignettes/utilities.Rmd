@@ -121,3 +121,35 @@ Income   <- 0
 ForwardPrice(Spot, Time, Interest, Yield, Income)
 ```
 * ## **ForwardRate** Forward rate from Time1 to Time2 (discrete compounding)
+* ## **IntrinsicValueCall** The in-the-money portion of a call option's premium
+```{r intrinsicvaluecall}
+# Investopia: Intrinsic Value
+# http://www.investopedia.com/terms/i/intrinsicvalue.asp
+Stock    <- 25 # S_0
+Exercise <- 15 # K
+IntrinsicValueCall(Stock, Exercise) # 10
+```
+* ## **IntrinsicValuePut** The in-the-money portion of a put option's premium
+```{r intrinsicvalueput}
+# Investopia: Intrinsic Value
+# http://www.investopedia.com/terms/i/intrinsicvalue.asp
+Stock    <- 15 # S_0
+Exercise <- 25 # K
+IntrinsicValuePut(Stock, Exercise) # 10
+```
+* ## **InTheMoneyCall** Is a call option in the money?
+```{r inthemoneycall}
+# http://www.call-options.com/in-the-money.html
+Stock    <- 37.75     # S_0
+Exercise <- 35        # K
+
+InTheMoneyCall(Stock, Exercise)  # TRUE
+```
+* ## **InTheMoneyPut** Is a put option in the money?
+```{r inthemoneyput}
+# http://www.call-options.com/in-the-money.html
+Stock    <- 35     # S_0
+Exercise <- 37.50  # K
+
+InTheMoneyPut(Stock, Exercise)  # TRUE
+```

@@ -220,25 +220,31 @@ EuroPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 ##            r = risk-free rate
 ##            sigma = volatility
 ##            q = dividend yield
-##            T = time to maturity
+##            Tm = time to maturity
 ##            N = number of time periods
 ##
 
-American_Put_Binomial <- function(S0, K, r, sigma, q, T, N) {
+American_Put_Binomial <- function(S0, K, r, sigma, q, Tm, N) {
     PutV <- rep(-1, N+2)
-    dt <- T / N                                   # length of time period
+    dt <- Tm / N                                   # length of time period
     u <- exp(sigma * sqrt(dt))                    # size of up step
     d <- 1 / u                                    # size of down step
     pu <- (exp((r - q) * dt) - d) / (u - d)       # probability of up step
+
     dpu <- exp(-r * dt) * pu                      # one-period discount x prob of up step
     dpd <- exp(-r * dt) * (1 - pu)                # one-period discount x prob of down step
+
     u2 <- u * u
     S <- S0 * d ** N                              # stock price at bottom node at last date
     PutV[1] <- max(K - S, 0)                         # put value at bottom node at last date
     #lapply(2:N+2, function (j) {S <- S * u2
     #                            PutV[j] <- max(K - S, 0) })
-    for (i in seq(2, N+2)) {S <- S * u2; PutV[i] <- max(K - S, 0)}
-    for (i in seq(N, 1, -1))  {                   # back up in time to date 0
+    for (j in seq(2, N+2)) {
+        S <- S * u2
+        PutV[j] <- max(K - S, 0)
+    }
+
+    for (i in rev(seq(1, N)))  {                   # back up in time to date 0
         S <- S0 * d ** i                            # stock price at bottom node at date i
         PutV[1] <- max(K - S, dpd * PutV[1] + dpu * PutV[2])
         for (j in seq(2, i+2)) {                    # step up over nodes at date i
@@ -255,13 +261,41 @@ American_Put_Binomial <- function(S0, K, r, sigma, q, T, N) {
 ##--------------------------------------------
 ##
 
+#' Delta of a European Call Option
+#'
+#' Given a change in asset price, DeltaCall describes the amount by which the
+#' call option price changes.
+#'
+#' \code{Change_in_Call-Option_Price = DeltaCall * Change_in_Asset_Price}
+#'
+#' @inheritParams dOne
+#' @return The Delta of the call option
+#'
+#' @examples
+#' # Hull, 7th edition Ch 17 p 363
+#' library(ustreasuries)
+#' Stock    <- 49     # S_0
+#' Exercise <- 50     # K
+#' Time     <- 20/52  # T
+#' Interest <- 0.05   # r
+#' Yield    <- 0      # q
+#' sigma    <- 0.20
+#'
+#' ans <- DeltaCall(Stock, Exercise, Time, Interest, Yield, sigma)
+#'
+#' writeLines(paste0("Delta call: when the asset price changes by Delta_S,\n",
+#'                   "                the option price changes by Delta_S*",round(ans, 3)))
+#'
+#' @export
 DeltaCall <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 
-    if (Time == 0)
-        if (Stock > Exercise)
+    if (Time == 0) {
+        if (Stock > Exercise) {
             return (1)
-    else
-        return (0)
+        } else {
+            return (0)
+        }
+    }
 
     if (sigma == 0) sigma = 0.0000000001
 
@@ -270,13 +304,42 @@ DeltaCall <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
     return (exp(-Yield * Time) * phi(d1_))
 }
 
+#' Delta of a European Put Option
+#'
+#' Given a change in asset price, DeltaPut describes the amount by which the
+#' put option price changes.
+#'
+#' \code{Change_in_Put-Option_Price = DeltaPut * Change_in_Asset_Price}
+#'
+#' @inheritParams dOne
+#' @return The Delta of the put option
+#' @examples
+#' # Hull, 7th edition Ch 17 p 362,3
+#' library(ustreasuries)
+#' Stock    <- 49     # S_0
+#' Exercise <- 50     # K
+#' Time     <- 20/52  # T
+#' Interest <- 0.05   # r
+#' Yield    <- 0      # q
+#' sigma    <- 0.20
+#'
+#' dcall <- DeltaCall(Stock, Exercise, Time, Interest, Yield, sigma)
+#' dput  <- DeltaPut(Stock, Exercise, Time, Interest, Yield, sigma)
+#'
+#' writeLines(paste0("Delta put: when the asset price changes by Delta_S,\n",
+#'                   "               the option price changes by Delta_S*",round(dput, 3),
+#'                   "\nDelta put = Delta call - 1? ", dput == dcall-1))
+#'
+#' @export
 DeltaPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 
-    if (Time == 0)
-        if (Stock < Exercise)
+    if (Time == 0) {
+        if (Stock < Exercise) {
             return (-1)
-    else
-        return (0)
+        } else {
+            return (0)
+        }
+    }
 
     if (sigma == 0) sigma = 0.0000000001
 
@@ -310,29 +373,63 @@ OptionGamma <- function (Stock, Exercise, Time, Interest, Yield, sigma) {
 ## In a delta-neutral portfolio, Theta is a proxy for Gamma
 ##
 
+#' Theta of a European Call Option
+#'
+#' Theta is the decay in the value of an option or a portfolio of options as time passes
+#'
+#' In a delta-neutral portfolio, Theta is a proxy for Gamma
+#'
+#' @note divide by 365 for "per calendar day"; 252 for "per trading day"
+#'
+#' @inheritParams dOne
+#' @return The Theta of the call option
+#' @references
+#' Hull, 7th edition ch 17 p367-368
+#' @examples
+#' # Hull, 7th edition Ch 17 p 367
+#' library(ustreasuries)
+#' Stock    <- 49     # S_0
+#' Exercise <- 50     # K
+#' Time     <- 20/52  # T
+#' Interest <- 0.05   # r
+#' Yield    <- 0      # q
+#' sigma    <- 0.20
+#'
+#' thcall <- ThetaCall(Stock, Exercise, Time, Interest, Yield, sigma)
+#'
+#' writeLines(paste0("Theta:            ", round(thcall, 2),     "\n",
+#'                   "per calendar day: ", round(thcall/365, 4), "\n",
+#'                   "per trading day:  ", round(thcall/252, 4)))
+#'
+#' @export
 ThetaCall <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 
-    if (sigma == 0) sigma = 0.0000000001
+    if (sigma == 0) sigma <- 0.0000000001
 
-    d1_ = dOne(Stock, Exercise, Time, Interest, Yield, sigma)
-    d2_ = dTwo(Stock, Exercise, Time, Interest, Yield, sigma)
-    Nd1_ = phi(d1_)
-    Nd2_ = phi(d2_)
+    d1_  <- dOne(Stock, Exercise, Time, Interest, Yield, sigma)
+    d2_  <- dTwo(Stock, Exercise, Time, Interest, Yield, sigma)
 
-    return(-Stock * nprime(d1_) * sigma * exp(-Yield * Time) / (2 * sqrt(Time)) + Yield * Stock * Nd1_ * exp(-Yield * Time) - Interest * Exercise * exp(-Interest * Time) * Nd2_)
+    Nd1_ <- phi(d1_)
+    Nd2_ <- phi(d2_)
+
+    return(-Stock * nprime(d1_) * sigma * exp(-Yield * Time) / (2 * sqrt(Time))
+           + Yield * Stock * Nd1_ * exp(-Yield * Time)
+           - Interest * Exercise * exp(-Interest * Time) * Nd2_)
 }
 
 ThetaPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 
-    if (sigma == 0) sigma = 0.0000000001
+    if (sigma == 0) sigma <- 0.0000000001
 
-    d1_ = dOne(Stock, Exercise, Time, Interest, Yield, sigma)
-    d2_ = dTwo(Stock, Exercise, Time, Interest, Yield, sigma)
+    d1_ <- dOne(Stock, Exercise, Time, Interest, Yield, sigma)
+    d2_ <- dTwo(Stock, Exercise, Time, Interest, Yield, sigma)
 
-    Nminusd1_ = phi(-d1_)
-    Nminusd2_ = phi(-d2_)
+    Nminusd1_ <- phi(-d1_)
+    Nminusd2_ <- phi(-d2_)
 
-    return(-Stock * nprime(d1_) * sigma * exp(-Yield * Time) / (2 * sqrt(Time)) - Yield * Stock * Nminusd1_ * exp(-Yield * Time) + Interest * Exercise * exp(-Interest * Time) * Nminusd2_)
+    return(-Stock * nprime(d1_) * sigma * exp(-Yield * Time) / (2 * sqrt(Time))
+           - Yield * Stock * Nminusd1_ * exp(-Yield * Time)
+           + Interest * Exercise * exp(-Interest * Time) * Nminusd2_)
 }
 
 ##

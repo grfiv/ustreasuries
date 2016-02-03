@@ -10,6 +10,11 @@ The \emph{ustreasuries} package downloads daily Constant-Maturity Treasury
 (CMT) yields and provides visualizations & analytics that use that data
 including all the 'greeks' for derivative analysis.
 }
+\section{GitHub Wiki}{
+
+\url{https://github.com/grfiv/ustreasuries/wiki}
+}
+
 \section{Vignettes}{
 
 \itemize{
@@ -41,6 +46,14 @@ including all the 'greeks' for derivative analysis.
          \item \bold{EuroPut} Calculate the price of a European put option with or without dividends
      }
 
+ \item \bold{Greeks}
+     \itemize{
+         \item \bold{DeltaCall} Amount call-option price changes for a change in asset price
+         \item \bold{DeltaPut} Amount put-option price changes for a change in asset price
+         \item \bold{ThetaCall} the decay in the value of a call or a portfolio of calls as time passes
+         \item \bold{ThetaPut} the decay in the value of a put or a portfolio of puts as time passes
+     }
+
  \item \bold{Utility Functions}
      \itemize{
          \item \bold{CAGR}
@@ -60,20 +73,24 @@ including all the 'greeks' for derivative analysis.
                  \item \bold{ForwardPrice} Forward price with or without income or yield
                  \item \bold{ForwardRate} Forward rate from Time1 to Time2 (discrete compounding)
              }
+         \item \bold{Options}
+             \itemize{
+                 \item \bold{IntrinsicValueCall} The in-the-money portion of a call option's premium
+                 \item \bold{IntrinsicValuePut} The in-the-money portion of a put option's premium
+                 \item \bold{InTheMoneyCall} Is a call in the money?
+                 \item \bold{InTheMoneyPut} Is a put in the money?
+             }
      }
 
- \item \bold{Installed but not yet undocumented}
+ \item \bold{Installed but not yet tested and documented}
      \itemize{
          \item \bold{CashCall}
          \item \bold{CashPut}
          \item \bold{AssetCall}
          \item \bold{AssetPut}
          \item \bold{American_Put_Binomial}
-         \item \bold{DeltaCall}
-         \item \bold{DeltaPut}
+         \item \bold{American_Call_Dividend}
          \item \bold{OptionGamma}
-         \item \bold{ThetaCall}
-         \item \bold{ThetaPut}
          \item \bold{Vega}
          \item \bold{RhoFuturesCall}
          \item \bold{RhoFuturesPut}
@@ -87,23 +104,43 @@ including all the 'greeks' for derivative analysis.
          \item \bold{Black_Scholes_Put_Implied_Vol}
          \item \bold{ImpVolCall}
          \item \bold{ImpVolPut}
-         \item \bold{American_Call_Dividend}
-
-
      }
 }
 }
 
 \section{Installation}{
 
-    \code{# Windows users STOP: see https://github.com/hadley/devtools}
+    \code{## Windows users STOP: see https://github.com/hadley/devtools}
 
     \code{install.packages("devtools") }
 
     \code{devtools::install_github("grfiv/ustreasuries",
-                                   build_vignettes=TRUE,
-                                   ,auth_token="088a25903f767320fa0a5458a1a71a20e0668611")}
+                                   build_vignettes=TRUE)}
+
+\code{## NOTE: If you get a 404 on installation, contact the author for the 'auth_token' parameter}
 
     (restart R)
+}
+\examples{
+# example of US Treasury rate data download
+# =========================================
+all_data <- USTreasuryRates()
+tail(all_data)
+# ==================================================
+# last row displayed should be for last business day
+# ==================================================
+
+# example of option pricing
+# =========================
+# Hull 7th edition Ch 13 P 294
+Stock     <- 42    # S_0
+Exercise  <- 40    # K
+Time      <- 0.50  # T
+Interest  <- 0.10  # r
+Yield     <- 0     # q
+sigma     <- 0.20
+ans <- EuroCall(Stock, Exercise, Time, Interest, Yield, sigma)
+round(ans,2) # 4.76
+
 }
 

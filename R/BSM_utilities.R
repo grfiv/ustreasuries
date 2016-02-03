@@ -16,6 +16,8 @@
 #'
 #' @param x real number
 #' @return N(x)
+#'
+#' @export
 phi <- function(x) {
   # constants
   a1 <-  0.254829592
@@ -306,3 +308,82 @@ r_discrete <- function(r_c, compounding_periods_per_year) {
     m = compounding_periods_per_year
     return (m * (exp(r_c / m) - 1))
 }
+
+#' Intrinsic value of a call option
+#'
+#' The in-the-money portion of the option's premium
+#'
+#' @param Stock S_0, the asset price
+#' @param Exercise K, the option strike price
+#' @return max(Stock - Exercise, 0)
+#'
+#' @examples
+#' # Investopia: Intrinsic Value
+#' # http://www.investopedia.com/terms/i/intrinsicvalue.asp
+#' Stock    <- 25 # S_0
+#' Exercise <- 15 # K
+#' IntrinsicValueCall(Stock, Exercise) # 10
+#'
+#' @export
+IntrinsicValueCall <- function(Stock, Exercise) {
+    return(max(Stock - Exercise, 0))
+}
+
+#' Intrinsic value of a put option
+#'
+#' The in-the-money portion of the option's premium
+#'
+#' @inheritParams IntrinsicValueCall
+#'
+#' @examples
+#' # Investopia: Intrinsic Value
+#' # http://www.investopedia.com/terms/i/intrinsicvalue.asp
+#' Stock    <- 15 # S_0
+#' Exercise <- 25 # K
+#' IntrinsicValuePut(Stock, Exercise) # 10
+#'
+#' @export
+IntrinsicValuePut <- function(Stock, Exercise) {
+    return(max(Exercise - Stock, 0))
+}
+
+#' Is a call option in the money?
+#'
+#' Is the current market price of the asset above the strike price of the call?
+#'
+#' @inheritParams IntrinsicValueCall
+#' @return IntrinsicValueCall(Stock, Exercise) > 0
+#'
+#' @examples
+#' # http://www.call-options.com/in-the-money.html
+#' library(ustreasuries)
+#' Stock    <- 37.75     # S_0
+#' Exercise <- 35        # K
+#'
+#' InTheMoneyCall(Stock, Exercise)  # TRUE
+#'
+#' @export
+InTheMoneyCall <- function(Stock, Exercise) {
+    return(IntrinsicValueCall(Stock, Exercise) > 0)
+}
+
+#' Is a put option in the money?
+#'
+#' Is the current market price of the asset below the strike price of the put?
+#'
+#' @inheritParams IntrinsicValueCall
+#' @return IntrinsicValuePut(Stock, Exercise) > 0
+#'
+#' @examples
+#' # http://www.call-options.com/in-the-money.html
+#' library(ustreasuries)
+#' Stock    <- 35        # S_0
+#' Exercise <- 37.50     # K
+#'
+#' InTheMoneyPut(Stock, Exercise)  # TRUE
+#'
+#' @export
+InTheMoneyPut <- function(Stock, Exercise) {
+    return(IntrinsicValuePut(Stock, Exercise) > 0)
+}
+

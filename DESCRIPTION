@@ -1,14 +1,10 @@
 Package: ustreasuries
 Type: Package
-Title: Download US Treasury Yields from 1962 and Provide Analyses
+Title: Treasury Yield Download and Derivative Analyses
 Description: Download US Treasury yields from 1962 and provide analyses.
-    US Treasury bonds, particularly on-the-run Treasuries are the basis of
-    a great deal of fixed-income analyses. This package provides an R data.frame
-    with the Daily Treasury Yield Curve (also known as Constant-Maturity
-    Treasury rates for the years 1962 to the most-recently completed
-    business day. Also included are visualization and analysis functions
-    including all of the 'greeks' for derivative analysis.
-Version: 0.0.0.9001
+    All the standard options formulas are provided, tested against Hull's 7th edition,
+    including all the Greeks.
+Version: 0.0.0.9002
 Date: 2016-02-01
 Authors@R: c(
     person("George", "Fisher", email = "george@georgefisher.com", role = c("aut", "cre")),

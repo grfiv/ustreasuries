@@ -52,3 +52,24 @@ test_that("Test discrete-to-continuous compounding", {
     expect_equal(all.equal(ans, 0.03960525, tolerance=0.000001), TRUE)
 })
 
+# Test IntrinsicValueCall/Put
+# ===========================
+Stock    <- 25 # S_0
+Exercise <- 15 # K
+ivc <- IntrinsicValueCall(Stock, Exercise) # 10
+ivp <- IntrinsicValuePut(Exercise, Stock) # 10
+test_that("Test intrinsic value call/put", {
+    expect_equal(all.equal(ivc, 10, tolerance=0.000001), TRUE)
+    expect_equal(all.equal(ivp, 10, tolerance=0.000001), TRUE)
+})
+
+# Test InTheMoneyCall/Put
+# ===========================
+Stock    <- 37.75     # S_0
+Exercise <- 35        # K
+itmc <- InTheMoneyCall(Stock, Exercise) # TRUE
+itmp <- InTheMoneyPut(Exercise, Stock) # TRUE
+test_that("Test intrinsic value call/put", {
+    expect_equal(itmc, TRUE)
+    expect_equal(itmp, TRUE)
+})

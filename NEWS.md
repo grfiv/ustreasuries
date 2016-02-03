@@ -1,8 +1,21 @@
-# ustreasuries 0.0.0.9001   
+# ustreasuries 0.0.0.9002   
 
 -------------------------------------------------------------------------------
 --------
 
+## Third Development Release 0.0.0.9002
+* ### Added Greeks
+    * **DeltaCall** / **DeltaPut**
+    * **ThetaCall** / **ThetaPut**
+* ### Added Utilities
+    * **IntrinsicValueCall** / **IntrinsicValuePut**
+    * **InTheMoneyCall** / **InTheMoneyPut**
+* ### Added examples to ustreasuries.R
+* ### Updated black-scholes-merton vignette
+* ### Updated GitHub Wiki
+
+-------------------------------------------------------------------------------
+--------
 
 ## Second Development Release 0.0.0.9001
 

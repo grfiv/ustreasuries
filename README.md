@@ -2,15 +2,17 @@
 ustreasuries
 ============
 
-#### Treasury Rates
+### Treasury Rates
 
 *ustreasuries* is an R-language package which downloads daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day.
 
 Historical data from 1962 to 2015 was sourced from the Federal Reserve's H15 dataset; data from 2016 onward is pulled in real time from an XML feed provided by the US Treasury Department.
 
-#### Derivative Pricing
+### Derivative Pricing
 
-Drawing primarily on **[Hull, 7th edition](http://raudys.com/kursas/Options,%20Futures%20and%20Other%20Derivatives%207th%20John%20Hull.pdf)** *ustreasuries* includes all of the options-pricing models, all the greeks and a number of utility functions.
+Drawing primarily on **[Hull, 7th edition](http://raudys.com/kursas/Options,%20Futures%20and%20Other%20Derivatives%207th%20John%20Hull.pdf)** *ustreasuries* includes many the options-pricing models, all the greeks and a number of utility functions.
+
+------------------------------------------------------------------------
 
 ### Wiki
 
@@ -25,6 +27,10 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
 -   **Black-Scholes-Merton**
     -   **EuroCall** Calculate the price of a European call option with or without dividends
     -   **EuroPut** Calculate the price of a European put option with or without dividends
+-   **Greeks**
+    -   **DeltaCall** Amount call-option price changes given a change in asset price
+    -   **DeltaPut** Amount put-option price changes given a change in asset price
+    -   **ThetaCall** the decay in the value of a call or a portfolio of calls as time passes
 -   **Utility Functions**
     -   **CAGR**
         -   **CAGRd** Calculate discrete Compound Annual Growth Rate
@@ -37,17 +43,17 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
         -   **RiskNeutralProb** Binomial tree risk-neutral probability
         -   **ForwardPrice** Forward price with or without income or yield
         -   **ForwardRate** Forward rate from Time1 to Time2 (discrete compounding)
+    -   **Options**
+        -   **IntrinsicValueCall** / **IntrinsicValuePut** the in-the-money portion of an option's premium
+        -   **InTheMoneyCall** / **InTheMoneyPut** Is an option in the money?
 -   **Installed but not yet undocumented**
     -   **CashCall**
     -   **CashPut**
     -   **AssetCall**
     -   **AssetPut**
     -   **American\_Put\_Binomial**
-    -   **DeltaCall**
-    -   **DeltaPut**
+    -   **American\_Call\_Dividend**
     -   **OptionGamma**
-    -   **ThetaCall**
-    -   **ThetaPut**
     -   **Vega**
     -   **RhoFuturesCall**
     -   **RhoFuturesPut**
@@ -57,13 +63,12 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     -   **RhoPut**
     -   **EuroCallVol**
     -   **EuroPutlVol**
-    -   **Black\_Scholes\_Call\_Implied\_Vo**l
+    -   **Black\_Scholes\_Call\_Implied\_Vol**
     -   **Black\_Scholes\_Put\_Implied\_Vol**
     -   **ImpVolCall**
     -   **ImpVolPut**
-    -   **American\_Call\_Dividend**
 
-Many of the functions have examples drawn from **[Hull, 7th edition](http://raudys.com/kursas/Options,%20Futures%20and%20Other%20Derivatives%207th%20John%20Hull.pdf)** to demonstrate their correctness.
+#### Many of the functions have examples drawn from **[Hull, 7th edition](http://raudys.com/kursas/Options,%20Futures%20and%20Other%20Derivatives%207th%20John%20Hull.pdf)** to demonstrate their correctness.
 
 See <https://github.com/grfiv/BlackScholesMerton> for these functions written in Python and Excel VBA
 

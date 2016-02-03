@@ -7,14 +7,9 @@ citEntry(
                             as.person("Pratik Biswas")),
   year         = "2016",
   howpublished = "https://github.com/grfiv/ustreasuries",
-  note         = "US Treasury bonds, particularly on-the-run Treasuries are the
-                  basis of a great deal of fixed-income analyses.
-                  This package provides an R data.frame with the Daily
-                  Treasury Yield Curve (also known as Constant-Maturity
-                  Treasury (CMT)) rates for the years 1962 to the most-recently
-                  completed business day. Also included are visualization and
-                  analytical functions including all of the 'greeks' for
-                  derivative analysis.",
+  note         = "Download US Treasury yields from 1962 and provide analyses.
+    All the standard options formulas are provided, tested against Hull's 7th edition
+    including all the Greeks.",
 
   textVersion  =
   paste("George Fisher, Pratik Biswas (2016)",
