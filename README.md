@@ -10,7 +10,7 @@ Historical data from 1962 to 2015 was sourced from the Federal Reserve's H15 dat
 
 ### Derivative Pricing
 
-Drawing primarily on **[Hull, 7th edition](http://raudys.com/kursas/Options,%20Futures%20and%20Other%20Derivatives%207th%20John%20Hull.pdf)** *ustreasuries* includes many the options-pricing models, all the greeks and a number of utility functions.
+Drawing primarily on **[Hull, 7th edition](http://raudys.com/kursas/Options,%20Futures%20and%20Other%20Derivatives%207th%20John%20Hull.pdf)** *ustreasuries* includes many options-pricing models, all the greeks and a number of utility functions.
 
 ------------------------------------------------------------------------
 
