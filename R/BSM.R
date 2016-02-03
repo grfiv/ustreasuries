@@ -417,6 +417,44 @@ ThetaCall <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
            - Interest * Exercise * exp(-Interest * Time) * Nd2_)
 }
 
+#' Theta of a European Put Option
+#'
+#' Theta is the decay in the value of an option or a portfolio of options as time passes
+#'
+#' In a delta-neutral portfolio, Theta is a proxy for Gamma
+#'
+#' @note divide by 365 for "per calendar day"; 252 for "per trading day"
+#'
+#' @inheritParams dOne
+#' @return The Theta of the put option
+#'
+#' @references
+#' Hull, 7th edition ch 17 p367-368
+#'
+#' @examples
+#' # Hull, 7th edition Ch 17 p 367
+#' library(ustreasuries)
+#' Stock    <- 49     # S_0
+#' Exercise <- 50     # K
+#' Time     <- 20/52  # T
+#' Interest <- 0.05   # r
+#' Yield    <- 0      # q
+#' sigma    <- 0.20
+#'
+#' thcall <- ThetaCall(Stock, Exercise, Time, Interest, Yield, sigma)
+#' thput  <- ThetaPut(Stock, Exercise, Time, Interest, Yield, sigma)
+#'
+#' rKe    <- Interest * Exercise * exp(-Interest*Time)
+#'
+#' writeLines(paste0("ThetaCall:        ", round(thcall, 2), "\n",
+#'                   "ThetaPut:         ", round(thput, 2),   "\n",
+#'                   "per calendar day: ", round(thput/365, 4), " (put)", "\n",
+#'                   "per trading day:  ", round(thput/252, 4), " (put)", "\n\n",
+#'     "ThetaPut is always greater than ThetaCall by an amount rKe:", "\n",
+#'     "Diff: ",thput-thcall,"\n",
+#'     "rKe:  ",rKe))
+#'
+#' @export
 ThetaPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 
     if (sigma == 0) sigma <- 0.0000000001

@@ -43,6 +43,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     * **DeltaCall** Amount call-option price changes given a change in asset price
     * **DeltaPut** Amount put-option price changes given a change in asset price
     * **ThetaCall** the decay in the value of a call or a portfolio of calls as time passes
+    * **ThetaPut** the decay in the value of a put or a portfolio of puts as time passes
 * **Utility Functions**
     * **CAGR**
         * **CAGRd** Calculate discrete Compound Annual Growth Rate

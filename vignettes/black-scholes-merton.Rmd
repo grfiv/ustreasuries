@@ -95,8 +95,9 @@ text(x=Exercise, y=-1.25, labels="K", cex=1.25)
 #dev.off ();
 ```   
 
-* ## **ThetaCall** the decay in the value of an option or a portfolio of options as time passes
-```{r thetacall}
+* ## **ThetaCall** the decay in the value of a call or a portfolio of calls as time passes   
+* ## **ThetaPut** the decay in the value of a put or a portfolio of puts as time passes
+```{r thetacallput}
 # Hull, 7th edition Ch 17 p 367
 Stock    <- 49     # S_0
 Exercise <- 50     # K
@@ -106,29 +107,46 @@ Yield    <- 0      # q
 sigma    <- 0.20
 
 thcall <- ThetaCall(Stock, Exercise, Time, Interest, Yield, sigma)
+thput  <- ThetaPut(Stock, Exercise, Time, Interest, Yield, sigma)
 
-writeLines(paste0("Theta:            ", round(thcall, 2),     "\n",
-                  "per calendar day: ", round(thcall/365, 4), "\n",
-                  "per trading day:  ", round(thcall/252, 4)))
+rKe    <- Interest * Exercise * exp(-Interest*Time)
+#--------------------------------------------------------------------
+
+writeLines(paste0("ThetaCall:        ", round(thcall, 2), "\n",
+                  "ThetaPut:         ", round(thput, 2),   "\n",
+                  "per calendar day: ", round(thput/365, 4), " (put)", "\n",
+                  "per trading day:  ", round(thput/252, 4), " (put)", "\n\n",
+    "ThetaPut is always greater than ThetaCall by an amount rKe:", "\n",
+    "Diff: ",thput-thcall,"\n",
+    "rKe:  ",rKe))
 ```
 ```{r thetacallplotstockprice}
-x_axis = c()
-y_axis = c()
+x_axis      <- c()
+y_axis_call <- c()
+y_axis_put  <- c()
 for (Stock in seq(0, 100)) {
     x_axis <- c(x_axis, Stock)
-    y_axis <- c(y_axis, ThetaCall(Stock, Exercise, Time, Interest, Yield, sigma))
+    y_axis_call <- c(y_axis_call, ThetaCall(Stock, Exercise, Time, Interest, Yield, sigma))
+    y_axis_put  <- c(y_axis_put, ThetaPut(Stock, Exercise, Time, Interest, Yield, sigma))
 }
 
-plot(x_axis, y_axis, type="l",
-     xlab="Stock Price", ylab="ThetaCall",
-     main="ThetaCall as Stock Price Changes",
+plot(x_axis, y_axis_call, type="l", col="black",
+     xlab="Stock Price", ylab="Theta",
+     ylim=c(floor(min(y_axis_call)), ceiling(max(y_axis_put))),
+     main="Variation in Theta as Stock Price Changes",
      sub="K = 50, r = 5%, q = 0, sigma = 20%")
 
 abline(v=Exercise)
 text(x=Exercise, y=0, labels="K", cex=1.5)
 
+abline(h=0, lty=2)
+
 abline(h=-Interest*Exercise*exp(-Interest*Time), lty=2)
 text(x=5, y=-Interest*Exercise*exp(-Interest*Time), pos=3, labels=expression(-rKe^{-rT}))
+
+lines(x=x_axis, y=y_axis_put, lty=5, col="red")
+
+legend("topright",c("ThetaPut","ThetaCall"),lty=c(5,1),col=c("red","black"))
 #dev.copy(png,filename="../Wiki_images/thetacall.png");
 #dev.off ();
 ```

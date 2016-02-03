@@ -51,8 +51,9 @@ Yield    <- 0      # q
 sigma    <- 0.20
 
 thcall <- ThetaCall(Stock, Exercise, Time, Interest, Yield, sigma)
+thput  <- ThetaPut(Stock, Exercise, Time, Interest, Yield, sigma)
 
 test_that("ThetaCall/Put", {
     expect_equal(all.equal(thcall, -4.30533, tolerance=0.0001), TRUE)
-    #expect_equal(all.equal(thput, -0.4783953, tolerance=0.0001), TRUE)
+    expect_equal(all.equal(thput, -1.852947, tolerance=0.0001), TRUE)
 })
