@@ -498,6 +498,39 @@ ThetaPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 ## ----
 ##
 
+#' Vega of a European Option
+#'
+#' Vega is the sensitivity of an option price to changes in the volatility of the underlying asset
+#'
+#' Vega is not a Greek letter, it is the brightest star in the constellation Lyra
+#'
+#' @note if \code{abs(Vega)} is large, the option or portolio is very sensitive to changes in the volatility of the underlying asset
+#'
+#' @inheritParams dOne
+#' @return The Vega of the option
+#'
+#' @references
+#' Hull, 7th edition ch 17 p373-375
+#'
+#' @examples
+#' # Hull, 7th edition Ch 17 p 375
+#' library(ustreasuries)
+#' Stock    <- 49     # S_0
+#' Exercise <- 50     # K
+#' Time     <- 20/52  # T
+#' Interest <- 0.05   # r
+#' Yield    <- 0      # q
+#' sigma    <- 0.20
+#'
+#' vega <- Vega(Stock, Exercise, Time, Interest, Yield, sigma)
+#'
+#' writeLines(paste0("The value of Vega is ", round(vega,1),   "\n",
+#' "Therefore, a 1% change in the volatility from 20% to 21%", "\n",
+#' "will raise the price of the option by this amount:",       "\n",
+#' "1% x ", round(vega,1), " = ", round((0.01 * vega), 3),
+#' ", from ", Stock, " to ", Stock+round((0.01 * vega), 3)))
+#'
+#' @export
 Vega <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 
     if (sigma == 0) sigma = 0.0000000001

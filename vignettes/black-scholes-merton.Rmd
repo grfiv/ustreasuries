@@ -37,6 +37,11 @@ ans_p <- EuroPut(Stock, Exercise, Time, Interest, Yield, sigma)
 
 writeLines(paste0("c = ", round(ans_c,2), ", p = ", round(ans_p,2)))
 ```
+-------------------------------------------------------------------------------
+
+# Greeks   
+### Relationship between Delta, Theta and Gamma
+![](../Wiki_images/DeltaThetaGamma.png)
 
 * ## **DeltaCall** Change in call-option price given change in asset price
 ```{r deltacall}
@@ -182,4 +187,65 @@ text(x=Exercise, y=0.01, labels="K", cex=1.5)
 
 #dev.copy(png,filename="../Wiki_images/gamma.png");
 #dev.off ();
+```   
+
+--------------------------------------------------------------------------------
+
+* ## **Vega** the sensitivity to changes in the volatility of the underlying
+```{r vega}
+# Hull, 7th edition Ch 17 p 375
+Stock    <- 49     # S_0
+Exercise <- 50     # K
+Time     <- 20/52  # T
+Interest <- 0.05   # r
+Yield    <- 0      # q
+sigma    <- 0.20
+
+vega <- Vega(Stock, Exercise, Time, Interest, Yield, sigma)
+
+writeLines(paste0("The value of Vega is ", round(vega,1),   "\n",
+"Therefore, a 1% change in the volatility from 20% to 21%", "\n",
+"will raise the price of the option by this amount:",       "\n",
+"1% x ", round(vega,1), " = ", round((0.01 * vega), 3),
+", from ", Stock, " to ", Stock+round((0.01 * vega), 3)))
 ```
+
+```{r vegaplotprice}
+x_axis <- c()
+y_axis <- c()
+for (Stock in seq(0, 100,0.01)) {
+    x_axis <- c(x_axis, Stock)
+    y_axis <- c(y_axis, Vega(Stock, Exercise, Time, Interest, Yield, sigma))
+}
+
+plot(x_axis, y_axis, type="l", col="black",
+     xlab="Stock Price", ylab="Vega",
+     main="Variation in Vega as Stock Price Changes",
+     sub="K = 50, r = 5%, q = 0, sigma = 20%")
+
+abline(v=Exercise)
+text(x=Exercise, y=0.01, labels="K", cex=1.5)
+
+#dev.copy(png,filename="../Wiki_images/vegaprice.png");
+#dev.off ();
+```   
+
+```{r vegaplotsigma}
+Stock    <- 49     # S_0
+x_axis <- c()
+y_axis <- c()
+for (sigma in seq(0.05, 0.75, 0.01)) {
+    x_axis <- c(x_axis, sigma)
+    y_axis <- c(y_axis, Vega(Stock, Exercise, Time, Interest, Yield, sigma))
+}
+
+plot(x_axis, y_axis, type="l", col="black",
+     xlab="sigma", ylab="Vega",
+     main="Variation in Vega as Volatility Changes",
+     sub="K = 50, r = 5%, q = 0, S = 49")
+abline(h=12.10548, lty=2)
+abline(v=0.20,     lty=2)
+
+#dev.copy(png,filename="../Wiki_images/vegasigma.png")
+#dev.off ()
+```   

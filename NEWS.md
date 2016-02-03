@@ -8,6 +8,7 @@
     * **DeltaCall** / **DeltaPut**
     * **ThetaCall** / **ThetaPut**
     * **OptionGamma**
+    * **Vega** 
 * ### Added Utilities
     * **IntrinsicValueCall** / **IntrinsicValuePut**
     * **InTheMoneyCall** / **InTheMoneyPut**

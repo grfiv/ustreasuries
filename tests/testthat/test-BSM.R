@@ -73,3 +73,19 @@ gamma <- OptionGamma(Stock, Exercise, Time, Interest, Yield, sigma)
 test_that("OptionGamma", {
     expect_equal(all.equal(gamma, 0.06554404, tolerance=0.0001), TRUE)
 })
+
+# Test Vega
+# =========
+
+Stock    <- 49     # S_0
+Exercise <- 50     # K
+Time     <- 20/52  # T
+Interest <- 0.05   # r
+Yield    <- 0      # q
+sigma    <- 0.20
+
+vega <- Vega(Stock, Exercise, Time, Interest, Yield, sigma)
+
+test_that("Vega", {
+    expect_equal(all.equal(vega, 12.10548, tolerance=0.0001), TRUE)
+})

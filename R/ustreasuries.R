@@ -42,6 +42,7 @@
 #'          \item \bold{ThetaCall} the decay in the value of a call or a portfolio of calls as time passes
 #'          \item \bold{ThetaPut} the decay in the value of a put or a portfolio of puts as time passes
 #'          \item \bold{OptionGamma} the change in Delta with respect to asset price
+#'          \item \bold{Vega} the sensitivity to changes in the volatility of the underlying
 #'      }
 #'
 #'  \item \bold{Utility Functions}
@@ -80,7 +81,6 @@
 #'          \item \bold{AssetPut}
 #'          \item \bold{American_Put_Binomial}
 #'          \item \bold{American_Call_Dividend}
-#'          \item \bold{Vega}
 #'          \item \bold{RhoFuturesCall}
 #'          \item \bold{RhoFuturesPut}
 #'          \item \bold{RhoFXCall}
