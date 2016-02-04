@@ -44,6 +44,8 @@ including all the 'greeks' for derivative analysis.
      \itemize{
          \item \bold{EuroCall} Calculate the price of a European call option with or without dividends
          \item \bold{EuroPut} Calculate the price of a European put option with or without dividends
+         \item \bold{EuroCallVol} Implied Volatility for a European call option
+         \item \bold{EuroPutlVol} Implied Volatility for a European put option
      }
 
  \item \bold{Greeks}
@@ -81,6 +83,8 @@ including all the 'greeks' for derivative analysis.
              \itemize{
                  \item \bold{IntrinsicValueCall} The in-the-money portion of a call option's premium
                  \item \bold{IntrinsicValuePut} The in-the-money portion of a put option's premium
+                 \item \bold{TimeValueCall} Price = Intrinsic + Time
+                 \item \bold{TimeValuePut} Price = Intrinsic + Time
                  \item \bold{InTheMoneyCall} Is a call in the money?
                  \item \bold{InTheMoneyPut} Is a put in the money?
              }
@@ -98,8 +102,6 @@ including all the 'greeks' for derivative analysis.
          \item \bold{RhoFuturesPut}
          \item \bold{RhoFXCall}
          \item \bold{RhoFXPut}
-         \item \bold{EuroCallVol}
-         \item \bold{EuroPutlVol}
          \item \bold{Black_Scholes_Call_Implied_Vol}
          \item \bold{Black_Scholes_Put_Implied_Vol}
          \item \bold{ImpVolCall}

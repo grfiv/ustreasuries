@@ -91,7 +91,7 @@ test_that("Vega", {
 })
 
 # Test RhoCall/RhoPut
-# =========
+# ===================
 
 Stock    <- 49     # S_0
 Exercise <- 50     # K
@@ -106,4 +106,23 @@ rhoput  <- RhoPut(Stock, Exercise, Time, Interest, Yield, sigma)
 test_that("RhoCall/RhoPut", {
     expect_equal(all.equal(rhocall, 8.906961, tolerance=0.0001), TRUE)
     expect_equal(all.equal(rhoput, -9.957519, tolerance=0.0001), TRUE)
+})
+
+# Test EuroCallVol/EuroPutVol
+# ===========================
+
+Stock      <- 21     # S_0
+Exercise   <- 20     # K
+Time       <- 0.25   # T
+Interest   <- 0.10   # r
+Yield      <- 0      # q
+Call_price <- 1.875
+Put_price  <- 1.875
+
+callvol <- EuroCallVol(Stock, Exercise, Time, Interest, Yield, Call_price)
+putvol  <- EuroPutVol(Stock, Exercise, Time, Interest, Yield, Put_price)
+
+test_that("EuroCallVol/EuroPutVol", {
+    expect_equal(all.equal(callvol, 0.2345128, tolerance=0.0001), TRUE)
+    expect_equal(all.equal(putvol,  0.6348004, tolerance=0.0001), TRUE)
 })

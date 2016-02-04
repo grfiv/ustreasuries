@@ -37,6 +37,24 @@ ans_p <- EuroPut(Stock, Exercise, Time, Interest, Yield, sigma)
 
 writeLines(paste0("c = ", round(ans_c,2), ", p = ", round(ans_p,2)))
 ```
+
+* ## **EuroCallVol** / **EuroPutVol** Implied Volatility for European Options
+```{r implvol}
+# Hull, 7th edition ch 13 p296
+Stock      <- 21     # S_0
+Exercise   <- 20     # K
+Time       <- 0.25   # T
+Interest   <- 0.10   # r
+Yield      <- 0      # q
+Call_price <- 1.875
+Put_price <- 1.875
+
+callvol <- EuroCallVol(Stock, Exercise, Time, Interest, Yield, Call_price)
+putvol  <- EuroPutVol(Stock, Exercise, Time, Interest, Yield, Put_price)
+writeLines(paste0("Implied Call Volatility: ", round(callvol*100, 1), "% per annum\n",
+                  "Implied Put Volatility:  ", round(putvol*100, 1), "% per annum"))
+
+```
 -------------------------------------------------------------------------------
 
 # Greeks   

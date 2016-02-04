@@ -641,8 +641,33 @@ RhoPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
     return(-Exercise * Time * exp(-Interest * Time) * Nminusd2_)
 }
 
-
+## =================================
 ## Implied Volatility from Benningna
+## =================================
+
+
+#' Implied Volatility for a European Call Option
+#'
+#' @inheritParams dOne
+#' @param Call_price the price of the call option being valued
+#' @return The Implied Volatility of the call option
+#'
+#' @references
+#' Hull, 7th edition ch 13 p296-297
+#'
+#' @examples
+#' # Hull, 7th edition ch 13 p296
+#' Stock      <- 21     # S_0
+#' Exercise   <- 20     # K
+#' Time       <- 0.25   # T
+#' Interest   <- 0.10   # r
+#' Yield      <- 0      # q
+#' Call_price <- 1.875
+#'
+#' callvol <- EuroCallVol(Stock, Exercise, Time, Interest, Yield, Call_price)
+#' writeLines(paste0("Implied Call Volatility: ", round(callvol*100, 1), "% per annum"))
+#'
+#' @export
 EuroCallVol <- function(Stock, Exercise, Time, Interest, Yield, Call_price) {
     High <- 2
     Low <- 0
@@ -654,6 +679,28 @@ EuroCallVol <- function(Stock, Exercise, Time, Interest, Yield, Call_price) {
     return((High + Low) / 2)
 }
 
+#' Implied Volatility for a European Put Option
+#'
+#' @inheritParams dOne
+#' @param Put_price the price of the put option being valued
+#' @return The Implied Volatility of the put option
+#'
+#' @references
+#' Hull, 7th edition ch 13 p296-297
+#'
+#' @examples
+#' # Hull, 7th edition ch 13 p296
+#' Stock      <- 21     # S_0
+#' Exercise   <- 20     # K
+#' Time       <- 0.25   # T
+#' Interest   <- 0.10   # r
+#' Yield      <- 0      # q
+#' Put_price <- 1.875
+#'
+#' putvol <- EuroPutVol(Stock, Exercise, Time, Interest, Yield, Put_price)
+#' writeLines(paste0("Implied Put Volatility: ", round(putvol*100, 1), "% per annum"))
+#'
+#' @export
 EuroPutVol <- function(Stock, Exercise, Time, Interest, Yield, Put_price) {
     High = 2
     Low = 0

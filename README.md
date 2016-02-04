@@ -12,7 +12,7 @@ Historical data from 1962 to 2015 was sourced from the Federal Reserve's H15 dat
 
 ### Derivative Pricing
 
-Drawing primarily on **[Hull, 7th edition](http://raudys.com/kursas/Options,%20Futures%20and%20Other%20Derivatives%207th%20John%20Hull.pdf)** *ustreasuries* includes many options-pricing models, all the greeks and a number of utility functions.
+Drawing primarily on **Hull, 7th edition** *ustreasuries* includes many options-pricing models, all the greeks and a number of utility functions.
 
 ------------------------------------------------------------------------
 
@@ -29,6 +29,8 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
 -   **Black-Scholes-Merton**
     -   **EuroCall** Calculate the price of a European call option with or without dividends
     -   **EuroPut** Calculate the price of a European put option with or without dividends
+    -   **EuroCallVol** Implied Volatility for a European Call option
+    -   **EuroPutlVol** Implied Volatility for a European Put option
 -   **Greeks**
     -   **DeltaCall** Amount call-option price changes given a change in asset price
     -   **DeltaPut** Amount put-option price changes given a change in asset price
@@ -52,6 +54,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
         -   **ForwardRate** Forward rate from Time1 to Time2 (discrete compounding)
     -   **Options**
         -   **IntrinsicValueCall** / **IntrinsicValuePut** the in-the-money portion of an option's premium
+        -   **TimeValueCall** / **TimeValuePut** Price = Intrinsic + Time
         -   **InTheMoneyCall** / **InTheMoneyPut** Is an option in the money?
 -   **Installed but not yet undocumented**
     -   **CashCall**
@@ -64,8 +67,6 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     -   **RhoFuturesPut**
     -   **RhoFXCall**
     -   **RhoFXPut**
-    -   **EuroCallVol**
-    -   **EuroPutlVol**
     -   **Black\_Scholes\_Call\_Implied\_Vol**
     -   **Black\_Scholes\_Put\_Implied\_Vol**
     -   **ImpVolCall**

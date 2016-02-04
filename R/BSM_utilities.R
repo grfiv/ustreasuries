@@ -387,3 +387,49 @@ InTheMoneyPut <- function(Stock, Exercise) {
     return(IntrinsicValuePut(Stock, Exercise) > 0)
 }
 
+#' Time Value of a European Put Option
+#'
+#' The total value of an option is its intrinsic value plus its time value
+#'
+#' @inheritParams IntrinsicValuePut
+#' @param Put_price The value of the put being analyzed
+#' @return The Time Value of the put option
+#' @references
+#' Hull, 7th edition ch 8 p186
+#'
+#' @examples
+#' # Hull, 7th edition ch 8 p186
+#' Stock      <- 21     # S_0
+#' Exercise   <- 20     # K
+#' Put_price <- 1.875
+#'
+#' (puttv <- TimeValuePut(Stock, Exercise, Put_price))
+#'
+#' @export
+TimeValuePut <- function(Stock, Exercise, Put_price) {
+    return(Put_price - IntrinsicValuePut(Stock, Exercise))
+}
+
+#' Time Value of a European Call Option
+#'
+#' The total value of an option is its intrinsic value plus its time value
+#'
+#' @inheritParams IntrinsicValueCall
+#' @param Call_price The value of the call being analyzed
+#' @return The Time Value of the call option
+#' @references
+#' Hull, 7th edition ch 8 p186
+#'
+#' @examples
+#' # Hull, 7th edition ch 8 p186
+#' Stock      <- 21     # S_0
+#' Exercise   <- 20     # K
+#' Call_price <- 1.875
+#'
+#' (calltv <- TimeValueCall(Stock, Exercise, Call_price))
+#'
+#' @export
+TimeValueCall <- function(Stock, Exercise, Call_price) {
+    return(Call_price - IntrinsicValueCall(Stock, Exercise))
+}
+

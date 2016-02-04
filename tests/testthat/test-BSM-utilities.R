@@ -73,3 +73,18 @@ test_that("Test intrinsic value call/put", {
     expect_equal(itmc, TRUE)
     expect_equal(itmp, TRUE)
 })
+
+# Test TimeValueCall/TimeValuePut
+# ===============================
+Stock      <- 21     # S_0
+Exercise   <- 20     # K
+Call_price <- 1.875
+Put_price  <- 1.875
+
+calltv <- TimeValueCall(Stock, Exercise, Call_price)
+puttv  <- TimeValuePut(Stock, Exercise, Put_price)
+
+test_that("TimeValueCall/TimeValuePut", {
+    expect_equal(all.equal(calltv, 0.875, tolerance=0.0001), TRUE)
+    expect_equal(all.equal(puttv,  1.875, tolerance=0.0001), TRUE)
+})
