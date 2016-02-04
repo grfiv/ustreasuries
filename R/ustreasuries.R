@@ -131,6 +131,9 @@
 #' ans <- EuroCall(Stock, Exercise, Time, Interest, Yield, sigma)
 #' round(ans,2) # 4.76
 #'
+#' @references
+#' Hull, J. Options, Futures and Other Derivatives Seventh Edition Pearson/Prentice Hall 2008 ISBN 9780136015864
+#'
 #' @docType package
 #' @name ustreasuries
 NULL

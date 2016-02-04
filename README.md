@@ -56,20 +56,19 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
         -   **TimeValueCall** / **TimeValuePut** Price = Intrinsic + Time
         -   **InTheMoneyCall** / **InTheMoneyPut** Is an option in the money?
 -   **Installed but not yet tested or undocumented**
-    -   **CashCall**
-    -   **CashPut**
-    -   **AssetCall**
-    -   **AssetPut**
-    -   **American\_Put\_Binomial**
-    -   **American\_Call\_Dividend**
-    -   **RhoFuturesCall**
-    -   **RhoFuturesPut**
-    -   **RhoFXCall**
-    -   **RhoFXPut**
-    -   **Black\_Scholes\_Call\_Implied\_Vol**
-    -   **Black\_Scholes\_Put\_Implied\_Vol**
-    -   **ImpVolCall**
-    -   **ImpVolPut**
+    -   Digital
+        -   **CashCall**
+        -   **CashPut**
+        -   **AssetCall**
+        -   **AssetPut**
+    -   Greeks
+        -   **RhoFuturesCall**
+        -   **RhoFuturesPut**
+        -   **RhoFXCall**
+        -   **RhoFXPut**
+    -   American
+        -   **American\_Put\_Binomial**
+        -   **American\_Call\_Dividend**
 
 #### Many of the functions have examples drawn from **[Hull, 7th edition](http://raudys.com/kursas/Options,%20Futures%20and%20Other%20Derivatives%207th%20John%20Hull.pdf)** to demonstrate their correctness.
 
