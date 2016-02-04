@@ -1,4 +1,3 @@
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 ustreasuries
 ============
 
@@ -56,7 +55,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
         -   **IntrinsicValueCall** / **IntrinsicValuePut** the in-the-money portion of an option's premium
         -   **TimeValueCall** / **TimeValuePut** Price = Intrinsic + Time
         -   **InTheMoneyCall** / **InTheMoneyPut** Is an option in the money?
--   **Installed but not yet undocumented**
+-   **Installed but not yet tested or undocumented**
     -   **CashCall**
     -   **CashPut**
     -   **AssetCall**
