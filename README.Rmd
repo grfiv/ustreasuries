@@ -118,7 +118,7 @@ devtools::install_github("grfiv/treasuries")
 <a name="Back">Back</a>:
 Back, K., *A Course in Derivative Securities* 2005 Springer Finance ISBN 9783540253734   
 
-<a name="Hull">Hull</a>:
+<a name="Hull">[Hull]</a>:
 Hull, J., *Options, Futures and Other Derivatives Seventh Edition* 2008 Pearson/Prentice Hall ISBN 9780136015864   
 
 <a name="Tuckman">Tuckman</a>:
