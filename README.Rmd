@@ -22,7 +22,7 @@ ustreasuries
 Historical data from 1962 to 2015 was sourced from the Federal Reserve's H15 dataset; data from 2016 onward is pulled in real time from an XML feed provided by the US Treasury Department.
 
 ### Derivative Pricing   
-Drawing primarily on **Hull, 7th edition** *ustreasuries* includes many options-pricing models, all the greeks and a number of utility functions.
+Drawing primarily on **Hull, 7th edition** *ustreasuries* includes many options-pricing models, all the greeks and a number of utility functions, all of which have examples from Hull which demonstrate that they work correctly.
 
 --------------------------------------------------------------------------------
 
@@ -32,7 +32,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
 ### Functions
 
 * **Treasury Rates**
-    * **USTreasuryRates** downloads a data.frame with daily data from 1962
+    * **CMTrates** downloads a data.frame with daily data from 1962
     * **PrintYieldCurves** prints one or more yield curves
     * **APY** converts Constant-Maturity Treasury (CMT) yields to Annualized 
     Percentage Yields (APY)
@@ -46,7 +46,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     * **DeltaPut** Amount put-option price changes given a change in asset price
     * **ThetaCall** the decay in the value of a call or a portfolio of calls as time passes
     * **ThetaPut** the decay in the value of a put or a portfolio of puts as time passes
-    * **OptionGamma** the change in Delta with respect to asset price
+    * **Gamma** the change in Delta with respect to asset price
     * **Vega** the sensitivity to changes in the volatility of the underlying
     * **RhoCall** the sensitivity to changes in the risk-free rate of return
     * **RhoPut** the sensitivity to changes in the risk-free rate of return
@@ -66,7 +66,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
         * **IntrinsicValueCall** / **IntrinsicValuePut** the in-the-money portion of an option's premium
         * **TimeValueCall** / **TimeValuePut** Price = Intrinsic + Time
         * **InTheMoneyCall** / **InTheMoneyPut** Is an option in the money?
-* **Installed but not yet tested or undocumented**
+* **Installed but not yet tested or documented**
     * Digital
         * **CashCall**
         * **CashPut**
@@ -84,7 +84,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     
     
     
-#### Many of the functions have examples drawn from **[Hull, 7th edition](http://raudys.com/kursas/Options,%20Futures%20and%20Other%20Derivatives%207th%20John%20Hull.pdf)** to demonstrate their correctness.
+#### All of the derivatives functions have examples drawn from **Hull, 7th edition** to demonstrate their correctness.
     
 See https://github.com/grfiv/BlackScholesMerton for these functions written in Python and Excel VBA   
 
@@ -112,17 +112,13 @@ devtools::install_github("grfiv/treasuries")
 #       these appear to be issues with devtools 1.10.0.9000
 ```
 
-## John Hull citation
-```
-@Book{hull2008options,   
-  Title                    = {Options, Futures and Other Derivatives},   
-  Author                   = {Hull, J.},   
-  Publisher                = {Pearson/Prentice Hall},   
-  Year                     = {2008},   
-  Edition                  = {Seventh Edition},   
-  Series                   = {Options, Futures and Other Derivatives},   
-   
-  ISBN                     = {9780136015864},   
-  Url                      = {http://www.amazon.com/Options-Futures-Other-Derivatives-Derivagem/dp/0136015867/ref=sr_1_7?s=books&ie=UTF8&qid=1454527583&sr=1-7}   
-}
-```
+## References
+
+Hull, J *Options, Futures and Other Derivatives Seventh Edition* 2008 Pearson/Prentice Hall ISBN 9780136015864   
+
+Tuckman B., Serrat A. *Fixed Income Securities Third Edition* 2012 Wiley Finance ISBN 9780470891698   
+
+Veronesi P., *Fixed Income Securities* 2010 John Wiley & Sons ISBN 9780470109106
+
+
+

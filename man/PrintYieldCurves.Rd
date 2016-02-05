@@ -8,7 +8,7 @@ PrintYieldCurves(YieldCurveDF, rows = c(1), title = "Yield Curve",
   tabprt = FALSE)
 }
 \arguments{
-\item{YieldCurveDF}{data.frame created by the \emph{USTreasuryRates} function}
+\item{YieldCurveDF}{data.frame created by the \emph{CMTrates} function}
 
 \item{rows}{a vector of integer row indices indicating the row(s) to use
 for plotting}
@@ -21,12 +21,12 @@ for plotting}
 nothing: produces a plot and optionally a table
 }
 \description{
-Given a data.frame returned by the \emph{USTreasuryRates}, function, you can
+Given a data.frame returned by the \emph{CMTrates}, function, you can
 specify one or more dates to use to print the yield curve on those dates.
 }
 \examples{
 library(ustreasuries)
-all_data <- USTreasuryRates()
+all_data <- CMTrates()
 PrintYieldCurves(dplyr::filter(all_data,
                                    all_data$NEW_DATE>=as.Date("2006-01-01") &
                                    all_data$NEW_DATE<=as.Date("2009-12-31")),

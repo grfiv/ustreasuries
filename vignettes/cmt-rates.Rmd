@@ -10,7 +10,7 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-The *ustreasuries* package provides a **USTreasuryRates** function which 
+The *ustreasuries* package provides a **CMTrates** function which 
 downloads the daily CMT rates from 1960 to the most-recently completed
 business day. Also provided is an **APY** function which converts CMT rates
 to APY.
@@ -25,7 +25,7 @@ At the end of business each day the bid yields for on-the-run securities
 (which trade close to par) are input as the knot points and splines are used
 to derive a continuous curve. The yields for the exact maturity points are read
 from this curve, which are the yields available from 
-the *USTreasuryRates* function.
+the *CMTrates* function.
 
 
 Yields on all Treasury securities are based on actual day counts on a 365- or 366-day year basis, not a 30/360 basis, and the yield curve is based on securities that pay semiannual interest; the yields *at any point* on the yield curve are consistent with a semiannual coupon security with that amount of time remaining to maturity.  

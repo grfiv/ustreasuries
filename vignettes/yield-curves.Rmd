@@ -26,7 +26,7 @@ knitr::opts_chunk$set(collapse=TRUE,                # hadley
 library(ustreasuries)
 ```
 ```{r load}
-all_data = USTreasuryRates()
+all_data = CMTrates()
 ```
 
 ```{r YC_dotcom}

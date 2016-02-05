@@ -58,8 +58,8 @@ test_that("ThetaCall/Put", {
     expect_equal(all.equal(thput, -1.852947, tolerance=0.0001), TRUE)
 })
 
-# Test OptionGamma
-# ================
+# Test Gamma
+# ==========
 
 Stock    <- 49     # S_0
 Exercise <- 50     # K
@@ -68,9 +68,9 @@ Interest <- 0.05   # r
 Yield    <- 0      # q
 sigma    <- 0.20
 
-gamma <- OptionGamma(Stock, Exercise, Time, Interest, Yield, sigma)
+gamma <- Gamma(Stock, Exercise, Time, Interest, Yield, sigma)
 
-test_that("OptionGamma", {
+test_that("Gamma", {
     expect_equal(all.equal(gamma, 0.06554404, tolerance=0.0001), TRUE)
 })
 

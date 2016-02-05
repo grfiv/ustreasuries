@@ -1,9 +1,9 @@
 #' Print yield curves
 #'
-#' Given a data.frame returned by the \emph{USTreasuryRates}, function, you can
+#' Given a data.frame returned by the \emph{CMTrates}, function, you can
 #' specify one or more dates to use to print the yield curve on those dates.
 #'
-#' @param YieldCurveDF data.frame created by the \emph{USTreasuryRates} function
+#' @param YieldCurveDF data.frame created by the \emph{CMTrates} function
 #' @param rows a vector of integer row indices indicating the row(s) to use
 #' for plotting
 #' @param title a string to use as the title of the plot
@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' library(ustreasuries)
-#' all_data <- USTreasuryRates()
+#' all_data <- CMTrates()
 #' PrintYieldCurves(dplyr::filter(all_data,
 #'                                    all_data$NEW_DATE>=as.Date("2006-01-01") &
 #'                                    all_data$NEW_DATE<=as.Date("2009-12-31")),

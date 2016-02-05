@@ -60,11 +60,20 @@
 #'
 #'   \url{http://data.treasury.gov/feed.svc/DailyTreasuryYieldCurveRateData}
 #' @examples
-#' all_data <- USTreasuryRates()
-#' head(all_data)
+#' all_data <- CMTrates()
+#' head(all_data, n=3L)
+#' # =========================
+#' # Above: the earliest dates
+#' # =========================
+#'
+#'
+#' tail(all_data)
+#' # ============================
+#' # Above: the most-recent dates
+#' # ============================
 #'
 #' @export
-USTreasuryRates <- function() {
+CMTrates <- function() {
     # supresses
     # Note: no visible binding for global variable 'NEW_DATE'
     assign("NEW_DATE", NULL)

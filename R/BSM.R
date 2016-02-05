@@ -374,11 +374,13 @@ DeltaPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 #' Yield    <- 0      # q
 #' sigma    <- 0.20
 #'
-#' gamma <- OptionGamma(Stock, Exercise, Time, Interest, Yield, sigma)
+#' gamma <- Gamma(Stock, Exercise, Time, Interest, Yield, sigma)
 #' round(gamma, 3) # 0.066
 #'
+#' @note This Gamma masks that of package:stats; to use the latter write stats::Gamma()
+#'
 #' @export
-OptionGamma <- function (Stock, Exercise, Time, Interest, Yield, sigma) {
+Gamma <- function (Stock, Exercise, Time, Interest, Yield, sigma) {
 
     if (sigma == 0) sigma = 0.0000000001
 

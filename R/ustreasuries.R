@@ -23,7 +23,7 @@
 #'
 #' \item \bold{Treasury Rates}
 #'     \itemize{
-#'        \item \bold{USTreasuryRates} downloads a data.frame with daily rates from 1962
+#'        \item \bold{CMTrates} downloads a data.frame with daily rates from 1962
 #'        \item \bold{PrintYieldCurves} prints one or more yield curves
 #'        \item \bold{APY} converts Constant-Maturity Treasury (CMT) yields to
 #'     Annualized Percentage Yields (APY)
@@ -43,7 +43,7 @@
 #'          \item \bold{DeltaPut} Amount put-option price changes for a change in asset price
 #'          \item \bold{ThetaCall} the decay in the value of a call or a portfolio of calls as time passes
 #'          \item \bold{ThetaPut} the decay in the value of a put or a portfolio of puts as time passes
-#'          \item \bold{OptionGamma} the change in Delta with respect to asset price
+#'          \item \bold{Gamma} the change in Delta with respect to asset price
 #'          \item \bold{Vega} the sensitivity to changes in the volatility of the underlying
 #'          \item \bold{RhoCall} the sensitivity to changes in the risk-free rate of return
 #'          \item \bold{RhoPut} the sensitivity to changes in the risk-free rate of return
@@ -113,7 +113,7 @@
 #' @examples
 #' # example of US Treasury rate data download
 #' # =========================================
-#' all_data <- USTreasuryRates()
+#' all_data <- CMTrates()
 #' tail(all_data)
 #' # ==================================================
 #' # last row displayed should be for last business day
