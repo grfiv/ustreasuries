@@ -21,7 +21,7 @@ knitr::opts_chunk$set(collapse=TRUE,                # hadley
 library(ustreasuries)
 ```
 
-* ## **CAGRd** Calculate discrete Compound Annual Growth Rate
+* ## **CAGR** Calculate Compound Annual Growth Rate
 ```{r CAGRd}
 # From Wikipedia
 # https://en.wikipedia.org/wiki/Compound_annual_growth_rate#Example
@@ -30,7 +30,7 @@ Starting_value  <- 9000
 Ending_Value    <- 13000
 Number_of_years <- 3
 
-ans <- CAGRd(Starting_value, Ending_Value, Number_of_years)
+ans <- CAGR(Starting_value, Ending_Value, Number_of_years)
 
 writeLines(paste0(round(ans*100, 0), "%"))
 ```

@@ -42,7 +42,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     -   **RhoPut** the sensitivity to changes in the risk-free rate of return
 -   **Utility Functions**
     -   **CAGR**
-        -   **CAGRd** Calculate discrete Compound Annual Growth Rate
+        -   **CAGR** Calculate Compound Annual Growth Rate
         -   **r\_continuous** Convert from discrete to continuous CAGR
         -   **r\_discrete** Convert from continuous to discrete CAGR
     -   **Put/Call Parity**

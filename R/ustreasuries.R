@@ -55,7 +55,7 @@
 #'      \itemize{
 #'          \item \bold{CAGR}
 #'              \itemize{
-#'                  \item \bold{CAGRd} Calculate discrete Compound Annual Growth Rate
+#'                  \item \bold{CAGR} Calculate Compound Annual Growth Rate
 #'                  \item \bold{r_continuous} Convert from discrete to continuous CAGR
 #'                  \item \bold{r_discrete} Convert from continuous to discrete CAGR
 #'              }

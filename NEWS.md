@@ -7,6 +7,7 @@
 * ### Added References in README and project documentation
 * ### Changed **OptionGamma** to **Gamma**
 * ### Changed **USTreasuryRates** to **CMTrates**
+* ### Changed **CAGRd** to **CAGR**
 
 -------------------------------------------------------------------------------
 --------

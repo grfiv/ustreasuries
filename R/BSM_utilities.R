@@ -245,13 +245,13 @@ ForwardRate <- function(SpotInterest1, Time1, SpotInterest2, Time2) {
     return (((numerator / denominator) ** (1 / (Time2 - Time1))) - 1)
 }
 
-#' Compound Annual Growth Rate, discrete
+#' Compound Annual Growth Rate
 #'
 #' @note see \emph{r_continuous} and \emph{r_discrete}
 #' @param Starting_value the price at the beginning of the period
 #' @param Ending_Value the price at the end of the period
 #' @param Number_of_years the length of the period in (fractional) years
-#' @return the compounded rate of return over discrete intervals
+#' @return the compounded rate of return, annualized
 #'
 #' @examples
 #' # Wikipedia
@@ -259,12 +259,11 @@ ForwardRate <- function(SpotInterest1, Time1, SpotInterest2, Time2) {
 #' Starting_value  <- 9000
 #' Ending_Value    <- 13000
 #' Number_of_years <- 3
-#' ans <- CAGRd(Starting_value, Ending_Value, Number_of_years)*100
+#' ans <- CAGR(Starting_value, Ending_Value, Number_of_years)*100
 #' writeLines(paste0(round(ans,0),"%"))
 #'
 #' @export
-CAGRd <- function(Starting_value, Ending_Value, Number_of_years) {
-    ## discrete CAGR
+CAGR <- function(Starting_value, Ending_Value, Number_of_years) {
     return (((Ending_Value / Starting_value) ** (1 / Number_of_years)) - 1)
 }
 
