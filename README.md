@@ -105,7 +105,7 @@ References
 
 <a name="Back">Back</a>: Back, K., *A Course in Derivative Securities* 2005 Springer Finance ISBN 9783540253734
 
-<a name="Hull"></a> Hull, J., *Options, Futures and Other Derivatives Seventh Edition* 2008 Pearson/Prentice Hall ISBN 9780136015864
+<a name="Hull">2</a>: Hull, J., *Options, Futures and Other Derivatives Seventh Edition* 2008 Pearson/Prentice Hall ISBN 9780136015864
 
 <a name="Tuckman">Tuckman</a>: Tuckman B. and Serrat A., *Fixed Income Securities Third Edition* 2012 Wiley Finance ISBN 9780470891698
 
