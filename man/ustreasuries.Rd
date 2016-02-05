@@ -146,6 +146,21 @@ round(ans,2) # 4.76
 
 }
 \references{
-Hull, J. Options, Futures and Other Derivatives Seventh Edition Pearson/Prentice Hall 2008 ISBN 9780136015864
+Back, K., \emph{A Course in Derivative Securities} 2005 Springer Finance ISBN 9783540253734
+
+Hull, J., \emph{Options, Futures and Other Derivatives Seventh Edition} 2008 Pearson/Prentice Hall ISBN 9780136015864
+
+Tuckman B. and Serrat A., \emph{Fixed Income Securities Third Edition} 2012 Wiley Finance ISBN 9780470891698
+
+US Dept. of Treasury Daily Treasury Yield Curve Rates
+\url{https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yield}
+
+US Federal Reserve Board Data Download Program
+\url{http://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15}
+
+Veronesi P., \emph{Fixed Income Securities} 2010 John Wiley & Sons ISBN 9780470109106
+
+Wall Street Journal Market Data Center
+\url{http://online.wsj.com/mdc/public/page/mdc_bonds.html?mod=mdc_topnav_2_3010}
 }
 

@@ -19,10 +19,11 @@ ustreasuries
 ### Treasury Rates   
 *ustreasuries* is an R-language package which downloads daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day.   
 
-Historical data from 1962 to 2015 was sourced from the Federal Reserve's H15 dataset; data from 2016 onward is pulled in real time from an XML feed provided by the US Treasury Department.
+* Historical CMT data from 1962 to 2015 was sourced from the Federal Reserve's H15 dataset <sup>[H15](#H15)</sup>   
+* CMT data from 2016 onward is pulled in real time from an XML feed provided by the US Treasury Department <sup>[CMT](#CMT)</sup>   
 
 ### Derivative Pricing   
-Drawing primarily on **Hull, 7th edition** *ustreasuries* includes many options-pricing models, all the greeks and a number of utility functions, all of which have examples from Hull which demonstrate that they work correctly.
+Drawing primarily on **Hull, 7th edition** <sup>[Hull](#Hull)</sup> *ustreasuries* includes many options-pricing models, all the greeks and a number of utility functions, all of which have examples from Hull which demonstrate that they work correctly.
 
 --------------------------------------------------------------------------------
 
@@ -84,7 +85,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     
     
     
-#### All of the derivatives functions have examples drawn from **Hull, 7th edition** to demonstrate their correctness.
+#### All of the derivatives functions have examples drawn from  **Hull, 7th edition** <sup>[Hull](#Hull)</sup> to demonstrate their correctness.
     
 See https://github.com/grfiv/BlackScholesMerton for these functions written in Python and Excel VBA   
 
@@ -114,11 +115,31 @@ devtools::install_github("grfiv/treasuries")
 
 ## References
 
-Hull, J *Options, Futures and Other Derivatives Seventh Edition* 2008 Pearson/Prentice Hall ISBN 9780136015864   
+<a name="Back">Back</a>:
+Back, K., *A Course in Derivative Securities* 2005 Springer Finance ISBN 9783540253734   
 
-Tuckman B., Serrat A. *Fixed Income Securities Third Edition* 2012 Wiley Finance ISBN 9780470891698   
+<a name="Hull">Hull</a>:
+Hull, J., *Options, Futures and Other Derivatives Seventh Edition* 2008 Pearson/Prentice Hall ISBN 9780136015864   
 
+<a name="Tuckman">Tuckman</a>:
+Tuckman B. and Serrat A., *Fixed Income Securities Third Edition* 2012 Wiley Finance ISBN 9780470891698   
+
+<a name="CMT">CMT</a>:
+US Dept. of Treasury Daily Treasury Yield Curve Rates   
+https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yield   
+
+<a name="H15">H15</a>:
+US Federal Reserve Board Data Download Program   
+http://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15   
+
+<a name="Veronesi">Veronesi</a>:
 Veronesi P., *Fixed Income Securities* 2010 John Wiley & Sons ISBN 9780470109106
+
+<a name="MDC">MDC</a>:
+Wall Street Journal Market Data Center   
+http://online.wsj.com/mdc/public/page/mdc_bonds.html?mod=mdc_topnav_2_3010
+
+
 
 
 
