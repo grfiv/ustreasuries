@@ -103,19 +103,19 @@ devtools::install_github("grfiv/treasuries")
 References
 ----------
 
-<a name="Back">Back</a>: Back, K., *A Course in Derivative Securities* 2005 Springer Finance ISBN 9783540253734
+<a name="Back">\[Back\]</a>: Back, K., *A Course in Derivative Securities* 2005 Springer Finance ISBN 9783540253734
 
 <a name="Hull">\[Hull\]</a>: Hull, J., *Options, Futures and Other Derivatives Seventh Edition* 2008 Pearson/Prentice Hall ISBN 9780136015864
 
-<a name="Tuckman">Tuckman</a>: Tuckman B. and Serrat A., *Fixed Income Securities Third Edition* 2012 Wiley Finance ISBN 9780470891698
+<a name="Tuckman">\[Tuckman\]</a>: Tuckman B. and Serrat A., *Fixed Income Securities Third Edition* 2012 Wiley Finance ISBN 9780470891698
 
-<a name="CMT">CMT</a>: US Dept. of Treasury Daily Treasury Yield Curve Rates
+<a name="CMT">\[CMT\]</a>: US Dept. of Treasury Daily Treasury Yield Curve Rates
 <https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yield>
 
-<a name="H15">H15</a>: US Federal Reserve Board Data Download Program
+<a name="H15">\[H15\]</a>: US Federal Reserve Board Data Download Program
 <http://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15>
 
-<a name="Veronesi">Veronesi</a>: Veronesi P., *Fixed Income Securities* 2010 John Wiley & Sons ISBN 9780470109106
+<a name="Veronesi">\[Veronesi\]</a>: Veronesi P., *Fixed Income Securities* 2010 John Wiley & Sons ISBN 9780470109106
 
-<a name="MDC">MDC</a>: Wall Street Journal Market Data Center
+<a name="MDC">\[MDC\]</a>: Wall Street Journal Market Data Center
 <http://online.wsj.com/mdc/public/page/mdc_bonds.html?mod=mdc_topnav_2_3010>
