@@ -21,12 +21,14 @@
 #' @section Functions:
 #' \itemize{
 #'
-#' \item \bold{Treasury Rates}
+#' \item \bold{Treasury Rate Data}
 #'     \itemize{
 #'        \item \bold{CMTrates} downloads a data.frame with daily rates from 1962
-#'        \item \bold{PrintYieldCurves} prints one or more yield curves
-#'        \item \bold{APY} converts Constant-Maturity Treasury (CMT) yields to
+#'        \itemize{
+#'            \item \bold{PrintYieldCurves} prints one or more yield curves
+#'            \item \bold{APY} converts Constant-Maturity Treasury (CMT) yields to
 #'     Annualized Percentage Yields (APY)
+#'     }
 #'    }
 #'
 #'  \item \bold{Black Scholes Merton}
@@ -81,20 +83,25 @@
 #'
 #'  \item \bold{Installed but not yet tested and documented}
 #'      \itemize{
-#'          \item \bold{CashCall}
-#'          \item \bold{CashPut}
-#'          \item \bold{AssetCall}
-#'          \item \bold{AssetPut}
-#'          \item \bold{American_Put_Binomial}
-#'          \item \bold{American_Call_Dividend}
-#'          \item \bold{RhoFuturesCall}
-#'          \item \bold{RhoFuturesPut}
-#'          \item \bold{RhoFXCall}
-#'          \item \bold{RhoFXPut}
-#'          \item \bold{Black_Scholes_Call_Implied_Vol}
-#'          \item \bold{Black_Scholes_Put_Implied_Vol}
-#'          \item \bold{ImpVolCall}
-#'          \item \bold{ImpVolPut}
+#'          \item Digital
+#'          \itemize{
+#'              \item \bold{CashCall}
+#'              \item \bold{CashPut}
+#'              \item \bold{AssetCall}
+#'              \item \bold{AssetPut}
+#'            }
+#'          \item Greeks
+#'          \itemize{
+#'              \item \bold{RhoFuturesCall}
+#'              \item \bold{RhoFuturesPut}
+#'              \item \bold{RhoFXCall}
+#'              \item \bold{RhoFXPut}
+#'          }
+#'          \item American
+#'          \itemize{
+#'              \item \bold{American_Put_Binomial}
+#'              \item \bold{American_Call_Dividend}
+#'          }
 #'      }
 #' }
 #'

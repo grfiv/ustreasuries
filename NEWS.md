@@ -4,7 +4,7 @@
 --------
 
 ## Fifth Development Release 0.0.0.9004
-* ### Added References to README
+* ### Added References in README and project documentation
 * ### Changed **OptionGamma** to **Gamma**
 * ### Changed **USTreasuryRates** to **CMTrates**
 

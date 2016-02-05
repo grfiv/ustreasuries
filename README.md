@@ -3,16 +3,16 @@ ustreasuries
 
 [![DOI](https://zenodo.org/badge/5738/grfiv/ustreasuries.svg)](https://zenodo.org/badge/latestdoi/5738/grfiv/ustreasuries)
 
-### Treasury Rates
+### Treasury Rate Data
 
 *ustreasuries* is an R-language package which downloads daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day.
 
 -   Historical CMT data from 1962 to 2015 was sourced from the Federal Reserve's H15 dataset <sup>[H15](#H15)</sup>
 -   CMT data from 2016 onward is pulled in real time from an XML feed provided by the US Treasury Department <sup>[CMT](#CMT)</sup>
 
-### Derivative Pricing
+### Derivative Analysis
 
-Drawing primarily on **Hull, 7th edition** <sup>[Hull](#Hull)</sup> *ustreasuries* includes many options-pricing models, all the greeks and a number of utility functions, all of which have examples from Hull which demonstrate that they work correctly.
+Drawing primarily on **Hull, 7th edition** <sup>[Hull](#Hull)</sup> *ustreasuries* includes many options-pricing models, all the Greeks and a number of utility functions, all of which have examples from Hull which demonstrate that they work correctly.
 
 ------------------------------------------------------------------------
 
@@ -22,10 +22,10 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
 
 ### Functions
 
--   **Treasury Rates**
-    -   **CMTrates** downloads a data.frame with daily data from 1962
-    -   **PrintYieldCurves** prints one or more yield curves
-    -   **APY** converts Constant-Maturity Treasury (CMT) yields to Annualized Percentage Yields (APY)
+-   **Treasury Rate Data**
+    -   **CMTrates** downloads a data.frame with daily CMT data from 1962
+        -   **PrintYieldCurves** prints one or more CMT yield curves
+        -   **APY** converts Constant-Maturity Treasury (CMT) yields to Annualized Percentage Yields (APY)
 -   **Black-Scholes-Merton**
     -   **EuroCall** Calculate the price of a European call option with or without dividends
     -   **EuroPut** Calculate the price of a European put option with or without dividends
