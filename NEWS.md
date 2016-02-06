@@ -8,6 +8,8 @@
 * ### Changed **OptionGamma** to **Gamma**
 * ### Changed **USTreasuryRates** to **CMTrates**
 * ### Changed **CAGRd** to **CAGR**
+* ### Added discount factor functions
+    * #### **discount_factor**, **continuously_compounded_rate**
 
 -------------------------------------------------------------------------------
 --------

@@ -45,6 +45,9 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
         -   **CAGR** Calculate Compound Annual Growth Rate
         -   **r\_continuous** Convert from discrete to continuous CAGR
         -   **r\_discrete** Convert from continuous to discrete CAGR
+    -   **Discount Factors**
+        -   **discount\_factor** Calculate discount factor from CAGR
+        -   **continuously\_compounded\_rate** Calculate CAGR from discount factor
     -   **Put/Call Parity**
         -   **CallParity** Convert from a put-option price using put/call parity
         -   **PutParity** Convert from a call-option price using put/call parity

@@ -308,6 +308,68 @@ r_discrete <- function(r_c, compounding_periods_per_year) {
     return (m * (exp(r_c / m) - 1))
 }
 
+#' Calculate discount factor (Z(t, T)) from continuously-compounded annualized
+#' rate of interest (CAGR or r(t, T))
+#'
+#' \itemize{
+#'      \item See CAGR() to calculate continuously-compounded annualized rate of
+#'      interest (r(t, T)) from starting and ending asset values
+#'      \item See r_continuous() to calculate r(t, T) from discrete-period
+#'      interest rates
+#'      \item See continuously_compounded_rate() to calculate
+#'      continuously-compounded annualized rate of interest (r(t,T))
+#'      from a discount factor (Z(t, T))
+#'  }
+#'
+#' @note PV = Z(t,T) * $1
+#'
+#' @param cagr Compounded Annual Growth Rate: continuously-compounded annualized rate of
+#' interest (r(t, T))
+#' @param years number of (fractionalized) years: period that the discount factor
+#' effects
+#' @return Z(t, T)
+#' @references Veronesi Ch2 P29-38
+#' @examples
+#' # Veronesi Ch2 P38
+#' cagr  <- 0.018444
+#' years <- 13 / 52
+#' discount_factor(cagr, years) # 0.9953996
+#'
+#' @export
+discount_factor <- function(cagr, years) {
+    return(exp(-cagr* years))
+}
+
+#' Calculate continuously-compounded annualized rate of interest
+#' (CAGR or r(t, T)) from a discount factor (Z(t, T))
+#'
+#' \itemize{
+#'      \item See CAGR() to calculate continuously-compounded annualized rate of
+#'      interest (r(t, T)) from starting and ending asset values
+#'      \item See r_continuous() to calculate r(t, T) from discrete-period
+#'      interest rates
+#'      \item See discount_factor() to calculate  the discount factor (Z(t, T))
+#'      from a continuously-compounded annualized rate of interest (r(t,T))
+#'  }
+#'
+#' @note PV = Z(t,T) * $1
+#'
+#' @param d_f discount factor (Z(t, T))
+#' @param years number of (fractionalized) years: period that the discount factor
+#' effects
+#' @return r(t, T)
+#' @references Veronesi Ch2 P29-38
+#' @examples
+#' # Veronesi Ch2 P38
+#' d_f   <- 0.9953996
+#' years <- 13 / 52
+#' continuously_compounded_rate(d_f, years) # 0.018444
+#'
+#' @export
+continuously_compounded_rate <- function(d_f, years) {
+    return(-log(d_f) / years)
+}
+
 #' Intrinsic value of a call option
 #'
 #' The in-the-money portion of the option's premium

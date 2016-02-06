@@ -59,6 +59,11 @@
 #'                  \item \bold{r_continuous} Convert from discrete to continuous CAGR
 #'                  \item \bold{r_discrete} Convert from continuous to discrete CAGR
 #'              }
+#'           \item \bold{Discount Factors}
+#'              \itemize{
+#'                  \item \bold{discount_factor} Calculate discount factor from CAGR
+#'                  \item \bold{continuously_compounded_rate} Calculate CAGR from discount factor
+#'              }
 #'          \item \bold{Put/Call Parity}
 #'          \itemize{
 #'              \item \bold{CallParity} Convert from a put-option price using put/call parity
