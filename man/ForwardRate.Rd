@@ -22,4 +22,7 @@ forward rate of inteest
 The rate of interest for a period of time in the future implied by today's zero rates.
 (discrete compounding)
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

@@ -54,6 +54,9 @@ Income   <- 0
 ForwardPrice(Spot, Time, Interest, Yield, Income)
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull 7th edition Ch 5 P 103-108
 }

@@ -25,4 +25,7 @@ Exercise <- 15 # K
 IntrinsicValueCall(Stock, Exercise) # 10
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

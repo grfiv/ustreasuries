@@ -15,4 +15,7 @@ N(x)
 \description{
 Equivalent to the R function \emph{pnorm}
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

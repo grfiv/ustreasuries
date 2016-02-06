@@ -50,6 +50,9 @@ writeLines(paste0("The value of Vega is ", round(vega,1),   "\\n",
 ", from ", Stock, " to ", Stock+round((0.01 * vega), 3)))
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull, 7th edition ch 17 p373-375
 }

@@ -55,6 +55,9 @@ writeLines(paste0("ThetaCall:        ", round(thcall, 2), "\\n",
     "rKe:  ",rKe))
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull, 7th edition ch 17 p367-368
 }

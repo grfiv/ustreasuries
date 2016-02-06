@@ -89,16 +89,4 @@ test_that("TimeValueCall/TimeValuePut", {
     expect_equal(all.equal(puttv,  1.875, tolerance=0.0001), TRUE)
 })
 
-# Test discount_factor/continuously_compounded_rate
-# =================================================
-d_f   <- 0.9953996
-years <- 13 / 52
-cagr  <- 0.018444
 
-ccr <- continuously_compounded_rate(d_f, years) # 0.018444
-dcf <- discount_factor(cagr, years) # 0.9953996
-
-test_that("discount_factor/continuously_compounded_rate", {
-    expect_equal(all.equal(ccr, cagr, tolerance=0.0001), TRUE)
-    expect_equal(all.equal(dcf,  d_f, tolerance=0.0001), TRUE)
-})

@@ -21,39 +21,64 @@ knitr::opts_chunk$set(collapse=TRUE,                # hadley
 library(ustreasuries)
 ```
 
-* ## **CAGR** Calculate Compound Annual Growth Rate
-```{r CAGRd}
-# From Wikipedia
-# https://en.wikipedia.org/wiki/Compound_annual_growth_rate#Example
+* ## **CAGR** Calculate Compound Annual Growth Rates
+```{r CAGR}
+PV    <- 9000
+FV    <- 13000
+years <- 3
 
-Starting_value  <- 9000
-Ending_Value    <- 13000
-Number_of_years <- 3
+# geometric
+# =========
+(geometric  <- CAGR(9000, 13000, years, type="geometric"))
+9000 * (1 + geometric) ** years
 
-ans <- CAGR(Starting_value, Ending_Value, Number_of_years)
-
-writeLines(paste0(round(ans*100, 0), "%"))
+# continuous
+# ==========
+(continuous <- CAGR(9000, 13000, years, type="continuous"))
+9000 * exp(continuous * years)
 ```
-* ## **r_continuous** Convert from discrete to continuous CAGR
+* ## **r_continuous** Convert from discrete to continuous
 ```{r r_continuous}
-# Hull 7th edition Ch 5 P 107
-r_d                          <- 0.04
-compounding_periods_per_year <- 2
+discrete <- 0.04
+freq     <- 2     # 4% compounded semi annually
 
-ans <- r_continuous(r_d, compounding_periods_per_year)
-
-writeLines(paste0(round(ans,4)))
+(continuous <- r_continuous(discrete, freq))
 ```
-* ## **r_discrete** Convert from continuous to discrete CAGR
+* ## **r_discrete** Convert from continuous to discrete
 ```{r r_discrete}
-# reverse the example from Hull 7th edition Ch 5 P 107
-r_c                          <- 0.03960525
-compounding_periods_per_year <- 2
+PV    <- 9000
+FV    <- 13000
+years <- 3
+freq  <- 2   # compounding frequency = 2 => semi-annual
 
-ans <- r_discrete(r_c, compounding_periods_per_year)
+(continuous <- CAGR(PV, FV, years, type="continuous"))
+(discrete   <- r_discrete(continuous, freq))
 
-writeLines(paste0(round(ans,4)))
+PV * (1 + discrete / freq) ** (freq * years)
+
+PV * exp(continuous * years)
 ```
+
+* ## **discount_factor** Calculate discount factor Z(t, T)
+```{r discountfactor}
+PV    <- 9000
+FV    <- 13000
+years <- 3
+freq  <- 2   # compounding frequency = 2 => semi-annual
+
+(continuous <- CAGR(PV, FV, years, type="continuous"))
+(discrete   <- r_discrete(continuous, freq))
+
+(df_continuous <- discount_factor(continuous,  years))
+
+(df_discrete   <- discount_factor(discrete,  years, freq))
+
+FV * df_continuous
+FV * df_discrete
+
+all.equal(df_continuous, df_discrete) # df_continuous == df_discrete
+```
+
 * ## **CallParity** Convert from a put-option price using put/call parity
 * ## **PutParity** Convert from a call-option price using put/call parity
 ```{r CallParity}

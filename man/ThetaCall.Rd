@@ -48,6 +48,9 @@ writeLines(paste0("Theta:            ", round(thcall, 2),     "\\n",
                   "per trading day:  ", round(thcall/252, 4)))
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull, 7th edition ch 17 p367-368
 }

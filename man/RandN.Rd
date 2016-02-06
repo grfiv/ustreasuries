@@ -12,4 +12,7 @@ epsilon in N(0, 1)
 \description{
 Random number from a Gausiian distribution
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

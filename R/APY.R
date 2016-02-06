@@ -7,6 +7,9 @@
 #' @param percent boolean, if TRUE, i should be divided by 100
 #'                  (for example 7.87 becomes 0.0787)
 #' @return APY yield(s) as a decimal (not as a percent)
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #' @references
 #' Interest Rates - Frequently Asked Questions
 #'

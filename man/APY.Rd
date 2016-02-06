@@ -27,6 +27,9 @@ APY(CMT, percent=TRUE)
 #> [1] 0.08024842 0.08076816 0.08066420 0.08076816 0.08076816 0.08076816
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Interest Rates - Frequently Asked Questions
 

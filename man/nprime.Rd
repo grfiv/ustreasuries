@@ -20,4 +20,7 @@ Equivalent to the R function \emph{dnorm}
 \note{
 same function provided by \emph{nprime, Nprime, enprime}
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

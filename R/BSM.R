@@ -22,6 +22,9 @@
 #' @references
 #' Hull 7th edition Ch 13 P 291
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @examples
 #' # Hull 7th edition Ch 13 P 294
 #' Stock     <- 42
@@ -41,6 +44,9 @@ dOne <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 #' The d2 component of the Black-Scholes-Merton formula
 #' @inheritParams dOne
 #' @return d1
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @examples
 #' # Hull 7th edition Ch 13 P 294
@@ -149,16 +155,23 @@ AssetPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 #' @references
 #' Hull 7th edition Ch 13 P 291
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @examples
 #' # Hull 7th edition Ch 13 P 294
-#' Stock     <- 42
-#' Exercise  <- 40
-#' Time      <- 0.50
-#' Interest  <- 0.10
-#' Yield     <- 0
+#' Stock     <- 42    # S_0
+#' Exercise  <- 40    # K
+#' Time      <- 0.50  # T
+#' Interest  <- 0.10  # r
+#' Yield     <- 0     # q
 #' sigma     <- 0.20
 #' ans <- EuroCall(Stock, Exercise, Time, Interest, Yield, sigma)
-#' round(ans,2)
+#' round(ans,2)       # 4.76
+#'
+#' \dontrun{
+#' GenBS(Stock, Exercise, Interest, sigma, Time, Yield)
+#' }
 #'
 #' @export
 EuroCall <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
@@ -183,16 +196,23 @@ EuroCall <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 #' @references
 #' Hull 7th edition Ch 13 P 291
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @examples
 #' # Hull 7th edition Ch 13 P 294
-#' Stock     <- 42
-#' Exercise  <- 40
-#' Time      <- 0.50
-#' Interest  <- 0.10
-#' Yield     <- 0
+#' Stock     <- 42     # S_0
+#' Exercise  <- 40     # K
+#' Time      <- 0.50   # T
+#' Interest  <- 0.10   # r
+#' Yield     <- 0      # q
 #' sigma     <- 0.20
 #' ans <- EuroPut(Stock, Exercise, Time, Interest, Yield, sigma)
-#' round(ans,2)
+#' round(ans,2)        # 0.81
+#'
+#' \dontrun{
+#' GenBS(Stock, Exercise, Interest, sigma, Time, Yield)
+#' }
 #'
 #' @export
 EuroPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
@@ -271,6 +291,9 @@ American_Put_Binomial <- function(S0, K, r, sigma, q, Tm, N) {
 #' @inheritParams dOne
 #' @return The Delta of the call option
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @examples
 #' # Hull, 7th edition Ch 17 p 363
 #' library(ustreasuries)
@@ -313,6 +336,9 @@ DeltaCall <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 #'
 #' @inheritParams dOne
 #' @return The Delta of the put option
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #' @examples
 #' # Hull, 7th edition Ch 17 p 362,3
 #' library(ustreasuries)
@@ -364,6 +390,9 @@ DeltaPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 #' @return The Gamma of the option
 #' @references
 #' Hull, 7th edition Ch 17 p 369-373
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #' @examples
 #' # Hull, 7th edition Ch 17 p 371,2
 #' library(ustreasuries)
@@ -410,6 +439,9 @@ Gamma <- function (Stock, Exercise, Time, Interest, Yield, sigma) {
 #' @return The Theta of the call option
 #' @references
 #' Hull, 7th edition ch 17 p367-368
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #' @examples
 #' # Hull, 7th edition Ch 17 p 367
 #' library(ustreasuries)
@@ -455,6 +487,9 @@ ThetaCall <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 #'
 #' @references
 #' Hull, 7th edition ch 17 p367-368
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @examples
 #' # Hull, 7th edition Ch 17 p 367
@@ -513,6 +548,9 @@ ThetaPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 #'
 #' @references
 #' Hull, 7th edition ch 17 p373-375
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @examples
 #' # Hull, 7th edition Ch 17 p 375
@@ -585,6 +623,9 @@ RhoFXPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 #' @references
 #' Hull, 7th edition ch 17 p375-376
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @examples
 #' # Hull, 7th edition Ch 17 p 376
 #' library(ustreasuries)
@@ -619,6 +660,9 @@ RhoCall <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 #'
 #' @references
 #' Hull, 7th edition ch 17 p375-376
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @examples
 #' # Hull, 7th edition Ch 17 p 376
@@ -657,6 +701,9 @@ RhoPut <- function(Stock, Exercise, Time, Interest, Yield, sigma) {
 #' @references
 #' Hull, 7th edition ch 13 p296-297
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @examples
 #' # Hull, 7th edition ch 13 p296
 #' Stock      <- 21     # S_0
@@ -689,6 +736,9 @@ EuroCallVol <- function(Stock, Exercise, Time, Interest, Yield, Call_price) {
 #'
 #' @references
 #' Hull, 7th edition ch 13 p296-297
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @examples
 #' # Hull, 7th edition ch 13 p296

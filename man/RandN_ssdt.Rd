@@ -15,4 +15,7 @@ epsilon in N(0, ssdt)
 \description{
 random number from a Gausiian distribution with variance ssdt
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

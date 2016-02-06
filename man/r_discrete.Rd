@@ -4,26 +4,39 @@
 \alias{r_discrete}
 \title{Convert TO discrete compounding FROM continuous}
 \usage{
-r_discrete(r_c, compounding_periods_per_year)
+r_discrete(r_c, freq)
 }
 \arguments{
-\item{r_c}{the continuous CAGR returned from \emph{r_continuous}}
+\item{r_c}{the continuously compounded rate of return}
 
-\item{compounding_periods_per_year}{how often the rate is compounded (2 => semiannual)}
+\item{freq}{how often the discrete rate is compounded (2 => semiannual)}
 }
 \value{
 the discrete rate of return
 }
 \description{
-r_discrete = m * (exp(r_continuous / m) - 1)
-where m is the number of compounding periods per year
+Convert TO discrete compounding FROM continuous
+}
+\note{
+FV = PV * (1 + discrete / freq) ** (freq * years)
+
+FV = PV * exp(continuous * years)
 }
 \examples{
-# reverse the example from Hull 7th edition Ch 5 P 107
-r_c                          <- 0.03960525
-compounding_periods_per_year <- 2
-ans <- r_discrete(r_c, compounding_periods_per_year)
-writeLines(paste0(round(ans,4)))
+PV    <- 9000
+FV    <- 13000
+years <- 3
+freq  <- 2   # compounding frequency = 2 => semi-annual
 
+(r_continuous <- CAGR(PV, FV, years, type="continuous"))
+(r_discrete   <- r_discrete(r_continuous, freq))
+
+PV * (1 + r_discrete / freq) ** (freq * years)
+
+PV * exp(r_continuous * years)
+
+}
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
 }
 

@@ -35,4 +35,7 @@ PrintYieldCurves(dplyr::filter(all_data,
                    tabprt=TRUE)
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

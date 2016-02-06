@@ -44,6 +44,9 @@ rho <- RhoCall(Stock, Exercise, Time, Interest, Yield, sigma)
 round(rho, 2) # 8.91
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull, 7th edition ch 17 p375-376
 }

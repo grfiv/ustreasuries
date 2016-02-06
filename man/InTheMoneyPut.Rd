@@ -26,4 +26,7 @@ Exercise <- 37.50     # K
 InTheMoneyPut(Stock, Exercise)  # TRUE
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

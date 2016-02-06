@@ -4,32 +4,43 @@
 \alias{CAGR}
 \title{Compound Annual Growth Rate}
 \usage{
-CAGR(Starting_value, Ending_Value, Number_of_years)
+CAGR(PV, FV, fractional_years, type = "geometric")
 }
 \arguments{
-\item{Starting_value}{the price at the beginning of the period}
+\item{PV}{the price at the beginning of the period}
 
-\item{Ending_Value}{the price at the end of the period}
+\item{FV}{the price at the end of the period}
 
-\item{Number_of_years}{the length of the period in (fractional) years}
+\item{fractional_years}{the length of the period in (fractional) years}
+
+\item{type}{either "geometric" or "continuous"}
 }
 \value{
 the compounded rate of return, annualized
 }
 \description{
-Compound Annual Growth Rate
+\itemize{
+    \item \bold{geometric} FV = PV * (1 + geometric) ** years
+    \item \bold{continuous} FV = PV * exp(continuous * years)
+ }
 }
 \note{
 see \emph{r_continuous} and \emph{r_discrete}
 }
 \examples{
-# Wikipedia
-# https://en.wikipedia.org/wiki/Compound_annual_growth_rate#Example
-Starting_value  <- 9000
-Ending_Value    <- 13000
-Number_of_years <- 3
-ans <- CAGR(Starting_value, Ending_Value, Number_of_years)*100
-writeLines(paste0(round(ans,0),"\%"))
+PV    <- 9000
+FV    <- 13000
+years <- 3
+(geometric  <- CAGR(9000, 13000, years, type="geometric"))
+(continuous <- CAGR(9000, 13000, years, type="continuous"))
+9000 * (1 + geometric) ** years
+9000 * exp(continuous * years)
 
+\dontrun{
+error <- CAGR(9000, 13000, years, type="error")}
+
+}
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
 }
 

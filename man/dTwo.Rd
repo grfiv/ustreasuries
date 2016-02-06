@@ -37,4 +37,7 @@ ans <- dTwo(Stock, Exercise, Time, Interest, Yield, sigma)
 round(ans,4)
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

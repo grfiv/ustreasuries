@@ -21,6 +21,9 @@ p, the risk-neutral probability
 \description{
 Binomial tree risk-neutral probability
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull 7th edition Ch 19 P 409
 }

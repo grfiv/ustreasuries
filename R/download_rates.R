@@ -51,6 +51,9 @@
 #'
 #' @return \code{data.frame} containing daily rates from 1962 to the
 #'   most-recently completed business day.
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #' @references
 #'   Static Data
 #'

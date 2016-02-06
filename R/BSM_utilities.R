@@ -17,6 +17,9 @@
 #' @param x real number
 #' @return N(x)
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @export
 phi <- function(x) {
   # constants
@@ -50,6 +53,9 @@ phi <- function(x) {
 #' @inheritParams phi
 #' @aliases en N
 #' @return N(x)
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #' @examples
 #' for (x in seq(from=-5, to=5, by=0.1)) {
 #'    print(paste(x, en(x), pnorm(x), all.equal(en(x), pnorm(x), tolerance=0.01)))
@@ -69,6 +75,9 @@ en <- function(x) {
 #' @aliases nprime Nprime enprime
 #' @return N'(x)
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @export
 nprime <- function(x) {
     return(exp(-0.5 * x * x) / sqrt(2 * 3.1415926))
@@ -77,7 +86,11 @@ nprime <- function(x) {
 #' Produces a standard normal random variable 'epsilon'
 #'
 #' Random number from a Gausiian distribution
+#' @importFrom stats pnorm dnorm rnorm
 #' @return epsilon in N(0, 1)
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 RandN <- function() {
     nD <- rnorm(1000, 0, 1)
     return(sample(nD,1))
@@ -88,6 +101,9 @@ RandN <- function() {
 #' random number from a Gausiian distribution with variance ssdt
 #' @param ssdt variance
 #' @return epsilon in N(0, ssdt)
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 RandN_ssdt <- function(ssdt) {
     nD <- rnorm(1000, 0, ssdt)
     return(sample(nD,1))
@@ -102,6 +118,9 @@ RandN_ssdt <- function(ssdt) {
 #' @return p, the risk-neutral probability
 #' @references
 #' Hull 7th edition Ch 19 P 409
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @export
 RiskNeutralProb <- function(Interest, Yield, sigma, deltaT) {
@@ -118,6 +137,9 @@ RiskNeutralProb <- function(Interest, Yield, sigma, deltaT) {
 #' Call prices derived from put-call parity
 #' @inheritParams dOne
 #' @param Put_price the price of the put option to convert
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #' @examples
 #' # Hull 7th edition Ch 17 P 357
 #' library(ustreasuries)
@@ -149,6 +171,9 @@ CallParity <- function(Stock, Exercise, Time, Interest, Yield, Put_price) {
 #' Put prices derived from put-call parity
 #' @param Call_price the price of the call option to convert
 #' @inheritParams dOne
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #' @examples
 #' # Hull 7th edition Ch 17 P 357
 #' library(ustreasuries)
@@ -188,6 +213,9 @@ PutParity <- function(Stock, Exercise, Time, Interest, Yield, Call_price) {
 #' @param Yield q, asset yield with continuous compounding
 #' @param Income I, the PV of an asset's income
 #' @return the forward price
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @examples
 #' library(ustreasuries)
@@ -238,6 +266,9 @@ ForwardPrice <- function(Spot, Time, Interest, Yield, Income) {
 #' @param Time2 ending time
 #' @return forward rate of inteest
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @export
 ForwardRate <- function(SpotInterest1, Time1, SpotInterest2, Time2) {
     numerator   <- (1 + SpotInterest2) ** Time2
@@ -247,30 +278,51 @@ ForwardRate <- function(SpotInterest1, Time1, SpotInterest2, Time2) {
 
 #' Compound Annual Growth Rate
 #'
+#' \itemize{
+#'     \item \bold{geometric} FV = PV * (1 + geometric) ** years
+#'     \item \bold{continuous} FV = PV * exp(continuous * years)
+#'  }
+#'
 #' @note see \emph{r_continuous} and \emph{r_discrete}
-#' @param Starting_value the price at the beginning of the period
-#' @param Ending_Value the price at the end of the period
-#' @param Number_of_years the length of the period in (fractional) years
+#' @param PV the price at the beginning of the period
+#' @param FV the price at the end of the period
+#' @param fractional_years the length of the period in (fractional) years
+#' @param type either "geometric" or "continuous"
 #' @return the compounded rate of return, annualized
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @examples
-#' # Wikipedia
-#' # https://en.wikipedia.org/wiki/Compound_annual_growth_rate#Example
-#' Starting_value  <- 9000
-#' Ending_Value    <- 13000
-#' Number_of_years <- 3
-#' ans <- CAGR(Starting_value, Ending_Value, Number_of_years)*100
-#' writeLines(paste0(round(ans,0),"%"))
+#' PV    <- 9000
+#' FV    <- 13000
+#' years <- 3
+#' (geometric  <- CAGR(9000, 13000, years, type="geometric"))
+#' (continuous <- CAGR(9000, 13000, years, type="continuous"))
+#' 9000 * (1 + geometric) ** years
+#' 9000 * exp(continuous * years)
+#'
+#' \dontrun{
+#' error <- CAGR(9000, 13000, years, type="error")}
 #'
 #' @export
-CAGR <- function(Starting_value, Ending_Value, Number_of_years) {
-    return (((Ending_Value / Starting_value) ** (1 / Number_of_years)) - 1)
+CAGR <- function(PV, FV, fractional_years, type="geometric") {
+    if (type == "geometric")
+        return (((FV / PV) ** (1 / fractional_years)) - 1)
+
+    if (type == "continuous")
+        return (log(FV / PV) / fractional_years)
+
+    stop('CAGR takes type = ["geometric" | "continuous"]')
 }
 
 #' Convert TO continuous compounding FROM discrete
 #' @param r_d the discrete CAGR returned from \emph{CAGRd}
 #' @param compounding_periods_per_year how often the rate is compounded (2 => semiannual)
 #' @return the continuously-compounded rate of return
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @examples
 #' # Hull 7th edition Ch 5 P 107
@@ -288,86 +340,122 @@ r_continuous <- function(r_d, compounding_periods_per_year) {
 
 #' Convert TO discrete compounding FROM continuous
 #'
-#' r_discrete = m * (exp(r_continuous / m) - 1)
-#' where m is the number of compounding periods per year
+#' @note
+#' FV = PV * (1 + discrete / freq) ** (freq * years)
 #'
-#' @param r_c the continuous CAGR returned from \emph{r_continuous}
-#' @param compounding_periods_per_year how often the rate is compounded (2 => semiannual)
+#' FV = PV * exp(continuous * years)
+#'
+#' @param r_c the continuously compounded rate of return
+#' @param freq how often the discrete rate is compounded (2 => semiannual)
 #' @return the discrete rate of return
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #' @examples
-#' # reverse the example from Hull 7th edition Ch 5 P 107
-#' r_c                          <- 0.03960525
-#' compounding_periods_per_year <- 2
-#' ans <- r_discrete(r_c, compounding_periods_per_year)
-#' writeLines(paste0(round(ans,4)))
+#' PV    <- 9000
+#' FV    <- 13000
+#' years <- 3
+#' freq  <- 2   # compounding frequency = 2 => semi-annual
+#'
+#' (r_continuous <- CAGR(PV, FV, years, type="continuous"))
+#' (r_discrete   <- r_discrete(r_continuous, freq))
+#'
+#' PV * (1 + r_discrete / freq) ** (freq * years)
+#'
+#' PV * exp(r_continuous * years)
 #'
 #' @export
-r_discrete <- function(r_c, compounding_periods_per_year) {
-    m = compounding_periods_per_year
+r_discrete <- function(r_c, freq) {
+    m = freq
     return (m * (exp(r_c / m) - 1))
 }
 
-#' Calculate discount factor (Z(t, T)) from continuously-compounded annualized
-#' rate of interest (CAGR or r(t, T))
+#' Calculate discount factor Z(t, T)
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#' @param annual_rate the compounded annual rate of interest
+#' @param years number of (fractional) years
+#' @param pmt_freq frequency of compounding (optional)
 #' \itemize{
-#'      \item See CAGR() to calculate continuously-compounded annualized rate of
-#'      interest (r(t, T)) from starting and ending asset values
-#'      \item See r_continuous() to calculate r(t, T) from discrete-period
-#'      interest rates
-#'      \item See continuously_compounded_rate() to calculate
-#'      continuously-compounded annualized rate of interest (r(t,T))
-#'      from a discount factor (Z(t, T))
-#'  }
-#'
-#' @note PV = Z(t,T) * $1
-#'
-#' @param cagr Compounded Annual Growth Rate: continuously-compounded annualized rate of
-#' interest (r(t, T))
-#' @param years number of (fractionalized) years: period that the discount factor
-#' effects
+#'     \item numeric => discrete compounding (2 => semi annual)
+#'     \item Inf => continuous compounding (default)
+#'     }
 #' @return Z(t, T)
 #' @references Veronesi Ch2 P29-38
 #' @examples
-#' # Veronesi Ch2 P38
-#' cagr  <- 0.018444
-#' years <- 13 / 52
-#' discount_factor(cagr, years) # 0.9953996
+#' PV    <- 9000
+#' FV    <- 13000
+#' years <- 3
+#' freq  <- 2   # compounding frequency = 2 => semi-annual
+#'
+#' (continuous <- CAGR(PV, FV, years, type="continuous"))
+#' (discrete   <- r_discrete(r_continuous, freq))
+#'
+#' (df_continuous <- discount_factor(continuous,  years))
+#'
+#' (df_discrete   <- discount_factor(discrete,  years, freq))
+#'
+#' FV * df_continuous
+#' FV * df_discrete
+#'
+#' all.equal(df_continuous, df_discrete) # df_continuous == df_discrete
 #'
 #' @export
-discount_factor <- function(cagr, years) {
-    return(exp(-cagr* years))
+discount_factor <- function(annual_rate,  years, pmt_freq = Inf) {
+    # continuous compounding
+    if (pmt_freq == Inf) {
+        return(exp(-annual_rate * years))
+    }
+
+    # periodic compounding
+    return(1 / ( (1 + annual_rate / pmt_freq) ** (pmt_freq * years) ))
 }
 
-#' Calculate continuously-compounded annualized rate of interest
-#' (CAGR or r(t, T)) from a discount factor (Z(t, T))
+#' Calculate annualized interest rate r(t, T) from a discount factor Z(t, T)
 #'
-#' \itemize{
-#'      \item See CAGR() to calculate continuously-compounded annualized rate of
-#'      interest (r(t, T)) from starting and ending asset values
-#'      \item See r_continuous() to calculate r(t, T) from discrete-period
-#'      interest rates
-#'      \item See discount_factor() to calculate  the discount factor (Z(t, T))
-#'      from a continuously-compounded annualized rate of interest (r(t,T))
-#'  }
-#'
-#' @note PV = Z(t,T) * $1
-#'
-#' @param d_f discount factor (Z(t, T))
-#' @param years number of (fractionalized) years: period that the discount factor
+#' @param d_f discount factor Z(t, T)
+#' @param years number of (fractional) years: period that the discount factor
 #' effects
+#' @param pmt_freq frequency of compounding (optional)
+#' \itemize{
+#'     \item numeric => discrete compounding (2 => semi annual)
+#'     \item Inf => continuous compounding (default)
+#'     }
 #' @return r(t, T)
 #' @references Veronesi Ch2 P29-38
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #' @examples
-#' # Veronesi Ch2 P38
-#' d_f   <- 0.9953996
-#' years <- 13 / 52
-#' continuously_compounded_rate(d_f, years) # 0.018444
+#' PV    <- 9000
+#' FV    <- 13000
+#' years <- 3
+#' freq  <- 2   # compounding frequency = 2 => semi-annual
+#'
+#' # continuous interest rate
+#' # ========================
+#' (r_continuous  <- CAGR(9000, 13000, years, type="continuous"))
+#' (df_continuous <- discount_factor(r_continuous,  years))
+#' (c_ir          <- interest_rate(df_continuous, years))
+#' all.equal(r_continuous, c_ir)
+#'
+#' # discrete interest rate
+#' # ======================
+#' (r_discrete  <- r_discrete(r_continuous, freq))
+#' (df_discrete <- discount_factor(r_discrete,  years, freq))
+#' (d_ir        <- interest_rate(df_discrete,   years, freq))
+#' all.equal(r_discrete,   d_ir)
 #'
 #' @export
-continuously_compounded_rate <- function(d_f, years) {
-    return(-log(d_f) / years)
+interest_rate <- function(d_f, years, pmt_freq = Inf) {
+    # continuous compounding
+    if (pmt_freq == Inf) {
+        return(-log(d_f) / years)
+    }
+
+    # periodic compounding
+    pmt_freq * ((1 / (d_f**(1 / (pmt_freq * years)))) - 1)
 }
 
 #' Intrinsic value of a call option
@@ -377,6 +465,9 @@ continuously_compounded_rate <- function(d_f, years) {
 #' @param Stock S_0, the asset price
 #' @param Exercise K, the option strike price
 #' @return max(Stock - Exercise, 0)
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @examples
 #' # Investopia: Intrinsic Value
@@ -395,6 +486,9 @@ IntrinsicValueCall <- function(Stock, Exercise) {
 #' The in-the-money portion of the option's premium
 #'
 #' @inheritParams IntrinsicValueCall
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @examples
 #' # Investopia: Intrinsic Value
@@ -415,6 +509,9 @@ IntrinsicValuePut <- function(Stock, Exercise) {
 #' @inheritParams IntrinsicValueCall
 #' @return IntrinsicValueCall(Stock, Exercise) > 0
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @examples
 #' # http://www.call-options.com/in-the-money.html
 #' library(ustreasuries)
@@ -434,6 +531,9 @@ InTheMoneyCall <- function(Stock, Exercise) {
 #'
 #' @inheritParams IntrinsicValueCall
 #' @return IntrinsicValuePut(Stock, Exercise) > 0
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @examples
 #' # http://www.call-options.com/in-the-money.html
@@ -458,6 +558,9 @@ InTheMoneyPut <- function(Stock, Exercise) {
 #' @references
 #' Hull, 7th edition ch 8 p186
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @examples
 #' # Hull, 7th edition ch 8 p186
 #' Stock      <- 21     # S_0
@@ -480,6 +583,9 @@ TimeValuePut <- function(Stock, Exercise, Put_price) {
 #' @return The Time Value of the call option
 #' @references
 #' Hull, 7th edition ch 8 p186
+#'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
 #'
 #' @examples
 #' # Hull, 7th edition ch 8 p186

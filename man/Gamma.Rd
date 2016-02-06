@@ -45,6 +45,9 @@ gamma <- Gamma(Stock, Exercise, Time, Interest, Yield, sigma)
 round(gamma, 3) # 0.066
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull, 7th edition Ch 17 p 369-373
 }

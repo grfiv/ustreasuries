@@ -45,4 +45,7 @@ writeLines(paste0("Delta call: when the asset price changes by Delta_S,\\n",
                   "                the option price changes by Delta_S*",round(ans, 3)))
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

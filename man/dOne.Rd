@@ -37,6 +37,9 @@ ans <- dOne(Stock, Exercise, Time, Interest, Yield, sigma)
 round(ans,4)
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull 7th edition Ch 13 P 291
 }

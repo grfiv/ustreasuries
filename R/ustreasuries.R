@@ -55,14 +55,14 @@
 #'      \itemize{
 #'          \item \bold{CAGR}
 #'              \itemize{
-#'                  \item \bold{CAGR} Calculate Compound Annual Growth Rate
-#'                  \item \bold{r_continuous} Convert from discrete to continuous CAGR
-#'                  \item \bold{r_discrete} Convert from continuous to discrete CAGR
+#'                  \item \bold{CAGR} Calculate Compound Annual Growth Rate; geometric or continuous
+#'                  \item \bold{r_continuous} Convert from discrete to continuous
+#'                  \item \bold{r_discrete} Convert from continuous to discrete
 #'              }
 #'           \item \bold{Discount Factors}
 #'              \itemize{
-#'                  \item \bold{discount_factor} Calculate discount factor from CAGR
-#'                  \item \bold{continuously_compounded_rate} Calculate CAGR from discount factor
+#'                  \item \bold{discount_factor} Calculate discount factor Z(t, T)
+#'                  \item \bold{interest_rate} Calculate annualized interest rate r(t, T) from a discount factor Z(t, T)
 #'              }
 #'          \item \bold{Put/Call Parity}
 #'          \itemize{
@@ -148,6 +148,7 @@
 #'
 #' Hull, J., \emph{Options, Futures and Other Derivatives Seventh Edition} 2008 Pearson/Prentice Hall ISBN 9780136015864
 #'
+#'
 #' Tuckman B. and Serrat A., \emph{Fixed Income Securities Third Edition} 2012 Wiley Finance ISBN 9780470891698
 #'
 #' US Dept. of Treasury Daily Treasury Yield Curve Rates
@@ -156,10 +157,18 @@
 #' US Federal Reserve Board Data Download Program
 #' \url{http://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15}
 #'
+#' Varma, J. \emph{jrvFinance} v1.03
+#' \url{https://github.com/jrvarma/jrvFinance}
+#'
 #' Veronesi P., \emph{Fixed Income Securities} 2010 John Wiley & Sons ISBN 9780470109106
 #'
 #' Wall Street Journal Market Data Center
 #' \url{http://online.wsj.com/mdc/public/page/mdc_bonds.html?mod=mdc_topnav_2_3010}
+#'
+#' @author
+#' George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#' Pratik Biswas \email{pratik.k.biswas@gmail.com}
 #'
 #' @docType package
 #' @name ustreasuries

@@ -25,4 +25,7 @@ ans <- r_continuous(r_d, compounding_periods_per_year)
 writeLines(paste0(round(ans,4)))
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

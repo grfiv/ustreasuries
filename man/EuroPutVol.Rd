@@ -38,6 +38,9 @@ putvol <- EuroPutVol(Stock, Exercise, Time, Interest, Yield, Put_price)
 writeLines(paste0("Implied Put Volatility: ", round(putvol*100, 1), "\% per annum"))
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull, 7th edition ch 13 p296-297
 }

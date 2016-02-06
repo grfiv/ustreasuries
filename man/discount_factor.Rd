@@ -2,41 +2,48 @@
 % Please edit documentation in R/BSM_utilities.R
 \name{discount_factor}
 \alias{discount_factor}
-\title{Calculate discount factor (Z(t, T)) from continuously-compounded annualized
-rate of interest (CAGR or r(t, T))}
+\title{Calculate discount factor Z(t, T)}
 \usage{
-discount_factor(cagr, years)
+discount_factor(annual_rate, years, pmt_freq = Inf)
 }
 \arguments{
-\item{cagr}{Compounded Annual Growth Rate: continuously-compounded annualized rate of
-interest (r(t, T))}
+\item{annual_rate}{the compounded annual rate of interest}
 
-\item{years}{number of (fractionalized) years: period that the discount factor
-effects}
+\item{years}{number of (fractional) years}
+
+\item{pmt_freq}{frequency of compounding (optional)
+\itemize{
+    \item numeric => discrete compounding (2 => semi annual)
+    \item Inf => continuous compounding (default)
+    }}
 }
 \value{
 Z(t, T)
 }
 \description{
-\itemize{
-     \item See CAGR() to calculate continuously-compounded annualized rate of
-     interest (r(t, T)) from starting and ending asset values
-     \item See r_continuous() to calculate r(t, T) from discrete-period
-     interest rates
-     \item See continuously_compounded_rate() to calculate
-     continuously-compounded annualized rate of interest (r(t,T))
-     from a discount factor (Z(t, T))
- }
-}
-\note{
-PV = Z(t,T) * $1
+Calculate discount factor Z(t, T)
 }
 \examples{
-# Veronesi Ch2 P38
-cagr  <- 0.018444
-years <- 13 / 52
-discount_factor(cagr, years) # 0.9953996
+PV    <- 9000
+FV    <- 13000
+years <- 3
+freq  <- 2   # compounding frequency = 2 => semi-annual
 
+(continuous <- CAGR(PV, FV, years, type="continuous"))
+(discrete   <- r_discrete(r_continuous, freq))
+
+(df_continuous <- discount_factor(continuous,  years))
+
+(df_discrete   <- discount_factor(discrete,  years, freq))
+
+FV * df_continuous
+FV * df_discrete
+
+all.equal(df_continuous, df_discrete) # df_continuous == df_discrete
+
+}
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
 }
 \references{
 Veronesi Ch2 P29-38

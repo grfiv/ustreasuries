@@ -10,6 +10,9 @@
 #' @param tabprt if TRUE, print a table of the rate data used
 #' @return nothing: produces a plot and optionally a table
 #'
+#' @author George Fisher \email{GeorgeRFisher@gmail.com}
+#'
+#'
 #' @examples
 #' library(ustreasuries)
 #' all_data <- CMTrates()

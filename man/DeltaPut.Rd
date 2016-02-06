@@ -47,4 +47,7 @@ writeLines(paste0("Delta put: when the asset price changes by Delta_S,\\n",
                   "\\nDelta put = Delta call - 1? ", dput == dcall-1))
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

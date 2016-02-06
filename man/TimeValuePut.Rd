@@ -28,6 +28,9 @@ Put_price <- 1.875
 (puttv <- TimeValuePut(Stock, Exercise, Put_price))
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull, 7th edition ch 8 p186
 }

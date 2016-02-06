@@ -26,4 +26,7 @@ Exercise <- 35        # K
 InTheMoneyCall(Stock, Exercise)  # TRUE
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

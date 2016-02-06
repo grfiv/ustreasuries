@@ -47,4 +47,7 @@ writeLines(paste0("European Call Price: ", EC, "\\n",
                   "Difference:          ", EP-PP))
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

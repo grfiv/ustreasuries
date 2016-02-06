@@ -28,4 +28,7 @@ for (x in seq(from=-5, to=5, by=0.1)) {
     }
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

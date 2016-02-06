@@ -7,9 +7,10 @@
 * ### Added References in README and project documentation
 * ### Changed **OptionGamma** to **Gamma**
 * ### Changed **USTreasuryRates** to **CMTrates**
-* ### Changed **CAGRd** to **CAGR**
+* ### Changed **CAGRd** to **CAGR**, added geometric & continuous
 * ### Added discount factor functions
-    * #### **discount_factor**, **continuously_compounded_rate**
+    * ## **discount_factor**, **interest_rate**
+* ### Cited my use of Prof. Jayanth R Varma's *jrvarma* package
 
 -------------------------------------------------------------------------------
 --------

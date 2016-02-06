@@ -38,6 +38,9 @@ callvol <- EuroCallVol(Stock, Exercise, Time, Interest, Yield, Call_price)
 writeLines(paste0("Implied Call Volatility: ", round(callvol*100, 1), "\% per annum"))
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull, 7th edition ch 13 p296-297
 }

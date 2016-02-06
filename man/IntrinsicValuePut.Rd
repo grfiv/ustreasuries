@@ -22,4 +22,7 @@ Exercise <- 25 # K
 IntrinsicValuePut(Stock, Exercise) # 10
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 

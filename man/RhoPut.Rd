@@ -46,6 +46,9 @@ writeLines(paste0("RhoCall:  ", round(rhocall, 2), "\\n",
                   "RhoPut:  ", round(rhoput, 2)))
 
 }
+\author{
+George Fisher \email{GeorgeRFisher@gmail.com}
+}
 \references{
 Hull, 7th edition ch 17 p375-376
 }

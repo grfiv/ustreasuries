@@ -42,12 +42,12 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     -   **RhoPut** the sensitivity to changes in the risk-free rate of return
 -   **Utility Functions**
     -   **CAGR**
-        -   **CAGR** Calculate Compound Annual Growth Rate
-        -   **r\_continuous** Convert from discrete to continuous CAGR
-        -   **r\_discrete** Convert from continuous to discrete CAGR
+        -   **CAGR** Calculate Compound Annual Growth Rate; geometric or continuous
+        -   **r\_continuous** Convert from discrete to continuous
+        -   **r\_discrete** Convert from continuous to discrete
     -   **Discount Factors**
-        -   **discount\_factor** Calculate discount factor from CAGR
-        -   **continuously\_compounded\_rate** Calculate CAGR from discount factor
+        -   **discount\_factor** Calculate discount factor Z(t, T)
+        -   **interest\_rate** Calculate annualized interest rate r(t, T) from a discount factor Z(t, T)
     -   **Put/Call Parity**
         -   **CallParity** Convert from a put-option price using put/call parity
         -   **PutParity** Convert from a call-option price using put/call parity
@@ -117,6 +117,9 @@ References
 
 <a name="H15">\[H15\]</a>: US Federal Reserve Board Data Download Program
 <http://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15>
+
+<a name="Varma">\[Varma\]</a>:
+Varma, J. *jrvFinance* v1.03 (<https://github.com/jrvarma/jrvFinance>)
 
 <a name="Veronesi">\[Veronesi\]</a>: Veronesi P., *Fixed Income Securities* 2010 John Wiley & Sons ISBN 9780470109106
 
