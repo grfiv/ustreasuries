@@ -41,6 +41,10 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     -   **RhoCall** the sensitivity to changes in the risk-free rate of return
     -   **RhoPut** the sensitivity to changes in the risk-free rate of return
 -   **Utility Functions**
+    -   **Bonds**
+        -   **Nelson.Siegel** Estimation of the Nelson-Siegel parameters
+        -   **NSrates** Interest rates of the Nelson-Siegel model
+        -   **Nelson.Siegel.plot** Plot the actual and Nelson.Siegel Yield Curves
     -   **CAGR**
         -   **CAGR** Calculate Compound Annual Growth Rate; geometric or continuous
         -   **r\_continuous** Convert from discrete to continuous
