@@ -115,7 +115,7 @@ function( rate, maturity=c(1/12, 3/12, 6/12, 1,2,3,5,7,10,20,30) )
 #' head(NSrates(NSParameters))
 #'
 #' @export
-`NSrates` <- function ( Coeff, maturity=c(1/12, 3/12, 6/12, 1,2,3,5,7,10,20,30) )
+`NSrates` <- function (Coeff, maturity=c(1/12, 3/12, 6/12, 1,2,3,5,7,10,20,30))
 {
     Curve <- xts::xts(matrix( 0, nrow(Coeff), length(maturity) ), order.by=time(Coeff))
     colnames(Curve) <- make.names(maturity)
@@ -128,6 +128,51 @@ function( rate, maturity=c(1/12, 3/12, 6/12, 1,2,3,5,7,10,20,30) )
             as.numeric(Coeff[i,3]) * as.numeric(.factorBeta2(Coeff[i,4], maturity ))
     }
     return( Curve )
+}
+
+#' Convert NSrates to discount factors Z(0, T)
+#'
+#' @description Returns the discount factors associated with Nelson Seigel fitted rates
+#'
+#' @details \eqn{Z(0, T) = e^{-r(0, T) * T}}
+#'
+#' @param NS_rates the value returned by the \code{NSrates()} function
+#' @return \code{data.frame} rownames are the dates,
+#' colnames are the time to maturity in character format preceded by "X"
+#'
+#' @author
+#' George Fisher
+#'
+#' @references
+#' Veronesi, P., \emph{Fixed Income Securities} p67
+#'
+#' @examples
+#' library(ustreasuries)
+#' all_data <- CMTrates()
+#'
+#' rate.CMT    <- dplyr::filter(all_data,
+#'                                all_data$NEW_DATE>=Sys.Date()-10 &
+#'                                all_data$NEW_DATE<=Sys.Date())
+#'
+#' NSParameters <- Nelson.Siegel(rate=rate.CMT)
+#'
+#' head(NSzeros(NSrates(NSParameters)))
+#'
+#' @export
+NSzeros <- function(NS_rates) {
+    # function to generate Z(0, T) = exp(-r(0, T) * T)
+    # see p 67 of Veronesi
+    foo <- function(r) {
+        # extract T from the column name
+        T <- unname(sapply(names(r),
+                           function(x) unname(as.numeric(substr(x,2,nchar(x))))))
+
+        # NOTE: r(0, T) is divided by 100 '(r/100)'
+        #       because the data is in "percent" format
+        #       7.82 means 7.82%, 0.0782
+        return(exp(-(r/100) * T))
+    }
+    return(data.frame(t(apply(NS_rates, 1, foo))))
 }
 
 `.beta1Spot` <- function(maturity, tau)
@@ -351,3 +396,67 @@ function( rate, maturity=c(1/12, 3/12, 6/12, 1,2,3,5,7,10,20,30) )
                col    = c("black", "red"),
                cex    = 1.00)
     }
+
+#' Plot Z(0, T) and r(0, T)
+#'
+#' @description Plot the discount factors and fitted rates derived from the NSrates and NSzeros functions
+#'
+#' @param r an xts list of NSrates
+#' @param Z a data.frame list of NSzeros
+#' @return a plot
+#'
+#' @author George Fisher
+#'
+#' @examples
+#' library(ustreasuries)
+#' all_data <- CMTrates()
+#'
+#' rate.CMT    <- dplyr::filter(all_data,
+#'                         all_data$NEW_DATE>=Sys.Date()-10 &
+#'                         all_data$NEW_DATE<=Sys.Date())
+#' NSParameters <- Nelson.Siegel(rate=rate.CMT)
+#'
+#' r <- NSrates(NSParameters)[1,]           # r(0, T)
+#' Z <- NSzeros(NSrates(NSParameters))[1,]  # Z(0, T)
+#'
+#' NSzeros.plot(r, Z)
+#'
+#'
+#' @export
+NSzeros.plot <- function(r, Z) {
+    r <- unlist(r)
+    Z <- unlist(Z)
+    if (ncol(r) != length(Z)) {
+        stop("ncol(r) must equal length(Z)")
+    }
+    title <- paste0("Zeros Derived from Nelson Seigel Rates for ",
+                    rownames(data.frame(r)))
+    plot(1:length(Z), Z,
+         ylim = c(min(Z,r),max(Z,r)), ylab="Interest Rate/Discount Factor",
+         xaxt = "n", xlab = '',
+         main = title, pch = 20)
+
+    labelDF <- data.frame(X0.08="1MONTH", X0.25="3MONTH", X0.5="6MONTH",  X1="1YEAR",
+                          X2="2YEAR",    X3="3YEAR",    X5="5YEAR",    X7="7YEAR",
+                          X10="10YEAR",   X20="20YEAR",   X30="30YEAR",
+                          stringsAsFactors = FALSE)
+    labelIdx <- unname(sapply(names(Z),
+                              function(x) paste0("X",
+                                                 round(as.numeric(substr(x, 2, nchar(x))),
+                                                       digits=2))))
+    x_labels <- unname(sapply(labelIdx, function(x) labelDF[1,x]))
+    axis(1, at     = axTicks(1),
+         labels = x_labels[axTicks(1)])
+
+    points(1:ncol(r), r, col="red", pch=20)
+
+    text(1,r[[1]],paste0(round(r[[1]],digits=4),"%"),pos=4,col="red")
+    text(1,Z[1],round(Z[1],digits=4),pos=4)
+
+    text(ncol(r), r[[ncol(r)]], paste0(round(r[[11]],digits=4),"%"),pos=2,col="red")
+    text(length(Z), Z[length(Z)],   round(Z[length(Z)],digits=4),pos=2)
+
+    legend("top",c("Zeros","Rates"),pch=c(20,20),col=c("black","red"))
+    grid()
+    abline(h=1, lty=3)
+}

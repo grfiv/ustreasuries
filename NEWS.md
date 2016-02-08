@@ -13,7 +13,7 @@
 * ### Cited my use of Prof. Jayanth R Varma's *jrvFinance* package Lic: GPL (>=2)
 * ### **CMTrates** modified to to add attr(..., "data.source") <- "CMT"
 * ### Added **xts (>= 0.9.7)** to DESCRIPTION Imports
-* ### Added **Nelson.Siegel**, **NSrates**, **Nelson.Siegel.plot**
+* ### Added **Nelson.Siegel**, **NSrates**, **NSzeros**, **Nelson.Siegel.plot**, **NSzeros.plot**
 
 -------------------------------------------------------------------------------
 --------

@@ -68,7 +68,9 @@ including all the 'greeks' for derivative analysis.
              \itemize{
                  \item \bold{Nelson.Siegel} Estimation of the Nelson-Siegel parameters
                  \item \bold{NSrates} Interest rates of the Nelson-Siegel model
+                 \item \bold{NSzeros} Convert NSrates to discount factors Z(0, T)
                  \item \bold{Nelson.Siegel.plot} Plot the actual and Nelson.Siegel Yield Curves
+                 \item \bold{NSzeros.plot} Plot Z(0, T) and r(0, T)
              }
      }
      \itemize{
@@ -178,9 +180,6 @@ arbitrary marginals}. International Journal of Risk Assessment and Management, 1
 September 2011.
 
 Hull, J., \emph{Options, Futures and Other Derivatives Seventh Edition} 2008 Pearson/Prentice Hall ISBN 9780136015864
-
-
-Tuckman B. and Serrat A., \emph{Fixed Income Securities Third Edition} 2012 Wiley Finance ISBN 9780470891698
 
 US Dept. of Treasury Daily Treasury Yield Curve Rates
 \url{https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yield}

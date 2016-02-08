@@ -44,7 +44,9 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     -   **Bonds**
         -   **Nelson.Siegel** Estimation of the Nelson-Siegel parameters
         -   **NSrates** Interest rates of the Nelson-Siegel model
+        -   **NSzeros** Convert NSrates to discount factors Z(0, T)
         -   **Nelson.Siegel.plot** Plot the actual and Nelson.Siegel Yield Curves
+        -   **NSzeros.plot** Plot Z(0, T) and r(0, T)
     -   **CAGR**
         -   **CAGR** Calculate Compound Annual Growth Rate; geometric or continuous
         -   **r\_continuous** Convert from discrete to continuous
@@ -115,8 +117,6 @@ References
 <a name="Consiglio">\[Consiglio\]</a>: Consiglio A. and Guirreri S.S. *Simulating the Term Structure of Interest Rates with arbitrary marginals*. International Journal of Risk Assessment and Management, 15(4), September 2011.
 
 <a name="Hull">\[Hull\]</a>: Hull, J., *Options, Futures and Other Derivatives Seventh Edition* 2008 Pearson/Prentice Hall ISBN 9780136015864
-
-<a name="Tuckman">\[Tuckman\]</a>: Tuckman B. and Serrat A., *Fixed Income Securities Third Edition* 2012 Wiley Finance ISBN 9780470891698
 
 <a name="CMT">\[CMT\]</a>: US Dept. of Treasury Daily Treasury Yield Curve Rates
 <https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yield>
