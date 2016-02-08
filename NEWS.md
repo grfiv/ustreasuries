@@ -9,8 +9,11 @@
 * ### Changed **USTreasuryRates** to **CMTrates**
 * ### Changed **CAGRd** to **CAGR**, added geometric & continuous
 * ### Added discount factor functions
-    * ## **discount_factor**, **interest_rate**
-* ### Cited my use of Prof. Jayanth R Varma's *jrvarma* package
+    * ### **discount_factor**, **interest_rate**
+* ### Cited my use of Prof. Jayanth R Varma's *jrvFinance* package Lic: GPL (>=2)
+* ### **CMTrates** modified to to add attr(..., "data.source") <- "CMT"
+* ### Added **xts (>= 0.9.7)** to DESCRIPTION Imports
+* ### Added **Nelson.Siegel**, **NSrates**, **Nelson.Siegel.plot**
 
 -------------------------------------------------------------------------------
 --------

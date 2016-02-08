@@ -108,6 +108,8 @@ References
 
 <a name="Back">\[Back\]</a>: Back, K., *A Course in Derivative Securities* 2005 Springer Finance ISBN 9783540253734
 
+<a name="Consiglio">\[Consiglio\]</a>: Consiglio A. and Guirreri S.S. *Simulating the Term Structure of Interest Rates with arbitrary marginals*. International Journal of Risk Assessment and Management, 15(4), September 2011.
+
 <a name="Hull">\[Hull\]</a>: Hull, J., *Options, Futures and Other Derivatives Seventh Edition* 2008 Pearson/Prentice Hall ISBN 9780136015864
 
 <a name="Tuckman">\[Tuckman\]</a>: Tuckman B. and Serrat A., *Fixed Income Securities Third Edition* 2012 Wiley Finance ISBN 9780470891698

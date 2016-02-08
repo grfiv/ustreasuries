@@ -52,6 +52,14 @@
 #'      }
 #'
 #'  \item \bold{Utility Functions}
+#'  \itemize{
+#'          \item \bold{Bonds}
+#'              \itemize{
+#'                  \item \bold{Nelson.Siegel} Estimation of the Nelson-Siegel parameters
+#'                  \item \bold{NSrates} Interest rates of the Nelson-Siegel model
+#'                  \item \bold{Nelson.Siegel.plot} Plot the actual and Nelson.Siegel Yield Curves
+#'              }
+#'      }
 #'      \itemize{
 #'          \item \bold{CAGR}
 #'              \itemize{
@@ -145,6 +153,10 @@
 #'
 #' @references
 #' Back, K., \emph{A Course in Derivative Securities} 2005 Springer Finance ISBN 9783540253734
+#'
+#' Consiglio A. and Guirreri S.S. \emph{Simulating the Term Structure of Interest Rates with
+#' arbitrary marginals}. International Journal of Risk Assessment and Management, 15(4),
+#' September 2011.
 #'
 #' Hull, J., \emph{Options, Futures and Other Derivatives Seventh Edition} 2008 Pearson/Prentice Hall ISBN 9780136015864
 #'

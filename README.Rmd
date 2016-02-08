@@ -52,6 +52,10 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     * **RhoCall** the sensitivity to changes in the risk-free rate of return
     * **RhoPut** the sensitivity to changes in the risk-free rate of return
 * **Utility Functions**
+    * **Bonds**   
+        * **Nelson.Siegel** Estimation of the Nelson-Siegel parameters
+        * **NSrates** Interest rates of the Nelson-Siegel model
+        * **Nelson.Siegel.plot** Plot the actual and Nelson.Siegel Yield Curves
     * **CAGR**
         * **CAGR** Calculate Compound Annual Growth Rate; geometric or continuous
         * **r_continuous** Convert from discrete to continuous
@@ -119,7 +123,12 @@ devtools::install_github("grfiv/treasuries")
 ## References
 
 <a name="Back">[Back]</a>:
-Back, K., *A Course in Derivative Securities* 2005 Springer Finance ISBN 9783540253734   
+Back, K., *A Course in Derivative Securities* 2005 Springer Finance ISBN 9783540253734 
+
+<a name="Consiglio">[Consiglio]</a>:
+Consiglio A. and Guirreri S.S. *Simulating the Term Structure of Interest Rates with
+  arbitrary marginals*. International Journal of Risk Assessment and Management, 15(4),
+  September 2011.
 
 <a name="Hull">[Hull]</a>:
 Hull, J., *Options, Futures and Other Derivatives Seventh Edition* 2008 Pearson/Prentice Hall ISBN 9780136015864   

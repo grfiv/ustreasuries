@@ -32,7 +32,7 @@ freq  <- 2   # compounding frequency = 2 => semi-annual
 
 # continuous interest rate
 # ========================
-(r_continuous  <- CAGR(9000, 13000, years, type="continuous"))
+(r_continuous  <- CAGR(PV, FV, years, type="continuous"))
 (df_continuous <- discount_factor(r_continuous,  years))
 (c_ir          <- interest_rate(df_continuous, years))
 all.equal(r_continuous, c_ir)

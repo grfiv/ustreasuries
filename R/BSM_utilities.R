@@ -390,7 +390,7 @@ r_discrete <- function(r_c, freq) {
 #' freq  <- 2   # compounding frequency = 2 => semi-annual
 #'
 #' (continuous <- CAGR(PV, FV, years, type="continuous"))
-#' (discrete   <- r_discrete(r_continuous, freq))
+#' (discrete   <- r_discrete(continuous, freq))
 #'
 #' (df_continuous <- discount_factor(continuous,  years))
 #'
@@ -435,7 +435,7 @@ discount_factor <- function(annual_rate,  years, pmt_freq = Inf) {
 #'
 #' # continuous interest rate
 #' # ========================
-#' (r_continuous  <- CAGR(9000, 13000, years, type="continuous"))
+#' (r_continuous  <- CAGR(PV, FV, years, type="continuous"))
 #' (df_continuous <- discount_factor(r_continuous,  years))
 #' (c_ir          <- interest_rate(df_continuous, years))
 #' all.equal(r_continuous, c_ir)
@@ -455,7 +455,7 @@ interest_rate <- function(d_f, years, pmt_freq = Inf) {
     }
 
     # periodic compounding
-    pmt_freq * ((1 / (d_f**(1 / (pmt_freq * years)))) - 1)
+    return(pmt_freq * ((1 / (d_f**(1 / (pmt_freq * years)))) - 1))
 }
 
 #' Intrinsic value of a call option

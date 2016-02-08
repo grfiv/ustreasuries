@@ -50,7 +50,8 @@
 #'   Y30 1977-02-15
 #'
 #' @return \code{data.frame} containing daily rates from 1962 to the
-#'   most-recently completed business day.
+#'   most-recently completed business day. The class has c("ustreasuries", "CMT")
+#'   appended so that the data.frame can be identified by other functions.
 #'
 #' @author George Fisher \email{GeorgeRFisher@gmail.com}
 #'
@@ -160,10 +161,13 @@ CMTrates <- function() {
                                                   elements)
     }
 
-    # ====================================================
-    # sort and return the FRB_H15_1962_2015_mod data.frame
-    # ====================================================
+    # ============================================================
+    # sort the FRB_H15_1962_2015_mod data.frame
+    #   add an attribute so we can identify it in other functions
+    #      and return it
+    # ============================================================
     FRB_H15_1962_2015_mod <- dplyr::arrange(FRB_H15_1962_2015_mod, NEW_DATE)
+    attr(FRB_H15_1962_2015_mod, "data.source") <- "CMT"
     return(FRB_H15_1962_2015_mod)
 }
 

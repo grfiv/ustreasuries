@@ -8,7 +8,8 @@ CMTrates()
 }
 \value{
 \code{data.frame} containing daily rates from 1962 to the
-  most-recently completed business day.
+  most-recently completed business day. The class has c("ustreasuries", "CMT")
+  appended so that the data.frame can be identified by other functions.
 }
 \description{
 For the dates 1962-01-02 to 2015-12-31 the data is retrieved from a static

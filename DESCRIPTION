@@ -18,7 +18,8 @@ Imports:
     knitr    (>= 1.12.3),
     pbivnorm (>= 0.6.0),
     RCurl    (>= 1.95.4.7),
-    XML      (>= 3.98.1.3)
+    XML      (>= 3.98.1.3),
+    xts      (>= 0.9.7)
 Depends:
     R (>= 3.2.3)
 RoxygenNote: 5.0.1

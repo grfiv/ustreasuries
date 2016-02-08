@@ -1,8 +1,9 @@
 library(ustreasuries)
 context("Test data download")
 
-test_that("class of dataset downloaded is as expected", {
+test_that("class and attr of dataset downloaded is as expected", {
     expect_equal(class(CMTrates()),c('tbl_df', 'tbl', 'data.frame'))
+    expect_equal(attr(CMTrates(), "data.source"), "CMT")
 })
 test_that("names of columns are as expected", {
     expect_equal(names(CMTrates()),c("Id", "NEW_DATE", "BC_1MONTH",

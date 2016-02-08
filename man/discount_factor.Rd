@@ -30,7 +30,7 @@ years <- 3
 freq  <- 2   # compounding frequency = 2 => semi-annual
 
 (continuous <- CAGR(PV, FV, years, type="continuous"))
-(discrete   <- r_discrete(r_continuous, freq))
+(discrete   <- r_discrete(continuous, freq))
 
 (df_continuous <- discount_factor(continuous,  years))
 
