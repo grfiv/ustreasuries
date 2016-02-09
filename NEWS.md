@@ -14,6 +14,7 @@
 * ### **CMTrates** modified to to add attr(..., "data.source") <- "CMT"
 * ### Added **xts (>= 0.9.7)** to DESCRIPTION Imports
 * ### Added **Nelson.Siegel**, **NSrates**, **NSzeros**, **Nelson.Siegel.plot**, **NSzeros.plot**
+* ### Added **FedInvestData** Return treasury bond price data from 2010
 
 -------------------------------------------------------------------------------
 --------

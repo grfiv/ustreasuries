@@ -31,7 +31,6 @@ Z <- NSzeros(NSrates(NSParameters))[1,]  # Z(0, T)
 
 NSzeros.plot(r, Z)
 
-
 }
 \author{
 George Fisher

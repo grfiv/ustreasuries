@@ -25,7 +25,8 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
 -   **Treasury Rate Data**
     -   **CMTrates** downloads a data.frame with daily CMT data from 1962
         -   **PrintYieldCurves** prints one or more CMT yield curves
-        -   **APY** converts Constant-Maturity Treasury (CMT) yields to Annualized Percentage Yields (APY)
+        -   **APY** converts Constant-Maturity Treasury (CMT) yields to Annualized
+    -   **FedInvestData** Return treasury bond price data from 2010 Percentage Yields (APY)
 -   **Black-Scholes-Merton**
     -   **EuroCall** Calculate the price of a European call option with or without dividends
     -   **EuroPut** Calculate the price of a European put option with or without dividends

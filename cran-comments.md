@@ -9,11 +9,17 @@ This is the initial submission of the *ustreasuries* package.
 ## R CMD check results
 
 * For devtools::check() locally, there were no ERRORs, WARNINGs or NOTEs.
+
 * For devtools::build_win() there was one NOTE   
-     *checking CRAN incoming feasibility ... NOTE   
+    * *checking CRAN incoming feasibility ... NOTE   
     Maintainer: 'George Fisher <george@georgefisher.com>'   
     New submission   
     Version contains large components (0.0.0.9000)*
+    
+    * There was also this remark: "*Examples with CPU or elapsed time > 5s*"    
+    I am surprised it took so long, but there is one real-time data download    
+    function that retrieves a lot of data and adds it to a large static    
+    private file   
 
 ## Downstream dependencies
 

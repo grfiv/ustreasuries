@@ -40,6 +40,7 @@ including all the 'greeks' for derivative analysis.
            \item \bold{APY} converts Constant-Maturity Treasury (CMT) yields to
     Annualized Percentage Yields (APY)
     }
+    \item \bold{FedInvestData} Return treasury bond price data from 2010
    }
 
  \item \bold{Black Scholes Merton}

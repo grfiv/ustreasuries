@@ -21,3 +21,10 @@ test_that("Test NSrates", {
     expect_equal(all.equal(NS_rates[[1]], 0.255056, tolerance=0.000001), TRUE)
 })
 
+# Test NSzeros
+# ==================
+NS_zeros <- NSzeros(NSrates(NSParameters))
+test_that("Test NSzeros", {
+    expect_equal(all.equal(NS_zeros[[1]][1], 0.9997875, tolerance=0.000001), TRUE)
+})
+

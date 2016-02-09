@@ -91,6 +91,9 @@ CMTrates <- function() {
     if (file.exists("sysdata.rda"))
         load(file="sysdata.rda")
 
+    # remove the superfluous FedInvest_historical_data file
+    #if (exists("FedInvest_historical_data")) rm("FedInvest_historical_data")
+
     # ============================================
     # append the rates from 2016 to current year
     # by downloading the near-real-time XML stream
@@ -169,5 +172,142 @@ CMTrates <- function() {
     FRB_H15_1962_2015_mod <- dplyr::arrange(FRB_H15_1962_2015_mod, NEW_DATE)
     attr(FRB_H15_1962_2015_mod, "data.source") <- "CMT"
     return(FRB_H15_1962_2015_mod)
+}
+
+#' Return treasury bond price data from 2010
+#'
+#' @description The FedInvest site provides rate and price data on a daily basis
+#' for approximately 400 Treasury securites. This function returns all that data
+#' from 2010 to the last-completed business day.
+#'
+#' @return data.frame containing the FedInvest data from 2010 to the most-recently
+#' completed business day
+#'
+#' @details The columns of the data.frame returned
+#' \itemize{
+#'     \item \bold{CUSIP}  Committee on Uniform Security Identification
+#'     Procedures' nine-character, alphanumeric security identification code
+#'     \item \bold{SECURITY.TYPE}
+#'        \itemize{
+#'            \item MARKET BASED BILL
+#'            \item MARKET BASED NOTE
+#'            \item MARKET BASED BOND
+#'            \item TIPS
+#'            \item MARKET BASED FRN
+#'            }
+#'     \item \bold{RATE}
+#'     \item \bold{MATURITY.DATE}
+#'     \item \bold{CALL.DATE} All \code{NA}
+#'     \item \bold{BUY}
+#'     \item \bold{SELL}
+#'     \item \bold{END.OF.DAY}
+#'     \item \bold{Date} Date for which the data was retrieved
+#'     }
+#'
+#'
+#' @author
+#' George Fisher
+#'
+#' @references
+#' US Dept. of the Treasury FedInvest Historical Prices
+#' \url{https://www.treasurydirect.gov/GA-FI/FedInvest/selectSecurityPriceDate.htm}
+#'
+#' @examples
+#' library(ustreasuries)
+#' fedinvest_data <- FedInvestData()
+#' head(fedinvest_data)
+#' tail(fedinvest_data)
+#'
+#'
+#' @export
+FedInvestData <- function() {
+
+    # =================================
+    # Load the FedInvest data from 2010
+    # by loading a static data file
+    # =================================
+    if (file.exists("R/sysdata.rda"))
+        load(file="R/sysdata.rda")
+    if (file.exists("sysdata.rda"))
+        load(file="sysdata.rda")
+
+    # get rid of the superfluous CMT file
+    #if (exists("FRB_H15_1962_2015_mod")) rm("FRB_H15_1962_2015_mod")
+
+    # the FedInvest history page
+    post_url <- "https://www.treasurydirect.gov/GA-FI/FedInvest/selectSecurityPriceDate.htm"
+
+    # retrieve all the forms on this page
+    forms    <- rvest::html_form(xml2::read_html(post_url))
+
+    # this data.frame will accumulate the data
+    df       <- data.frame(CUSIP         = character(),
+                           SECURITY.TYPE = character(),
+                           RATE          = character(),
+                           MATURITY.DATE = character(),
+                           CALL.DATE     = character(),
+                           BUY           = numeric(),
+                           SELL          = numeric(),
+                           END.OF.DAY    = numeric(),
+                           DATE          = as.Date(character()),
+                           stringsAsFactors=FALSE)
+
+    # this is the list of dates to iterate over
+    # from the date after the history ened
+    #    to today
+    date_seq = seq(as.Date("2016/02/09", "%Y/%m/%d"),
+                   as.Date(format(Sys.Date(), "%Y/%m/%d")), "days")
+
+    # for each date in date_seq,
+    #   fill the form
+    #     submit it and retrieve the data
+    #        append to 'df'
+    for (dt in date_seq) {
+
+        dte <- as.Date(dt, origin = "1970-01-01")
+        if (weekdays(dte) %in% c("Saturday","Sunday")) next
+
+        # ---------------------- fill the form ----------------------
+        yr <- format(dte,"%Y")
+        mo <- format(dte,"%m")
+        dy <- format(dte,"%d")
+
+        this_date <- as.Date(paste0(mo,"/",dy,"/",yr),"%m/%d/%Y")
+
+        values    <- rvest::set_values(forms[[2]],
+                                       priceDate.month = mo,
+                                       priceDate.day   = dy,
+                                       priceDate.year  = yr)
+        # ---------------------- fill the form ----------------------
+
+        # submit the form and retrieve the data
+        submit <- rvest::submit_form(session = rvest::html_session(post_url),
+                                     form    = values)
+        prices <- data.frame(rvest::html_table(submit))
+
+        # a normal response has 8 columns
+        # errors are reported via a 3-column empty respose
+        if (ncol(prices) != 8) next
+
+        # add a field to show the date of the data
+        #   append to 'df'
+        prices$Date <- this_date
+        df          <- rbind(df, prices)
+    }
+
+    # batch convert the MATURITY.DATE to date format
+    df$MATURITY.DATE <- as.Date(df$MATURITY.DATE, "%m/%d/%Y")
+
+    # ==============================================================================
+    # add the temporary 'df' data.frame to the bottom of FedInvest_historical_data
+    # ==============================================================================
+    FedInvest_historical_data <- dplyr::bind_rows(FedInvest_historical_data,
+                                                  df)
+    # ====================================================
+    # add the attribute so we know what kind of data it is
+    # ====================================================
+    attr(FedInvest_historical_data, "data.source") <- "FedInvest"
+
+    return(FedInvest_historical_data)
 }
 

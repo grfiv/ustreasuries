@@ -1,18 +1,21 @@
 library(ustreasuries)
 context("Test data download")
 
-test_that("class and attr of dataset downloaded is as expected", {
+# Test CMTrates
+# =============
+
+test_that("class and attr of CMTrates is as expected", {
     expect_equal(class(CMTrates()),c('tbl_df', 'tbl', 'data.frame'))
     expect_equal(attr(CMTrates(), "data.source"), "CMT")
 })
-test_that("names of columns are as expected", {
+test_that("names of columns are as expected for CMTrates", {
     expect_equal(names(CMTrates()),c("Id", "NEW_DATE", "BC_1MONTH",
                                             "BC_3MONTH","BC_6MONTH","BC_1YEAR",
                                             "BC_2YEAR","BC_3YEAR","BC_5YEAR",
                                             "BC_7YEAR","BC_10YEAR","BC_20YEAR",
                                             "BC_30YEAR","BC_30YEARDISPLAY"))
 })
-test_that("classes of columns are as expected", {
+test_that("classes of columns of CMTrates are as expected", {
     expect_equal(unname(sapply(CMTrates(), class)),
                  c("numeric","Date","numeric","numeric","numeric","numeric",
                    "numeric","numeric","numeric","numeric","numeric","numeric",
@@ -46,4 +49,26 @@ test_that("first non-NA dates are as expected", {
 
 test_that("number of rows is as expected", {
     expect_lte(all_data$NEW_DATE[nrow(all_data)], Sys.Date())
+})
+
+# Test FedInvestData
+# ==================
+
+fedinvest_data <- FedInvestData()
+
+test_that("class and attr of FedInvestData is as expected", {
+    expect_equal(class(fedinvest_data),c('tbl_df', 'tbl', 'data.frame'))
+    expect_equal(attr(fedinvest_data, "data.source"), "FedInvest")
+})
+
+test_that("names of columns are as expected for FedInvestData", {
+    expect_equal(names(fedinvest_data),c("CUSIP", "SECURITY.TYPE", "RATE",
+                                         "MATURITY.DATE", "CALL.DATE", "BUY",
+                                         "SELL", "END.OF.DAY", "Date") )
+})
+
+test_that("classes of columns of FedInvestData are as expected", {
+    expect_equal(unname(sapply(fedinvest_data, class)),
+                 c("character", "character", "character", "Date", "logical",
+                 "numeric", "numeric", "numeric", "Date") )
 })

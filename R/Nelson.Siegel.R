@@ -421,6 +421,7 @@ NSzeros <- function(NS_rates) {
 #'
 #' NSzeros.plot(r, Z)
 #'
+#' @importFrom graphics abline
 #'
 #' @export
 NSzeros.plot <- function(r, Z) {
