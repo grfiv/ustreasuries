@@ -23,13 +23,13 @@
 #'
 #' \item \bold{Treasury Rate Data}
 #'     \itemize{
-#'        \item \bold{CMTrates} downloads a data.frame with daily rates from 1962
+#'        \item \bold{CMTrates} downloads real-time daily CMT data from 1962
 #'        \itemize{
 #'            \item \bold{PrintYieldCurves} prints one or more yield curves
 #'            \item \bold{APY} converts Constant-Maturity Treasury (CMT) yields to
 #'     Annualized Percentage Yields (APY)
 #'     }
-#'     \item \bold{FedInvestData} Return treasury bond price data from 2010
+#'     \item \bold{FedInvestData} downloads real-time treasury bond price data from 2010
 #'    }
 #'
 #'  \item \bold{Black Scholes Merton}

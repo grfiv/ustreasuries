@@ -10,50 +10,174 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+## Summary
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+US Treasury bonds are the standard by which all other bonds in the world are measured:   
 
-## Vignette Info
+* The US Treasury bond market is the most-active and most-liquid securities market in the world   
+* US Treasury bonds are the liabilities of the largest economy in the world  
+* Whatever the political chatter, the US is seen as the world's safest haven and in times of stress US Treasury bonds are where the world moves its money   
+* Again, polemics notwithstanding, the US is deemed almost-certainly secure and therefore the interest paid on US Treasury bonds is used as the 'risk-free' rate in all financial analyses (LIBOR was used for this until the world learned of the corruption in the City of London)
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+On the Internet, there is a lot of static/stale US Treasury bond data and some of these sources show up in various `R` packages. This package provides *real-time* daily **interest-rate** information for the US Treasury yield curve from 1962 to the present and *real-time* daily US Treasury bond **price** information for about 400 different bonds going back to 2010. More data downloads are planned.   
 
-## Styles
+In addition to data, this package is steadily adding to its collection of analyses that can be performed on the data: 
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+* basic bond analysis such as CAGR, YTM, discount factors, etc.   
+* yield-curve and other term-structure display   
+* term-structure and discount-factor derivation using the Nelson-Seigel and Svensson techniques   
+* Black-Scholes-Merton derivative functions including all the 'Greeks'.
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
+The help facility for the package, `?ustreasuries` has a current list of all the facilities available and each function's documentation is current. Several vignettes are also listed.   
 
-## Figures
+We have a current GitHub presence and have made several formal releases of the package as the development process has moved forward: https://github.com/grfiv/ustreasuries The README file is kept current and a Wiki has been built.   
 
-The figure sizes have been customised so that you can easily put two images side-by-side. 
+It is our intention to distribute a prime-time version on CRAN when we get to a suitable point.
 
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+## Authors
+
+The authors of this package are Pratik Biswas and George Fisher. The contributions of each can be seen in the file structure under the `R/` directory:
+
+Pratik:   
+
+* BSM.R   
+* BSM_utilities.R   
+
+George:   
+
+* APY.R   
+* download_rates.R  
+* PrintYieldCurves.R   
+* ustreasuries.R   
+
+In addition, we made modifications to code found in the YieldCurve package (GSL<=2):   
+
+* Nelson.Siegel.R   
+
+## Code Samples
+
+### US Treasury CMT data download   
+
+The `CMTrates()` function downloads daily Constant Maturity Treasury (CMT) rates
+into a data.frame with   
+
+* One row per day from January 1962 to the most-recently completed business
+day; 1962-2015 data is static, having been drawn from the Federal Reserve’s
+H15 dataset (US Federal Reserve Board), the more-recent data is pulled in
+real time from an XML stream provided by the US Treasury (US Treasury
+Department)   
+* Columns
+    * **Id** an integer added by the XML download from the Treasury
+    * **NEW_DATE** "%Y-%m-%d" formatted date
+    * **BC_maturity** the data is in 'percent’' format where 7.82 means 7.82%   
+    
+```{r cmtdownload,message=FALSE}
+library(ustreasuries)
+all_data = CMTrates()
+head(all_data)
+# Note that different maturities have different start dates
+# see ?CMTrates for details
+tail(all_data)
+# Note the most-recent date relative to the date of the download
+format(Sys.Date(), "%A %Y-%m-%d")
+```   
+
+### CMT Yield Curves   
+
+Yield curves can tell very interesting stories, particularly those during 'interesting'
+times. Below is a sampling of the CMT yield curves during the time of the 2006-2009
+financial crisis:   
+```{r YC_fincrisis,fig.cap="**Note the extremes: 2006 flat (black) ... odd; 2007 inverted (red) ... hurricane warnings; 2009 steep (blue) ... after the crash and Fed intervention**",fig.width=7,fig.height=7}
+PrintYieldCurves(dplyr::filter(all_data,
+        all_data$NEW_DATE>=as.Date("2006-01-01") &
+        all_data$NEW_DATE<=as.Date("2009-12-31")),
+    rows=c(1, 272, 272*2, 272*3),
+    title="Yield Curves Before & During the Financial Crisis")
+```   
+
+### Fitting CMT Rates with Nelson Seigel
+The Nelson Seigel model (*Nelson and Seigel, 1987*) is described as follows (*Veronesi,
+2010*)   
+
+* For a maturity of $T$ in fractional years, the discount factor is given by
+$$Z ( 0, T ) = e^{− r ( 0,T ) T}$$   
+* The equivalent interest rate is derived
+$$r ( 0, T ) = \beta_0 + ( \beta_1 + \beta_2 ) \frac{1-e^{-T/\lambda}}{T/\lambda}-\beta_2 e^{-T/\lambda}$$ 
+* The modeled price, given a semi-annual coupon $c$ and $n$ payments is   
+$$P_{model} =  100 \times \left( \frac{c}{2} \sum_{j=1}^n Z(0, T_j) + Z(0, T_n) \right)  $$
+    
+* The squared difference between the modeled price and the observed price for
+a collection of bonds is minimized to estimate $\{\beta_0, \beta_1, \beta_2, \lambda\}$   
+
+The *YieldCurve* package (*Consiglio and Guirreri, 2011*) has a **Nelson.Seigel()**
+function that we modified to accomodate our data to produce $\{\beta_0, \beta_1, \beta_2, \lambda\}$ in the following:   
+
+```{r NS_betas}
+rate.CMT <- dplyr::filter(all_data,
+                            all_data$NEW_DATE>=Sys.Date()-10 &
+                            all_data$NEW_DATE<=Sys.Date())
+NSParameters <- Nelson.Siegel(rate=rate.CMT)
+head(NSParameters, n=2L)
+```   
+Using the parameters so derived, a collection of $r ( 0, T )$ were produced with the
+**NSrates()** function, where the column headings represent $T$ in fractional years
+(prefixed by $X$ ) and the data values are in 'percent' format, where 7.82 means
+7.82%, 0.0782:   
+
+```{r NS_rates}
+head(NSrates(NSParameters), n=2L)
+```   
+
+```{r NS_plot,fig.height=7,fig.width=7,fig.cap="**Most-recent yield curve and the Nelson Seigel fit**"}
+Nelson.Siegel.plot(rate.CMT, NSrates(NSParameters), rows=nrow(rate.CMT))
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+The discount factors $Z(0, T)$ can also be derived
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+```{r NS_zerosplot,fig.height=7,fig.width=7,fig.cap="**Zeros derived from Nelson Seigel Rates**"}
+n <- dim(NSParameters)[1]
+r <- NSrates(NSParameters)[n,]            # r(0, T)
+Z <- NSzeros(NSrates(NSParameters))[n,]   # Z(0, T)
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+NSzeros.plot(r, Z)
 ```
 
-Also a quote using `>`:
+### FedInvest Treasury Bond Data   
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+*data.frame* containing the FedInvest data from 2010 to the most-recently completed business day   
+
+The columns of the data.frame returned   
+
+* **CUSIP** Committee on Uniform Security Identification Procedures’ nine-character, alphanumeric security identification code
+* **SECURITY.TYPE**   
+
+    – MARKET BASED BILL   
+    – MARKET BASED NOTE   
+    – MARKET BASED BOND   
+    – TIPS   
+    – MARKET BASED FRN      
+    
+* **RATE**
+* **MATURITY.DATE**
+* **CALL.DATE** All `NA`
+* **BUY**
+* **SELL**
+* **END.OF.DAY**
+* **Date** Date for which the data was retrieved
+
+```{r fedinvest_data, message=FALSE}
+fedinvest_data <- FedInvestData()
+
+head(fedinvest_data)
+tail(fedinvest_data)
+```
+
+# Environment
+```{r enviroment}
+sessionInfo()
+```
+
+
+
+
+
