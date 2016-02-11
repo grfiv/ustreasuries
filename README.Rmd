@@ -17,10 +17,12 @@ ustreasuries
 [![DOI](https://zenodo.org/badge/5738/grfiv/ustreasuries.svg)](https://zenodo.org/badge/latestdoi/5738/grfiv/ustreasuries)
 
 ### Treasury Rate Data   
-*ustreasuries* is an R-language package which downloads daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day.   
+*ustreasuries* is an R-language package which downloads 
+    * daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day.   
+    * daily prices for 400 Treasury securities from 2010 to the most-recently completed business day.   
 
-* CMT data from 2016 onward is pulled in real time from an XML feed provided by the US Treasury Department <sup>[CMT](#CMT)</sup>   
-* Historical CMT data from 1962 to 2015 was sourced from the Federal Reserve's H15 dataset <sup>[H15](#H15)</sup>   
+### Bond Analysis   
+Several models such as Nelso Seigel and Svensson are provided   
 
 ### Derivative Analysis   
 Drawing primarily on **Hull, 7th edition** <sup>[Hull](#Hull)</sup> *ustreasuries* includes many options-pricing models, all the Greeks and a number of utility functions, all of which have examples from Hull which demonstrate that they work correctly.
