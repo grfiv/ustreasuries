@@ -4,7 +4,7 @@ author: "Pratik Biswas, George Fisher SUID 05714524"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{"ustreasuries package summary"}
+  %\VignetteIndexEntry{"ustreasuries-package-summary"}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
@@ -45,7 +45,7 @@ Pratik:
 
 George:   
 
-* APY.R   
+* BondMath.R   
 * download_rates.R  
 * PrintYieldCurves.R   
 * ustreasuries.R   

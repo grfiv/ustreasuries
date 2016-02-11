@@ -4,6 +4,8 @@
 --------
 
 ## Sixth Development Release 0.0.0.9005
+* ### Extensive miscellaneous cleanup and refactoring
+* ### Added rudimentary bond math
 
 -------------------------------------------------------------------------------
 --------
