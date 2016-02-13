@@ -1,9 +1,7 @@
-ustreasuries
-============
+ustreasuries [![DOI](https://zenodo.org/badge/5738/grfiv/ustreasuries.svg)](https://zenodo.org/badge/latestdoi/5738/grfiv/ustreasuries)
+=======================================================================================================================================
 
-[![DOI](https://zenodo.org/badge/5738/grfiv/ustreasuries.svg)](https://zenodo.org/badge/latestdoi/5738/grfiv/ustreasuries)
-
-### Treasury Rate Data
+### US Treasury Bond Data
 
 -   Real-Time downloads of
     -   daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day
