@@ -5,14 +5,13 @@ ustreasuries
 
 ### Treasury Rate Data
 
-*ustreasuries* is an R-language package which downloads
-
-    * daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day.   
-    * daily prices for 400 Treasury securities from 2010 to the most-recently completed business day.   
+-   Real-Time downloads of
+    -   daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day
+    -   daily prices for 400 Treasury securities from 2010 to the most-recently completed business day
 
 ### Bond Analysis
 
-Several models such as Nelso Seigel and Svensson are provided
+Several models such as Nelson Seigel and Svensson are provided
 
 ### Derivative Analysis
 

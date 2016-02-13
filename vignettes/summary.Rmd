@@ -16,8 +16,8 @@ US Treasury bonds are the standard by which all other bonds in the world are mea
 
 * The US Treasury bond market is the most-active and most-liquid securities market in the world   
 * US Treasury bonds are the liabilities of the largest economy in the world  
-* Whatever the political chatter, the US is seen as the world's safest haven and in times of stress US Treasury bonds are where the world moves its money   
-* Again, polemics notwithstanding, the US is deemed almost-certainly secure and therefore the interest paid on US Treasury bonds is used as the 'risk-free' rate in all financial analyses (LIBOR was used for this until the world learned of the corruption in the City of London)
+* The US is universally seen as the world's safest haven and in times of stress US Treasury bonds are where the world moves its money   
+* The US is deemed almost-certainly secure and therefore the interest paid on US Treasury bonds is used as the 'risk-free' rate in all financial analyses (LIBOR was used for this until the world learned of the corruption in the City of London)
 
 On the Internet, there is a lot of static/stale US Treasury bond data and some of these sources show up in various `R` packages. This package provides *real-time* daily **interest-rate** information for the US Treasury yield curve from 1962 to the present and *real-time* daily US Treasury bond **price** information for about 400 different bonds going back to 2010. More data downloads are planned.   
 
