@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640">
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Ustreasuries by grfiv</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/grfiv/ustreasuries">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Ustreasuries</h1>
+            <h2>R Package: Download US Treasury Yields; All options functions including all the &#39;greeks&#39;</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/grfiv/ustreasuries/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/grfiv/ustreasuries/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>
+<a id="ustreasuries" class="anchor" href="#ustreasuries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ustreasuries</h1>
+
+<p><a href="https://zenodo.org/badge/latestdoi/5738/grfiv/ustreasuries"><img src="https://zenodo.org/badge/5738/grfiv/ustreasuries.svg" alt="DOI"></a></p>
+
+<h3>
+<a id="treasury-rate-data" class="anchor" href="#treasury-rate-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Treasury Rate Data</h3>
+
+<p><em>ustreasuries</em> is an R-language package which downloads</p>
+
+<pre><code>* daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day.   
+* daily prices for 400 Treasury securities from 2010 to the most-recently completed business day.   
+</code></pre>
+
+<h3>
+<a id="bond-analysis" class="anchor" href="#bond-analysis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bond Analysis</h3>
+
+<p>Several models such as Nelso Seigel and Svensson are provided</p>
+
+<h3>
+<a id="derivative-analysis" class="anchor" href="#derivative-analysis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Derivative Analysis</h3>
+
+<p>Drawing primarily on <strong>Hull, 7th edition</strong> <sup><a href="#Hull">Hull</a></sup> <em>ustreasuries</em> includes many options-pricing models, all the Greeks and a number of utility functions, all of which have examples from Hull which demonstrate that they work correctly.</p>
+
+<hr>
+
+<h3>
+<a id="wiki" class="anchor" href="#wiki" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Wiki</h3>
+
+<p>See the <a href="https://github.com/grfiv/ustreasuries/wiki">GitHub Wiki</a> for examples of the use of all the functions.</p>
+
+<h3>
+<a id="functions" class="anchor" href="#functions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Functions</h3>
+
+<ul>
+<li>  <strong>Treasury Rate Data</strong>
+
+<ul>
+<li>  <strong>CMTrates</strong> downloads real-time daily CMT data from 1962
+
+<ul>
+<li>  <strong>PrintYieldCurves</strong> prints one or more CMT yield curves</li>
+<li>  <strong>APY</strong> converts Constant-Maturity Treasury (CMT) yields to Annualized Percentage Yields (APY)</li>
+</ul>
+</li>
+<li>  <strong>FedInvestData</strong> downloads real-time treasury bond price data from 2010</li>
+</ul>
+</li>
+<li>  <strong>Black-Scholes-Merton</strong>
+
+<ul>
+<li>  <strong>EuroCall</strong> Calculate the price of a European call option with or without dividends</li>
+<li>  <strong>EuroPut</strong> Calculate the price of a European put option with or without dividends</li>
+<li>  <strong>EuroCallVol</strong> Implied Volatility for a European Call option</li>
+<li>  <strong>EuroPutlVol</strong> Implied Volatility for a European Put option</li>
+</ul>
+</li>
+<li>  <strong>Greeks</strong>
+
+<ul>
+<li>  <strong>DeltaCall</strong> Amount call-option price changes given a change in asset price</li>
+<li>  <strong>DeltaPut</strong> Amount put-option price changes given a change in asset price</li>
+<li>  <strong>ThetaCall</strong> the decay in the value of a call or a portfolio of calls as time passes</li>
+<li>  <strong>ThetaPut</strong> the decay in the value of a put or a portfolio of puts as time passes</li>
+<li>  <strong>Gamma</strong> the change in Delta with respect to asset price</li>
+<li>  <strong>Vega</strong> the sensitivity to changes in the volatility of the underlying</li>
+<li>  <strong>RhoCall</strong> the sensitivity to changes in the risk-free rate of return</li>
+<li>  <strong>RhoPut</strong> the sensitivity to changes in the risk-free rate of return</li>
+</ul>
+</li>
+<li>  <strong>Utility Functions</strong>
+
+<ul>
+<li>  <strong>Bonds</strong>
+
+<ul>
+<li>  <strong>Nelson.Siegel</strong> Estimation of the Nelson-Siegel parameters</li>
+<li>  <strong>NSrates</strong> Interest rates of the Nelson-Siegel model</li>
+<li>  <strong>NSzeros</strong> Convert NSrates to discount factors Z(0, T)</li>
+<li>  <strong>Nelson.Siegel.plot</strong> Plot the actual and Nelson.Siegel Yield Curves</li>
+<li>  <strong>NSzeros.plot</strong> Plot Z(0, T) and r(0, T)</li>
+</ul>
+</li>
+<li>  <strong>CAGR</strong>
+
+<ul>
+<li>  <strong>CAGR</strong> Calculate Compound Annual Growth Rate; geometric or continuous</li>
+<li>  <strong>r_continuous</strong> Convert from discrete to continuous</li>
+<li>  <strong>r_discrete</strong> Convert from continuous to discrete</li>
+</ul>
+</li>
+<li>  <strong>Discount Factors</strong>
+
+<ul>
+<li>  <strong>discount_factor</strong> Calculate discount factor Z(t, T)</li>
+<li>  <strong>interest_rate</strong> Calculate annualized interest rate r(t, T) from a discount factor Z(t, T)</li>
+</ul>
+</li>
+<li>  <strong>Put/Call Parity</strong>
+
+<ul>
+<li>  <strong>CallParity</strong> Convert from a put-option price using put/call parity</li>
+<li>  <strong>PutParity</strong> Convert from a call-option price using put/call parity</li>
+</ul>
+</li>
+<li>  <strong>Risk Neutral/Forwards</strong>
+
+<ul>
+<li>  <strong>RiskNeutralProb</strong> Binomial tree risk-neutral probability</li>
+<li>  <strong>ForwardPrice</strong> Forward price with or without income or yield</li>
+<li>  <strong>ForwardRate</strong> Forward rate from Time1 to Time2 (discrete compounding)</li>
+</ul>
+</li>
+<li>  <strong>Options</strong>
+
+<ul>
+<li>  <strong>IntrinsicValueCall</strong> / <strong>IntrinsicValuePut</strong> the in-the-money portion of an option's premium</li>
+<li>  <strong>TimeValueCall</strong> / <strong>TimeValuePut</strong> Price = Intrinsic + Time</li>
+<li>  <strong>InTheMoneyCall</strong> / <strong>InTheMoneyPut</strong> Is an option in the money?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>  <strong>Installed but not yet tested or documented</strong>
+
+<ul>
+<li>  Digital
+
+<ul>
+<li>  <strong>CashCall</strong>
+</li>
+<li>  <strong>CashPut</strong>
+</li>
+<li>  <strong>AssetCall</strong>
+</li>
+<li>  <strong>AssetPut</strong>
+</li>
+</ul>
+</li>
+<li>  Greeks
+
+<ul>
+<li>  <strong>RhoFuturesCall</strong>
+</li>
+<li>  <strong>RhoFuturesPut</strong>
+</li>
+<li>  <strong>RhoFXCall</strong>
+</li>
+<li>  <strong>RhoFXPut</strong>
+</li>
+</ul>
+</li>
+<li>  American
+
+<ul>
+<li>  <strong>American_Put_Binomial</strong>
+</li>
+<li>  <strong>American_Call_Dividend</strong>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<h4>
+<a id="all-of-the-derivatives-functions-have-examples-drawn-from-hull-7th-edition-hull-to-demonstrate-their-correctness" class="anchor" href="#all-of-the-derivatives-functions-have-examples-drawn-from-hull-7th-edition-hull-to-demonstrate-their-correctness" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>All of the derivatives functions have examples drawn from <strong>Hull, 7th edition</strong> <sup><a href="#Hull">Hull</a></sup> to demonstrate their correctness.</h4>
+
+<p>See <a href="https://github.com/grfiv/BlackScholesMerton">https://github.com/grfiv/BlackScholesMerton</a> for these functions written in Python and Excel VBA</p>
+
+<p>See also <a href="http://www.philadelphia-reflections.com/topic/230.htm">http://www.philadelphia-reflections.com/topic/230.htm</a></p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>We're not on CRAN yet; get the development version from GitHub:</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># see https://github.com/hadley/devtools for the</span>
+<span class="pl-c"># best procedure to install *devtools* on your</span>
+<span class="pl-c"># system; Windows in particular has somewhat</span>
+<span class="pl-c"># complicated requirements</span>
+
+<span class="pl-e">devtools</span><span class="pl-k">::</span>install_github(<span class="pl-s"><span class="pl-pds">"</span>grfiv/treasuries<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"># Notes: </span>
+<span class="pl-c">#    1. Add 'build_vignettes=TRUE' to include vignettes </span>
+<span class="pl-c">#       (recommended, but a current version of pandoc is required)</span>
+<span class="pl-c">#    2. add 'auth_token="..."' if you get a 404</span>
+<span class="pl-c">#       contact the author for this</span>
+<span class="pl-c">#    3. if you receive a message about corrupt databases or fetch(key), </span>
+<span class="pl-c">#       restarting R will fix the problem;</span>
+<span class="pl-c">#       these appear to be issues with devtools 1.10.0.9000</span></pre></div>
+
+<h2>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h2>
+
+<p><a name="Back">[Back]</a>: Back, K., <em>A Course in Derivative Securities</em> 2005 Springer Finance ISBN 9783540253734</p>
+
+<p><a name="Consiglio">[Consiglio]</a>: Consiglio A. and Guirreri S.S. <em>Simulating the Term Structure of Interest Rates with arbitrary marginals</em>. International Journal of Risk Assessment and Management, 15(4), September 2011.</p>
+
+<p><a name="Hull">[Hull]</a>: Hull, J., <em>Options, Futures and Other Derivatives Seventh Edition</em> 2008 Pearson/Prentice Hall ISBN 9780136015864</p>
+
+<p><a name="CMT">[CMT]</a>: US Dept. of Treasury Daily Treasury Yield Curve Rates
+<a href="https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yield">https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yield</a></p>
+
+<p><a name="H15">[H15]</a>: US Federal Reserve Board Data Download Program
+<a href="http://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15">http://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15</a></p>
+
+<p><a name="Varma">[Varma]</a>:
+Varma, J. <em>jrvFinance</em> v1.03 (<a href="https://github.com/jrvarma/jrvFinance">https://github.com/jrvarma/jrvFinance</a>)</p>
+
+<p><a name="Veronesi">[Veronesi]</a>: Veronesi P., <em>Fixed Income Securities</em> 2010 John Wiley &amp; Sons ISBN 9780470109106</p>
+
+<p><a name="MDC">[MDC]</a>: Wall Street Journal Market Data Center
+<a href="http://online.wsj.com/mdc/public/page/mdc_bonds.html?mod=mdc_topnav_2_3010">http://online.wsj.com/mdc/public/page/mdc_bonds.html?mod=mdc_topnav_2_3010</a></p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/grfiv">grfiv</a> can be found on <a href="https://github.com/grfiv/ustreasuries">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
