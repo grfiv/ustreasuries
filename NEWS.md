@@ -1,4 +1,15 @@
-# ustreasuries 0.0.0.9005
+# ustreasuries 0.0.0.9006
+
+-------------------------------------------------------------------------------
+--------
+
+## Seventh Development Release 0.0.0.9006   
+* ### Added vignette *veronesi-ch02*, all the examples and figures from Chapter 2 of Veronesi   
+* ### Added *Zbootstrap* function
+* ### Modified *FedInvestData* function to start at the date following the last date in the historical file
+* ### Added *data-raw/FedInvestHistory_bring_to_current.R* to "top off" the FedInvest historical dataset so that as few POSTS as possible have to be made to bring it current
+* ### Added *SP500* and *SP500TR* to download S&P 500 data
+
 
 -------------------------------------------------------------------------------
 --------

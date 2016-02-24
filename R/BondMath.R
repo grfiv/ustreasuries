@@ -136,3 +136,53 @@ Price <- function(ytm, coupon, years) {
                                   yield=ytm,     coupon=coupon,
                                   freq=2, convention="ACT/ACT"))
 }
+
+#' Use the Booststrap Method to determine discount factors Z(0, T_i)
+#'
+#' @description
+#' Assuming a sequence of semi-annual coupon bonds beginning with
+#' a maturity equal to six months and increasing, this function determines
+#' the sequence of discount factors for each time segment using the boothstrap
+#' method. This method is limited by the facts that it assumes evenly-spaced
+#' six-month maturities and an unbroken sequence. It is also iterative instead
+#' of using matrix algebra.
+#'
+#' @seealso
+#' Nelson Seigel and Svensson are more helpful for dirty, real-life bond data.
+#'
+#' @author
+#' George Fisher
+#'
+#' @references
+#' Veronesi Ch2 p46-47
+#'
+#' @param prices a vector of prices from the shortest (6-months) to the longest maturity
+#' @param coupons a vector, usually beginning with 0, with the annual coupon
+#' rate as a decimal
+#' @return  Z a vector of the discount factors
+#'
+#' @examples
+#' # Veronesi Ch2 p 46
+#' p1 <- 98.3607
+#' c1 <- 0
+#'
+#' p2 <- 99.2343
+#' c2 <- 0.0275
+#'
+#' p3 <- 99.1093
+#' c3 <- 0.03
+#'
+#' prices  <- c(p1, p2, p3)
+#' coupons <- c(c1, c2, c3)
+#'
+#' Zbootstrap(prices, coupons)
+#'
+#' @export
+Zbootstrap <- function(prices, coupons) {
+    Z <- c()
+    Z[1] <- prices[1] / (100 * (1 + coupons[1]/2))
+    for (i in 2:length(prices)) {
+        Z[i] <- (prices[i] - coupons[i]/2*100 * sum(Z)) / (100 * (1 + coupons[i]/2))
+    }
+    return(Z)
+}

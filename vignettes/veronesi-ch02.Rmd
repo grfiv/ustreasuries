@@ -1,0 +1,398 @@
+---
+title: "Examples from Veronesi Chapter 2"
+author: "George Fisher"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{veronesi-ch02}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(collapse=TRUE,                # hadley
+                      comment = "#>",               # hadley
+                      error=TRUE, purl=FALSE,       # to be able to see errors
+                      fig.width=7.25, fig.height=6) # nice-sized pictures
+```
+
+```{r library,message=FALSE}
+library(magrittr)
+library(ustreasuries)
+cmt_data <- CMTrates()
+```
+# Section 2.1 Discount Factors
+
+## Example 2.1 Discount Factor Z(t, T)   
+ 
+```{r ex2.1}
+issue_price      <- 97.477  # PV
+face_value       <- 100.00  # FV
+fractional_years <- 182/365 # T - t
+
+# discount factors use continuous compounding
+annual_rate      <- CAGR(issue_price, face_value, fractional_years, type="continuous")
+
+discount_factor(annual_rate, fractional_years)
+
+# since this is a period of time less than a year with no coupons paid
+issue_price/face_value
+```   
+
+## Example 2.2 Discount Factor across Maturities   
+### Shorter maturities have higher discount factors  
+
+```{r ex2.2}
+issue_price      <- 98.739  # PV
+face_value       <- 100.00  # FV
+fractional_years <- 91/365 # T - t
+
+# discount factors use continuous compounding
+annual_rate      <- CAGR(issue_price, face_value, fractional_years, type="continuous")
+
+discount_factor(annual_rate, fractional_years)
+
+# since this is a period of time less than a year with no coupons paid
+issue_price/face_value
+```
+
+
+## Section 2.1.2 Discount Factors over Time
+
+```{r section2.1.2}
+# extract the historical semi-annual rates, convert to discount factors
+three_month_history <- cmt_data$BC_3MONTH/100
+three_month_df      <- discount_factor(three_month_history, 3/12, 2)
+
+one_year_history <- cmt_data$BC_1YEAR/100
+one_year_df      <- discount_factor(one_year_history, 1, 2)
+
+three_year_history <- cmt_data$BC_3YEAR/100
+three_year_df      <- discount_factor(three_year_history, 3, 2)
+
+five_year_history <- cmt_data$BC_5YEAR/100
+five_year_df      <- discount_factor(five_year_history, 5, 2)
+
+ten_year_history <- cmt_data$BC_10YEAR/100
+ten_year_df      <- discount_factor(ten_year_history, 10, 2)
+
+thirty_year_history <- cmt_data$BC_30YEAR/100
+thirty_year_df      <- discount_factor(thirty_year_history, 30, 2)
+
+# plot the discount factors
+y_min    <- min(three_month_df, one_year_df, three_year_df, na.rm=TRUE)
+y_max    <- max(three_month_df, one_year_df, three_year_df, na.rm=TRUE)
+
+plot(x = 1:length(three_month_df), y = three_month_df,
+     type="l", lty=1, col="black",
+     ylim = c(y_min*.90, y_max*1.05), ylab="Discount Factor",
+     xlim = c(1,length(three_month_df)),
+     xaxt="n", xlab='',
+     main="Figure 2.1 Discount Factors")
+
+# ---------- format the x axis ------------------------------------------
+year_vector                      <- format(cmt_data$NEW_DATE,format="%Y")
+axTick_vec                       <- axTicks(1)+1
+axTick_vec[length(axTick_vec)]   <- min(which(year_vector==format(Sys.Date(),"%Y")))
+axTick_vec[length(axTick_vec)+1] <- axTicks(1)[length(axTicks(1))]
+
+axis(1, at  = axTick_vec, 
+     labels = format(cmt_data$NEW_DATE,format="%Y")[axTick_vec])
+# ---------- format the x axis ------------------------------------------
+grid()
+
+lines(x = 1:length(one_year_df),   y = one_year_df,   lty = 3)
+lines(x = 1:length(three_year_df), y = three_year_df, lty = 2)
+
+legend("bottomleft", legend=c("3-month","1-year","3-year"), lty=c(1,3,2))
+
+```
+
+# Section 2.2 Interest Rates
+
+## Example 2.3 Semi-Annual Compounding   
+
+### Show equivalent methods of calculating Z(t, T)   
+
+```{r ex2.3}
+investment <- 100 # PV
+semi_annual_coupon_rate <- 0.05 # r
+years <- 1 # T - t
+
+# FV = PV / Z(0, T)
+(payoff_at_T <- investment / discount_factor(semi_annual_coupon_rate, years, 2))
+
+# Z(0, T) = 1 / (1 + r/2)^(2*T)
+(payoff_at_T <- investment * ( 1 + (semi_annual_coupon_rate/2))^(2*years))
+
+# Z(0, T) = PV/FV
+all.equal(discount_factor(semi_annual_coupon_rate, years, 2),
+    investment / payoff_at_T)
+
+# Z(0, T) = 1 / (1 + r/2)^(2*T)
+all.equal(discount_factor(semi_annual_coupon_rate, years, 2),
+    1 / (1 + (semi_annual_coupon_rate/2))^(2*years))
+```
+
+## Example 2.4 Semi-Annual Compounding   
+### Show continuous vs semi-annual compounding   
+```{r ex2.4}
+price <- 95.713 # PV
+payoff <- 100 # FV
+years <- 1 # T - t
+
+# discount factors use continuous compounding
+annual_rate <- CAGR(price, payoff, years, type="continuous")
+paste0(
+    round(
+        annual_rate
+        * 100, 2), "%, continuous")
+
+discount_factor(annual_rate, years)
+
+# coupon is semi-annual 
+paste0(
+    round(
+        r_discrete(annual_rate, 2) # convert from continuous
+        * 100, 2), "%, semi-annual")
+```
+
+# Section 2.3 The Term Structure of Interest Rates
+
+```{r fig2.3}
+par(mfrow=c(2,2))
+
+A <- dplyr::filter(cmt_data, NEW_DATE=="1992-10-30")
+B <- dplyr::filter(cmt_data, NEW_DATE=="2000-11-30")
+C <- dplyr::filter(cmt_data, NEW_DATE==NEW_DATE[nrow(cmt_data)])
+D <- dplyr::filter(cmt_data, NEW_DATE=="1989-07-31")
+
+y_min = min(A[3:13],B[3:13],C[3:13],D[3:13], na.rm=TRUE)*0.90
+y_max = max(A[3:13],B[3:13],C[3:13],D[3:13], na.rm=TRUE)*1.05
+
+plot(x = 1:(ncol(cmt_data)-3), 
+     y = A[3:13], ylim=c(y_min,y_max),
+     type = "l", 
+     main=paste0("A: ", format(A[[2]], '%m/%d/%Y'), " : Increasing"),cex.main=0.90,
+     ylab="Interest Rate", xaxt="n", xlab='"Normal"')
+axis(1, at      = axTicks(1),
+         labels = substr(names(cmt_data[1, 3:13])[axTicks(1)],4,9))
+grid()
+
+plot(x = 1:(ncol(cmt_data)-3), 
+     y = B[3:13], ylim=c(y_min,y_max),
+     type = "l", 
+     main=paste0("B: ", format(B[[2]], '%m/%d/%Y'), " : Decreasing"),cex.main=0.90,
+     ylab="Interest Rate", xaxt="n", xlab='')
+axis(1, at      = axTicks(1),
+         labels = substr(names(cmt_data[1, 3:13])[axTicks(1)],4,9))
+grid()
+
+plot(x = 1:(ncol(cmt_data)-3), 
+     y = C[3:13], ylim=c(y_min,y_max),
+     type = "l", 
+     main=paste0(format(C[[2]], '%m/%d/%Y'), " : Most Recent"),
+     ylab="Interest Rate", xaxt="n", xlab='')
+axis(1, at      = axTicks(1),
+         labels = substr(names(cmt_data[1, 3:13])[axTicks(1)],4,9))
+grid()
+
+plot(x = 1:(ncol(cmt_data)-3), 
+     y = D[3:13], ylim=c(y_min,y_max),
+     type = "l", 
+     main=paste0("D: ", format(D[[2]], '%m/%d/%Y'), " : Inverted Hump"),cex.main=0.90,
+     ylab="Interest Rate", xaxt="n", xlab='')
+axis(1, at      = axTicks(1),
+         labels = substr(names(cmt_data[1, 3:13])[axTicks(1)],4,9))
+grid()
+
+title("Figure 2.3 The Shapes of the Term Structure", outer=TRUE,  line = -1)
+par(mfrow=c(1,1))
+```
+
+## Section 2.3.1 The Term Structure of Interest Rates over Time   
+
+
+
+```{r fig2.4}
+A <- dplyr::filter(cmt_data, NEW_DATE=="1994-01-31")
+B <- dplyr::filter(cmt_data, NEW_DATE=="1994-07-29")
+C <- dplyr::filter(cmt_data, NEW_DATE=="1995-01-31")
+
+which_A <- which(cmt_data$NEW_DATE == A$NEW_DATE) # for next graph
+
+y_min    <- min(A[3:13], B[3:13], C[3:13], na.rm=TRUE)
+y_max    <- max(A[3:13], B[3:13], C[3:13], na.rm=TRUE)
+
+plot(x = 1:(ncol(cmt_data)-3), 
+     y = A[3:13],
+     type="l", lty=1, col="black",
+     ylim = c(y_min*.90, y_max*1.05), ylab="Interest Rate",
+     xaxt="n", xlab='',
+     main="Figure 2.4 The Term Structure of Interest Rates on DIfferent Dates")
+axis(1, at      = axTicks(1),
+         labels = substr(names(cmt_data[1, 3:13])[axTicks(1)],4,9))
+grid()
+
+lines(x = 1:length(B[3:13]),   y = B[3:13], lty = 3)
+lines(x = 1:length(C[3:13]),   y = C[3:13], lty = 2)
+
+legend("bottomright", legend=c(format(C$NEW_DATE,"%B %Y"),
+                              format(B$NEW_DATE,"%B %Y"),
+                              format(A$NEW_DATE,"%B %Y")), lty=c(2,3,1))
+```
+
+```{r sec2.3.1-b}
+# plot the interest rates over time
+y_min    <- min(three_month_history, one_year_history, thirty_year_history, na.rm=TRUE)
+y_max    <- max(three_month_history, one_year_history, thirty_year_history, na.rm=TRUE)
+
+plot(x = 1:length(three_month_history), y = three_month_history,
+     type="l", lty=3, col="black",
+     ylim = c(y_min*.90, y_max*1.05), ylab="Interest Rate",
+     xlim = c(1,length(three_month_history)),
+     xaxt="n", xlab='The 30-year has been in and out of favor',
+     main="Figure 2.5 The Term Structure over Time")
+
+# ---------- format the x axis ------------------------------------------
+year_vector                      <- format(cmt_data$NEW_DATE,format="%Y")
+axTick_vec                       <- axTicks(1)+1
+axTick_vec[length(axTick_vec)]   <- min(which(year_vector==format(Sys.Date(),"%Y")))
+axTick_vec[length(axTick_vec)+1] <- axTicks(1)[length(axTicks(1))]
+
+axis(1, at  = axTick_vec, 
+     labels = format(cmt_data$NEW_DATE,format="%Y")[axTick_vec])
+# ---------- format the x axis ------------------------------------------
+grid()
+
+lines(x = 1:length(one_year_history),  y = one_year_history,  lty = 1, col="blue")
+lines(x = 1:length(thirty_year_history), y = thirty_year_history, lty = 4, col="red")
+
+abline(v=which_A, lty=1) # from previous graph
+
+legend("topright", legend=c("3-month","1-year","30-year",paste0(format(A$NEW_DATE,"%b %Y"), ", Fig 2.4")),
+       lty=c(3,1,4,1), col=c("black","blue","red","black"))
+```
+
+### 10Year Rates vs S&P 500 TR   
+```{r 10yrsptr}
+y_min    <- min(ten_year_history, na.rm=TRUE)
+y_max    <- max(ten_year_history, na.rm=TRUE)
+
+plot(x = 1:length(ten_year_history), y = ten_year_history,
+     type="l", lty=3, col="black",
+     ylim = c(y_min*.90, y_max*1.05), ylab=NA,
+     xlim = c(1,length(ten_year_history)),
+     xaxt="n", xlab=NA,
+     main="Figure 2.5-extra The 10-year vs the S&P 500")
+
+# ---------- format the x axis ------------------------------------------
+year_vector                      <- format(cmt_data$NEW_DATE,format="%Y")
+axTick_vec                       <- axTicks(1)+1
+axTick_vec[length(axTick_vec)]   <- min(which(year_vector==format(Sys.Date(),"%Y")))
+axTick_vec[length(axTick_vec)+1] <- axTicks(1)[length(axTicks(1))]
+
+axis(1, at  = axTick_vec, 
+     labels = format(cmt_data$NEW_DATE,format="%Y")[axTick_vec])
+# ---------- format the x axis ------------------------------------------
+grid()
+
+# ----------------- S&P 500 TR -----------------
+sp500_idx_trim <- SP500()                                   %>%
+                  dplyr::filter(Date>=cmt_data$NEW_DATE[1]) %>%
+                  dplyr::arrange(Date)
+
+par(new = T)
+plot(x = 1:length(sp500_idx_trim$Adj.Close), y = log10(sp500_idx_trim$Adj.Close), 
+     type="l", axes=F, xlab=NA, ylab=NA, col="green")
+axis(side = 4)
+
+legend('topleft',legend=c("10-year Bond","S&P 500 Log10 Scale"), 
+       lty=c(3,1), col=c("black","green"))
+```
+
+# Section 2.4 Coupon Bonds   
+
+### Example 2.7 $Price = \frac{coupon}{2}\sum Z(t, T_i) + Z(t, T_n) \times 100$   
+#### Whose rounding's off, his or mine? Or both?   
+
+```{r ex2.7}
+coupon <- 0.04375
+
+(df_0.5 <- round(discount_factor(coupon, 0.5, 2), 5))
+(df_1.0 <- round(discount_factor(coupon, 1.0, 2), 5))
+(df_1.5 <- round(discount_factor(coupon, 1.5, 2), 5))
+(df_2.0 <- round(discount_factor(coupon, 2.0, 2), 5))
+
+(price <- (100*coupon)/2 * sum(df_0.5, df_1.0, df_1.5, df_2.0) + 100 * df_2.0)
+
+# Veronesi doesn't give us the yield just the df;
+# but why have a yield so minutely off from the coupon?
+# Mine's off, too; so chalk it up to these lousy computers.
+yld <- jrvFinance::bond.yield(as.Date("01-03-2006","%m-%d-%Y"), 
+                              as.Date("10-31-2007","%m-%d-%Y"), 
+                              coupon, freq=2, price=99.997, convention="ACT/ACT")
+knitr::kable(data.frame(coupon=coupon,yield=yld,difference=coupon-yld))
+```
+
+### Example 2.9 Find Discount Factors with Equation Solving
+
+#### $Ax = b$    
+$A$ is the cash flows, $b$ is the prices, $x$ is the discount factors    
+```{r ex2.8}
+# bond1
+p1 <- 98.3607
+cash_flow1 = c(100, 0)
+
+# bond2
+p2 <- 99.2343
+c2 <- 0.0275
+cash_flow2 = c(100*c2/2, 100*c2/2 + 100)
+
+b <- c(p1, p2)
+names(b) <- c("bond1","bond2")
+
+A <- matrix(c(cash_flow1, cash_flow2), nrow=2, byrow=TRUE)
+rownames(A) <- c("bond1", "bond2")
+colnames(A) <- c("T_0.5","T_1.0")
+
+x <- solve(A, b)
+names(x) <- c("Z(0, 0.5)", "Z(0, 1.0)")
+
+# A: the cash-flow matrix
+A
+
+# b: the price vector
+b
+
+# x: the Z vector
+x
+
+# reconstruct bond1
+x[["Z(0, 0.5)"]] * cash_flow1[1] + x[["Z(0, 1.0)"]] * cash_flow1[2]
+
+# reconstruct bond2
+x[["Z(0, 0.5)"]] * cash_flow2[1] + x[["Z(0, 1.0)"]] * cash_flow2[2]
+```
+
+### Example 2.10 Bootstrap the next Z(0, T)   
+```{r ex2.10}
+# bond3 has three cash flows
+p3 <- 99.1093
+c3 <- 0.03
+
+x[["Z(0, 1.5)"]] <- (p3 - c3/2*100 * sum(x)) / (100 * (1 + c3/2))
+
+x
+```
+
+### The Zboostrap Function   
+```{r bootstrap}
+Zbootstrap 
+    
+prices  <- c(p1, p2, p3)
+coupons <- c(0, c2, c3)
+Zbootstrap(prices, coupons)
+```
+

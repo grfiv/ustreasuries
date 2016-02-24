@@ -9,6 +9,7 @@
 #'
 #' @section Vignettes:
 #' \itemize{
+#'     \item \bold{veronesi-ch02} Examples and figures from Veronesi, Ch2
 #'     \item \bold{cmt-rates} a description of Constant Maturity and
 #'     Annualized Percentage rates
 #'     \item \bold{yield-curves} examples of downloading the data and printing
@@ -61,6 +62,7 @@
 #'                  \item \bold{NSzeros} Convert NSrates to discount factors Z(0, T)
 #'                  \item \bold{Nelson.Siegel.plot} Plot the actual and Nelson.Siegel Yield Curves
 #'                  \item \bold{NSzeros.plot} Plot Z(0, T) and r(0, T)
+#'                  \item \bold{Zbootstrap} Derive Z(0, T_i) using the bootstrap method
 #'              }
 #'      }
 #'      \itemize{
@@ -95,6 +97,11 @@
 #'                  \item \bold{InTheMoneyCall} Is a call in the money?
 #'                  \item \bold{InTheMoneyPut} Is a put in the money?
 #'              }
+#'          \item \bold{Equities}
+#'              \itemize{
+#'                  \item \bold{SP500} Daily S&P 500 data from 1950
+#'                  \item \bold{SP500TR} Daily S&P 500 Total Return data from 1988
+#'                  }
 #'      }
 #'
 #'  \item \bold{Installed but not yet tested and documented}

@@ -60,6 +60,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
         * **NSzeros** Convert NSrates to discount factors Z(0, T)
         * **Nelson.Siegel.plot** Plot the actual and Nelson.Siegel Yield Curves
         * **NSzeros.plot** Plot Z(0, T) and r(0, T)
+        * **Zbootstrap** Derive Z(0, T_i) using the bootstrap method
     * **CAGR**
         * **CAGR** Calculate Compound Annual Growth Rate; geometric or continuous
         * **r_continuous** Convert from discrete to continuous
@@ -78,6 +79,9 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
         * **IntrinsicValueCall** / **IntrinsicValuePut** the in-the-money portion of an option's premium
         * **TimeValueCall** / **TimeValuePut** Price = Intrinsic + Time
         * **InTheMoneyCall** / **InTheMoneyPut** Is an option in the money?
+    * **Equities**   
+        * **SP500** Daily S&P 500 data from 1950
+        * **SP500TR** Daily S&P 500 Total Return data from 1988
 * **Installed but not yet tested or documented**
     * Digital
         * **CashCall**

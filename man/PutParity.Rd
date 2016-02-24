@@ -25,11 +25,11 @@ Put prices derived from put-call parity
 \examples{
 # Hull 7th edition Ch 17 P 357
 library(ustreasuries)
-Stock    <- 49
-Exercise <- 50
-Time     <- 20/52
-Interest <- 0.05
-Yield    <- 0.13#0
+Stock    <- 49      # S_0
+Exercise <- 50      # K
+Time     <- 20/52   # T
+Interest <- 0.05    # r
+Yield    <- 0.13#0  # q
 sigma    <- 0.20
 
 EC = EuroCall(Stock, Exercise, Time, Interest, Yield, sigma)

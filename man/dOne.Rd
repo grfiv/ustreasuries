@@ -27,11 +27,11 @@ The d1 component of the Black-Scholes-Merton formula
 }
 \examples{
 # Hull 7th edition Ch 13 P 294
-Stock     <- 42
-Exercise  <- 40
-Time      <- 0.50
-Interest  <- 0.10
-Yield     <- 0
+Stock     <- 42    # S_0
+Exercise  <- 40    # K
+Time      <- 0.50  # T
+Interest  <- 0.10  # r
+Yield     <- 0     # q
 sigma     <- 0.20
 ans <- dOne(Stock, Exercise, Time, Interest, Yield, sigma)
 round(ans,4)

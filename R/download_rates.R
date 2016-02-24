@@ -253,10 +253,13 @@ FedInvestData <- function() {
                            stringsAsFactors=FALSE)
 
     # this is the list of dates to iterate over
-    # from the date after the history ened
+    # from the date after the history ended
     #    to today
-    date_seq = seq(as.Date("2016/02/09", "%Y/%m/%d"),
-                   as.Date(format(Sys.Date(), "%Y/%m/%d")), "days")
+    last_date <- FedInvest_historical_data$Date[nrow(FedInvest_historical_data)]+1
+    if (last_date >= Sys.Date()) return(FedInvest_historical_data)
+
+    date_seq  <- seq(as.Date(last_date, "%Y/%m/%d"),
+                     as.Date(format(Sys.Date(), "%Y/%m/%d")), "days")
 
     # for each date in date_seq,
     #   fill the form
@@ -311,3 +314,74 @@ FedInvestData <- function() {
     return(FedInvest_historical_data)
 }
 
+#' Daily S&P 500 data from Jan 3, 1950 to present
+#'
+#' @description
+#' The "usual" S&P 500 index, without dividends reinvested.
+#'
+#' @return A data.frame with the daily data
+#'
+#' @references
+#' Yahoo Finance
+#'
+#' @details The columns of the data.frame returned
+#' \itemize{
+#'     \item \bold{Date}
+#'     \item \bold{Open}
+#'     \item \bold{High}
+#'     \item \bold{Low}
+#'     \item \bold{Close}
+#'     \item \bold{Volume}
+#'     \item \bold{Adj.Close}
+#'     }
+#'
+#' @author George Fisher
+#'
+#' @examples
+#' sp500_idx <- SP500()
+#' head(sp500_idx)
+#' tail(sp500_idx)
+#'
+#' @export
+SP500 <- function() {
+    table <- read.table("http://ichart.finance.yahoo.com/table.csv?s=%5EGSPC",
+                        header = TRUE,sep=",",stringsAsFactors = FALSE)
+    table$Date <- as.Date(table$Date, "%Y-%m-%d")
+    return(table)
+}
+
+#' Daily S&P 500 Total Return data from Jan 4, 1988 to present
+#'
+#' @description
+#' The S&P 500 index, with dividends reinvested.
+#'
+#' @return A data.frame with the daily data
+#'
+#' @references
+#' Yahoo Finance
+#'
+#' @details The columns of the data.frame returned
+#' \itemize{
+#'     \item \bold{Date}
+#'     \item \bold{Open}
+#'     \item \bold{High}
+#'     \item \bold{Low}
+#'     \item \bold{Close}
+#'     \item \bold{Volume}
+#'     \item \bold{Adj.Close}
+#'     }
+#'
+#' @author George Fisher
+#'
+#' @examples
+#' sp500_idx_tr <- SP500TR()
+#' head(sp500_idx_tr)
+#' tail(sp500_idx_tr)
+#'
+#' @export
+SP500TR <- function() {
+    table <- read.table("http://ichart.finance.yahoo.com/table.csv?s=%5ESP500TR",
+                        header = TRUE,sep=",",stringsAsFactors = FALSE)
+    table$Date <- as.Date(table$Date, "%Y-%m-%d")
+    return(table)
+}

@@ -72,3 +72,18 @@ test_that("classes of columns of FedInvestData are as expected", {
                  c("character", "character", "character", "Date", "logical",
                  "numeric", "numeric", "numeric", "Date") )
 })
+
+# Test sp500 & sp500TR
+# ====================
+
+sp500_idx <- SP500()
+
+test_that("SP500 names", {
+    expect_equal(names(sp500_idx), c("Date","Open","High","Low","Close","Volume","Adj.Close"))
+})
+
+sp500_idx_tr <- SP500TR()
+
+test_that("sp500 names", {
+    expect_equal(names(sp500_idx_tr), c("Date","Open","High","Low","Close","Volume","Adj.Close"))
+})

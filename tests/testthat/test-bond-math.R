@@ -33,3 +33,18 @@ test_that("Price", {
     expect_equal(all.equal(price1, 107.8906, tolerance=0.000001), TRUE)
     expect_equal(all.equal(price2, 141.5267, tolerance=0.000001), TRUE)
 })
+
+# Test Zbootstrap
+# ===============
+p1 <- 98.3607
+c1 <- 0
+p2 <- 99.2343
+c2 <- 0.0275
+p3 <- 99.1093
+c3 <- 0.03
+prices  <- c(p1, p2, p3)
+coupons <- c(c1, c2, c3)
+Z <- Zbootstrap(prices, coupons)
+test_that("Zbootstrap", {
+    expect_equal(all.equal(Z, c(0.9836070, 0.9655422, 0.9476411),tolerance=1.6e-8), TRUE)
+})
