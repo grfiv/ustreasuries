@@ -38,20 +38,20 @@ PrintYieldCurves <- function(YieldCurveDF, rows=c(1), title="Yield Curve", tabpr
     slicedDF <- dplyr::slice(YieldCurveDF, rows)
 
     # find the data points for y-axis plotting ylim = c(y_min, y_max)
-    y_min    <- min(slicedDF[,3:ncol(slicedDF)], na.rm=TRUE)
-    y_max    <- max(slicedDF[,3:ncol(slicedDF)], na.rm=TRUE)
+    y_min    <- min(slicedDF[,3:13], na.rm=TRUE)
+    y_max    <- max(slicedDF[,3:13], na.rm=TRUE)
 
     # ==================
     # plot the first row
     # ==================
-    plot(x = 1:(ncol(slicedDF)-3),
-         y = slicedDF[1, 3:(ncol(slicedDF)-1)],
+    plot(x = 1:11,
+         y = slicedDF[1, 3:13],
          type="b",   pch=10, col=1,
          ylim=c(y_min*.90, y_max*1.10), ylab="Interest Rate",
          xaxt="n", xlab='',
          main=title)
     axis(1, at     = axTicks(1),
-         labels = substr(names(slicedDF[1, 3:(ncol(slicedDF)-1)])[axTicks(1)],4,9))
+         labels = substr(names(slicedDF[1, 3:13])[axTicks(1)],4,9))
     grid()
     text(x      = 9,
          y      = slicedDF[1, "BC_10YEAR"],
@@ -64,11 +64,11 @@ PrintYieldCurves <- function(YieldCurveDF, rows=c(1), title="Yield Curve", tabpr
     # ========================
     if (length(rows) > 1) {
         for (i in 2:length(rows)) {
-            lines(x   = 1:(ncol(slicedDF)-3),
-                  y   = slicedDF[i, 3:(ncol(slicedDF)-1)],
+            lines(x   = 1:11,
+                  y   = slicedDF[i, 3:13],
                   col = i)
-            points(x   = 1:(ncol(slicedDF)-3),
-                   y   = slicedDF[i, 3:(ncol(slicedDF)-1)],
+            points(x   = 1:11,
+                   y   = slicedDF[i, 3:13],
                    col = i, pch = 10)
             text(x      = 9,
                  y      = slicedDF[i, "BC_10YEAR"],

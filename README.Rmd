@@ -61,6 +61,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
         * **Nelson.Siegel.plot** Plot the actual and Nelson.Siegel Yield Curves
         * **NSzeros.plot** Plot Z(0, T) and r(0, T)
         * **Zbootstrap** Derive Z(0, T_i) using the bootstrap method
+        * **spot_rate** Derive spot rate from Z(0, T) and T
     * **CAGR**
         * **CAGR** Calculate Compound Annual Growth Rate; geometric or continuous
         * **r_continuous** Convert from discrete to continuous

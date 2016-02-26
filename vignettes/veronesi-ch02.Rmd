@@ -8,7 +8,17 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
----
+---   
+
+Pietro Veronesi's *Fixed Income Securities* is one of the canonical texts for teaching fixed income analysis; it was my text at MIT and it is frequently cited. 
+
+The text has one flaw, however, namely that its examples are very difficult to follow, which is an impediment to learning. (The attempt to derive spot rates for Table 2.2 is a perfect example of how much time is wasted when a result is stated but the process is not explained, spot rates aren't even explicitly defined; plus the process showed that the T=7.0 spot rate in the table was probably wrong given how far off it was from the derivation.) 
+
+With this vignette and others to come I hope to remedy the major flaw in the text by deriving every example, table and figure so that the derivation is perfectly clear.   
+
+
+# Chapter 2    
+# BASICS OF FIXED INCOME SECURITIES       
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(collapse=TRUE,                # hadley
@@ -18,13 +28,30 @@ knitr::opts_chunk$set(collapse=TRUE,                # hadley
 ```
 
 ```{r library,message=FALSE}
-library(magrittr)
 library(ustreasuries)
-cmt_data <- CMTrates()
+
+# magrittr provides the pipe operator %>%
+library(magrittr)
+
+# load the CMT data equi-joined to the S&P 500 data
+cmt_data <- CMTrates() %>%
+                          dplyr::inner_join(SP500(), 
+                                  by = c("NEW_DATE" = "Date"))
+
+# internal flag indicating the first columns contain CMTrate data
+attr(cmt_data, "data.source") <- "CMT"
 ```
 # Section 2.1 Discount Factors
 
 ## Example 2.1 Discount Factor Z(t, T)   
+
+### Function Code   
+```{r discountfactorcode}
+discount_factor
+CAGR
+```
+ 
+### Example
  
 ```{r ex2.1}
 issue_price      <- 97.477  # PV
@@ -115,6 +142,9 @@ legend("bottomleft", legend=c("3-month","1-year","3-year"), lty=c(1,3,2))
 
 ### Show equivalent methods of calculating Z(t, T)   
 
+* Z(0, T) = 1 / (1 + r/2)^(2*T)   
+* Z(0, T) = PV/FV   
+
 ```{r ex2.3}
 investment <- 100 # PV
 semi_annual_coupon_rate <- 0.05 # r
@@ -171,7 +201,7 @@ D <- dplyr::filter(cmt_data, NEW_DATE=="1989-07-31")
 y_min = min(A[3:13],B[3:13],C[3:13],D[3:13], na.rm=TRUE)*0.90
 y_max = max(A[3:13],B[3:13],C[3:13],D[3:13], na.rm=TRUE)*1.05
 
-plot(x = 1:(ncol(cmt_data)-3), 
+plot(x = 1:11, 
      y = A[3:13], ylim=c(y_min,y_max),
      type = "l", 
      main=paste0("A: ", format(A[[2]], '%m/%d/%Y'), " : Increasing"),cex.main=0.90,
@@ -180,7 +210,7 @@ axis(1, at      = axTicks(1),
          labels = substr(names(cmt_data[1, 3:13])[axTicks(1)],4,9))
 grid()
 
-plot(x = 1:(ncol(cmt_data)-3), 
+plot(x = 1:11, 
      y = B[3:13], ylim=c(y_min,y_max),
      type = "l", 
      main=paste0("B: ", format(B[[2]], '%m/%d/%Y'), " : Decreasing"),cex.main=0.90,
@@ -189,7 +219,7 @@ axis(1, at      = axTicks(1),
          labels = substr(names(cmt_data[1, 3:13])[axTicks(1)],4,9))
 grid()
 
-plot(x = 1:(ncol(cmt_data)-3), 
+plot(x = 1:11, 
      y = C[3:13], ylim=c(y_min,y_max),
      type = "l", 
      main=paste0(format(C[[2]], '%m/%d/%Y'), " : Most Recent"),
@@ -198,7 +228,7 @@ axis(1, at      = axTicks(1),
          labels = substr(names(cmt_data[1, 3:13])[axTicks(1)],4,9))
 grid()
 
-plot(x = 1:(ncol(cmt_data)-3), 
+plot(x = 1:11, 
      y = D[3:13], ylim=c(y_min,y_max),
      type = "l", 
      main=paste0("D: ", format(D[[2]], '%m/%d/%Y'), " : Inverted Hump"),cex.main=0.90,
@@ -225,7 +255,7 @@ which_A <- which(cmt_data$NEW_DATE == A$NEW_DATE) # for next graph
 y_min    <- min(A[3:13], B[3:13], C[3:13], na.rm=TRUE)
 y_max    <- max(A[3:13], B[3:13], C[3:13], na.rm=TRUE)
 
-plot(x = 1:(ncol(cmt_data)-3), 
+plot(x = 1:11, 
      y = A[3:13],
      type="l", lty=1, col="black",
      ylim = c(y_min*.90, y_max*1.05), ylab="Interest Rate",
@@ -275,7 +305,7 @@ legend("topright", legend=c("3-month","1-year","30-year",paste0(format(A$NEW_DAT
        lty=c(3,1,4,1), col=c("black","blue","red","black"))
 ```
 
-### 10Year Rates vs S&P 500 TR   
+## 10Year Rates vs S&P 500    
 ```{r 10yrsptr}
 y_min    <- min(ten_year_history, na.rm=TRUE)
 y_max    <- max(ten_year_history, na.rm=TRUE)
@@ -285,7 +315,7 @@ plot(x = 1:length(ten_year_history), y = ten_year_history,
      ylim = c(y_min*.90, y_max*1.05), ylab=NA,
      xlim = c(1,length(ten_year_history)),
      xaxt="n", xlab=NA,
-     main="Figure 2.5-extra The 10-year vs the S&P 500")
+     main="Figure 2.5-extra 1 The 10-year vs the S&P 500")
 
 # ---------- format the x axis ------------------------------------------
 year_vector                      <- format(cmt_data$NEW_DATE,format="%Y")
@@ -298,13 +328,10 @@ axis(1, at  = axTick_vec,
 # ---------- format the x axis ------------------------------------------
 grid()
 
-# ----------------- S&P 500 TR -----------------
-sp500_idx_trim <- SP500()                                   %>%
-                  dplyr::filter(Date>=cmt_data$NEW_DATE[1]) %>%
-                  dplyr::arrange(Date)
-
+# ----------------- S&P 500 -----------------
 par(new = T)
-plot(x = 1:length(sp500_idx_trim$Adj.Close), y = log10(sp500_idx_trim$Adj.Close), 
+
+plot(x = 1:length(cmt_data$Adj.Close), y = log10(cmt_data$Adj.Close), 
      type="l", axes=F, xlab=NA, ylab=NA, col="green")
 axis(side = 4)
 
@@ -312,10 +339,64 @@ legend('topleft',legend=c("10-year Bond","S&P 500 Log10 Scale"),
        lty=c(3,1), col=c("black","green"))
 ```
 
+## 10Year/1Year Spread vs S&P 500    
+```{r 10yr1yrsptr}
+spread <- ten_year_history - one_year_history
+
+y_min    <- min(spread, na.rm=TRUE)
+y_max    <- max(spread, na.rm=TRUE)
+
+plot(x = 1:length(spread), y = spread,
+     type="l", lty=3, col="black",
+     ylim = c(y_min*.90, y_max*1.05), ylab=NA,
+     xlim = c(1,length(spread)),
+     xaxt="n", xlab="Vertical lines are the highs before the crash",
+     main="Figure 2.5-extra 2 The 10-year/1-year spread vs the S&P 500")
+abline(h=0.0, lty=2)
+
+abline(v=6364)  # 1987-08-25 high before the crash
+abline(v=9510)  # 2000-03-24 high before the crash
+abline(v=11392) # 2007-10-09 high before the crash
+
+# ---------- format the x axis ------------------------------------------
+year_vector                      <- format(cmt_data$NEW_DATE,format="%Y")
+axTick_vec                       <- axTicks(1)+1
+axTick_vec[length(axTick_vec)]   <- min(which(year_vector==format(Sys.Date(),"%Y")))
+axTick_vec[length(axTick_vec)+1] <- axTicks(1)[length(axTicks(1))]
+
+axis(1, at  = axTick_vec, 
+     labels = format(cmt_data$NEW_DATE,format="%Y")[axTick_vec])
+# ---------- format the x axis ------------------------------------------
+grid()
+
+# ----------------- S&P 500 -----------------
+sp500_idx_trim <- SP500()                                   %>%
+                  dplyr::filter(Date>=cmt_data$NEW_DATE[1]) %>%
+                  dplyr::arrange(Date)
+
+par(new = T)
+plot(x = 1:length(cmt_data$Adj.Close), y = log10(cmt_data$Adj.Close), 
+     type="l", axes=F, xlab=NA, ylab=NA, col="green")
+axis(side = 4)
+
+legend('topleft',legend=c("10-year/1-year spread","S&P 500 Log10 Scale"), 
+       lty=c(3,1), col=c("black","green"))
+```
+
+```{r yieldcurves}
+PrintYieldCurves(dplyr::filter(cmt_data, 
+                                 cmt_data$NEW_DATE==as.Date("1987-08-25") |
+                                 cmt_data$NEW_DATE==as.Date("2000-03-24") |
+                                 cmt_data$NEW_DATE==as.Date("2007-10-09") |
+                                 cmt_data$NEW_DATE==cmt_data$NEW_DATE[[nrow(cmt_data)]]), 
+                 rows=c(1, 2, 3, 4), 
+                 title="Yield Curves at Highs Before each Crash + today")
+```
+
 # Section 2.4 Coupon Bonds   
 
-### Example 2.7 $Price = \frac{coupon}{2}\sum Z(t, T_i) + Z(t, T_n) \times 100$   
-#### Whose rounding's off, his or mine? Or both?   
+## Example 2.7  
+$$Price = \frac{coupon}{2}\sum Z(t, T_i) + Z(t, T_n) \times 100$$   
 
 ```{r ex2.7}
 coupon <- 0.04375
@@ -336,7 +417,7 @@ yld <- jrvFinance::bond.yield(as.Date("01-03-2006","%m-%d-%Y"),
 knitr::kable(data.frame(coupon=coupon,yield=yld,difference=coupon-yld))
 ```
 
-### Example 2.9 Find Discount Factors with Equation Solving
+## Example 2.9 Find Discount Factors with Equation Solving
 
 #### $Ax = b$    
 $A$ is the cash flows, $b$ is the prices, $x$ is the discount factors    
@@ -376,7 +457,7 @@ x[["Z(0, 0.5)"]] * cash_flow1[1] + x[["Z(0, 1.0)"]] * cash_flow1[2]
 x[["Z(0, 0.5)"]] * cash_flow2[1] + x[["Z(0, 1.0)"]] * cash_flow2[2]
 ```
 
-### Example 2.10 Bootstrap the next Z(0, T)   
+## Example 2.10 Bootstrap the next Z(0, T)   
 ```{r ex2.10}
 # bond3 has three cash flows
 p3 <- 99.1093
@@ -395,4 +476,114 @@ prices  <- c(p1, p2, p3)
 coupons <- c(0, c2, c3)
 Zbootstrap(prices, coupons)
 ```
+
+## Example 2.11 YTM   
+
+Data setup   
+
+```{r ex2.11}
+# my thanks to 
+# 1) for OCR
+# http://blog.sudobits.com/2013/01/22/
+# image-to-text-converter-ocr-for-ubuntu-linux-mint/
+#
+# 2) for text-to-data.frame:
+# http://stackoverflow.com/questions/30496474/
+# reading-text-into-data-frame-where-string-values-contain-spaces
+#
+# Note: I could not get a numbered capture group greater than 9 to work
+#       it appears to be a failure in R's regex implementation
+#
+data_raw <- 
+'4.125 8/15/2008 0.5 100.9844 101.0156 101.0000 98.9590 2.0930 98.1572 98.2027
+4.500 2/15/2009 1.0 102.6094 102.6406 102.6250 98.1892 1.8274 96.3484 96.4378
+4.875 8/15/2009 1.5 104.4766 104.5078 104.4922 97.3147 1.8147 94.5729 94.7045
+4.750 2/15/2010 2.0 105.5078 105.91 105.5234 96.2441 1.9141 92.8301 93.0024
+4.125 8/15/2010 2.5 105.0859 105.1172 105.1016 95.0822 2.0172 91.1194 91.3309
+5.000 2/15/2011 3.0 108.2344 108.2656 108.2500 93.7612 2.1473 89.4403 89.6895
+5.000 8/15/2011 3.5 109.0000 109.0313 109.0156 92.2213 2.3137 87.7920 88.0775
+4.875 2/15/2012 4.0 109.1719 109.2031 109.1875 90.6046 2.4666 86.1742 86.4945
+4.375 8/15/2012 4.5 107.3281 107.3594 107.3438 88.7259 2.6582 84.5862 84.9400
+3.875 2/15/2013 5.0 105.1406 105.1719 105.1563 86.9809 2.7896 83.0274 83.4134
+4.250 8/15/2013 5.5 106.8125 106.8438 106.8281 85.0858 2.9365 81.4974 81.9142
+4.000 2/15/2014 6.0 105.2344 105.2656 105.2500 83.1241 3.0806 79.9956 80.4420
+4.250 8/15/2014 6.5 106.3281 106.3594 106.3438 81.1114 3.2207 78.5214 78.9962
+4.000 2/15/2015 7.0 104.750 104.4063 104.3906 79.0613 3.564 77.0744 77.5765
+4.250 8/15/2015 7.5 105.4063 105.75 105.4219 76.8759 3.5064 75.6541 76.1822
+4.500 2/15/2016 8.0 106.7188 106.7500 106.7344 74.8256 3.6251 74.2600 74.8130
+4.875 8/15/2016 8.5 109.0000 109.0313 109.0156 72.6763 3.7548 72.8915 73.4684
+4.625 2/15/2017 9.0 106.9375 106.9688 106.9531 70.8392 3.8306 71.5483 72.1480
+4.750 8/15/2017 9.5 107.8750 107.9063 107.8906 69.1582 3.8818 70.2298 70.8513
+3.500 2/15/2018 10.0 97.8750 97.9063 97.8906 68.1581 3.8334 68.9356 69.5779'
+
+data_parsed <- readLines(textConnection(data_raw))
+regexin <- "^ *(.*\\S) +(\\S+) +(\\S+) +(\\S+) +(\\S+) +(\\S+) +(\\S+) +(\\S+) +(\\S+) +(\\S+)$"
+regexout <- "\\1,\\2,\\3,\\4,\\5,\\6,\\7,\\8"
+#"\\9,\\10"
+table2.2 <- read.csv(text = sub(regexin, regexout, data_parsed), 
+                     as.is = TRUE, header=FALSE,stringsAsFactors = FALSE)
+names(table2.2) <- c("coupon","maturity","time","bid","ask","mid","bootstrap","spot")
+#,"y=3.7","y=3.6")
+table2.2$maturity <- as.Date(table2.2$maturity, "%m/%d/%Y")
+table2.2$date     <- as.Date("2008-02-15","%Y-%m-%d")
+
+str(table2.2)
+
+knitr::kable(table2.2)
+```
+
+
+### Where do his spot rates come from?
+```{r whencespot}
+# it's not YTM
+# ============
+apply(table2.2, 1, function(x) YTM(as.numeric(x["bootstrap"]), 
+                                                     as.numeric(x["coupon"]), 
+                                                     as.numeric(x["time"])))
+
+# it's not the continuously compounded rate (see Fact 2.7 p37)
+# ===============================================
+apply(table2.2, 1, function(x) -(log2(as.numeric(x["bootstrap"])/100) /  
+                                                   as.numeric(x["time"])) * 100)
+
+# kinda looks like the n-times compounded annual rate (see Fact 2.6, p36)
+# ... but not quite
+# ===============================================
+apply(table2.2, 1, function(x) {
+                     n <- 2
+                     Z <- as.numeric(x["bootstrap"])/100
+                     t <- as.numeric(x["time"])
+                     
+                     Zpow   <- Z^(1/(n*t))
+                     invpow <- 1/Zpow
+                     
+                     n * (invpow - 1) * 100
+})
+
+# how about the continuous CAGR?
+# YES! 
+# (except time=7.0, probably an error in the table)
+# ======================================
+apply(table2.2, 1, function(x) CAGR(as.numeric(x["bootstrap"]), # PV
+                                    100,                                        # FV
+                                    as.numeric(x["time"]),          # fractional years
+                                    type="continuous")*100)
+
+spot_rate
+```
+
+### Demonstrate the derivation of the bootstrap data   
+
+Why does he multiply the Z(0, T) value by 100?   
+
+```{r testbootstrap}
+prices  <- table2.2$mid
+coupons <- table2.2$coupon/100
+Zbootstrap(prices, coupons)
+
+all.equal(Zbootstrap(prices, coupons), 
+          table2.2$bootstrap/100,     
+          tolerance = 1e-3)
+```  
+
 
