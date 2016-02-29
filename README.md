@@ -11,6 +11,8 @@ ustreasuries [![DOI](https://zenodo.org/badge/5738/grfiv/ustreasuries.svg)](http
 
 Several models such as Nelson Seigel and Svensson are provided
 
+**Veronesi** <sup>[Veronesi](#Veronesi)</sup> examples derived with code and live bond data
+
 ### Derivative Analysis
 
 Drawing primarily on **Hull, 7th edition** <sup>[Hull](#Hull)</sup> *ustreasuries* includes many options-pricing models, all the Greeks and a number of utility functions, all of which have examples from Hull which demonstrate that they work correctly.
