@@ -18,7 +18,7 @@ ustreasuries      [![DOI](https://zenodo.org/badge/5738/grfiv/ustreasuries.svg)]
 
 * Real-Time downloads of   
     * daily Constant-Maturity Treasury (CMT) yields from 1962 to the most-recently completed business day   
-    * daily prices for 400 Treasury securities from 2010 to the most-recently completed business day   
+    * daily prices for 400 Treasury securities (FedInvest) from 2010 to the most-recently completed business day   
 
 ### Bond Analysis   
 Several models such as Nelson Seigel and Svensson are provided    
