@@ -18,8 +18,8 @@ including all the 'greeks' for derivative analysis.
 \section{Vignettes}{
 
 \itemize{
+    \item \bold{summary} Overview of package functionality
     \item \bold{veronesi-ch02} Examples and figures from Veronesi, Ch2
-    \item \bold{veronesi-ch02-Nelson-Seigel} Appendix to Veronesi, Ch2 showing term-structure modeling
     \item \bold{cmt-rates} a description of Constant Maturity and
     Annualized Percentage rates
     \item \bold{yield-curves} examples of downloading the data and printing
@@ -43,6 +43,9 @@ including all the 'greeks' for derivative analysis.
     Annualized Percentage Yields (APY)
     }
     \item \bold{FedInvestData} downloads real-time treasury bond price data from 2010
+    \itemize{
+         \item \bold{CoerceFedInvest_xts} Turn FedInvest data into a time series
+    }
    }
 
  \item \bold{Black Scholes Merton}
@@ -69,11 +72,7 @@ including all the 'greeks' for derivative analysis.
  \itemize{
          \item \bold{Bonds}
              \itemize{
-                 \item \bold{Nelson.Siegel} Estimation of the Nelson-Siegel parameters
-                 \item \bold{NSrates} Interest rates of the Nelson-Siegel model
-                 \item \bold{NSzeros} Convert NSrates to discount factors Z(0, T)
-                 \item \bold{Nelson.Siegel.plot} Plot the actual and Nelson.Siegel Yield Curves
-                 \item \bold{NSzeros.plot} Plot Z(0, T) and r(0, T)
+                 \item \bold{NSzeros} Convert Nelson Seigel and Svensson rates to Z(0, T)
                  \item \bold{Zbootstrap} Derive Z(0, T_i) using the bootstrap method
                  \item \bold{spot_rate} Derive spot rate from Z(0, T) and T
              }
@@ -179,8 +178,6 @@ round(ans,2) # 4.76
 }
 \author{
 George Fisher \email{GeorgeRFisher@gmail.com}
-
-Pratik Biswas \email{pratik.k.biswas@gmail.com}
 }
 \references{
 Back, K., \emph{A Course in Derivative Securities} 2005 Springer Finance ISBN 9783540253734

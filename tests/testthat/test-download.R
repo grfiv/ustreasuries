@@ -87,3 +87,36 @@ sp500_idx_tr <- SP500TR()
 test_that("sp500 names", {
     expect_equal(names(sp500_idx_tr), c("Date","Open","High","Low","Close","Volume","Adj.Close"))
 })
+
+# Test CoerceFedInvest_xts, NSzeros
+# =================================
+start.date <- Sys.Date() - 25
+end.date   <- Sys.Date()
+
+FedInvestSlice <- dplyr::filter(fedinvest_data,
+                                 Date >= start.date &
+                                     Date <= end.date   &
+                                     SECURITY.TYPE != "TIPS")
+rate_table_list <- CoerceFedInvest_xts(FedInvestSlice)
+
+rate_table_xts    <- rate_table_list$rate_table_xts
+unique_maturities <- rate_table_list$unique_maturities
+modified_data     <- rate_table_list$modified_data
+
+SVParameters <- YieldCurve::Svensson(rate= rate_table_xts,
+                                     maturity=unique_maturities)
+SV_y <- YieldCurve::Srates(SVParameters,
+                           maturity=c(1/12, 3/12, 6/12, 1, 2, 3, 5, 7, 10, 20, 30),
+                           whichRate="Spot")[1,]
+Z <- NSzeros(SV_y)
+
+test_that("CoerceFedInvest_xts, NSzeros", {
+    expect_match(typeof(unique_maturities), "double")
+    expect_match(class(unique_maturities),  "numeric")
+    expect_match(typeof(rate_table_xts),    "double")
+    expect_equal(class(rate_table_xts),     c("xts", "zoo"))
+    expect_match(typeof(modified_data),     "list")
+    expect_equal(class(modified_data),      c("tbl_df","tbl","data.frame"))
+    expect_match(typeof(Z),                 "double")
+    expect_equal(class(Z),                  "matrix")
+})

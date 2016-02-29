@@ -28,6 +28,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
         -   **PrintYieldCurves** prints one or more CMT yield curves
         -   **APY** converts Constant-Maturity Treasury (CMT) yields to Annualized Percentage Yields (APY)
     -   **FedInvestData** downloads real-time treasury bond price data from 2010
+        -   **CoerceFedInvest\_xts** Turn FedInvest data into a time series
 -   **Black-Scholes-Merton**
     -   **EuroCall** Calculate the price of a European call option with or without dividends
     -   **EuroPut** Calculate the price of a European put option with or without dividends
@@ -44,11 +45,7 @@ See the [GitHub Wiki](https://github.com/grfiv/ustreasuries/wiki) for examples o
     -   **RhoPut** the sensitivity to changes in the risk-free rate of return
 -   **Utility Functions**
     -   **Bonds**
-        -   **Nelson.Siegel** Estimation of the Nelson-Siegel parameters
-        -   **NSrates** Interest rates of the Nelson-Siegel model
-        -   **NSzeros** Convert NSrates to discount factors Z(0, T)
-        -   **Nelson.Siegel.plot** Plot the actual and Nelson.Siegel Yield Curves
-        -   **NSzeros.plot** Plot Z(0, T) and r(0, T)
+        -   **NSzeros** Convert Nelson Seigel and Svensson rates to Z(0, T)
         -   **Zbootstrap** Derive Z(0, T\_i) using the bootstrap method
         -   **spot\_rate** Derive spot rate from Z(0, T) and T
     -   **CAGR**

@@ -11,6 +11,7 @@
 * ### Added *data-raw/FedInvestHistory_bring_to_current.R* to "top off" the FedInvest historical dataset so that as few POSTS as possible have to be made to bring it current
 * ### Added *SP500* and *SP500TR* to download S&P 500 data
 * ### Added *spot_rate* function
+* ### Added *CoerceFedInvest_xts* function
 
 
 -------------------------------------------------------------------------------

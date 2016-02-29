@@ -3,16 +3,15 @@ citHeader("To cite ustreasuries please use:")
 citEntry(
   entry        = "Misc",
   title        = "Data, analyses and visualizations for US Treasury bonds",
-  author       = personList(as.person("George Fisher"),
-                            as.person("Pratik Biswas")),
+  author       = personList(as.person("George Fisher")),
   year         = "2016",
   howpublished = "https://github.com/grfiv/ustreasuries",
   note         = "Download US Treasury yields from 1962 and provide analyses.
     All the standard options formulas are provided, tested against Hull's 7th edition
-    including all the Greeks.",
+    including all the Greeks. All the examples from Veronesi Chapter 2 and appendix are derived.",
 
   textVersion  =
-  paste("George Fisher, Pratik Biswas (2016)",
+  paste("George Fisher (2016)",
         "Data, analyses and visualizations for US Treasury bonds",
         "URL https://github.com/grfiv/ustreasuries")
         )

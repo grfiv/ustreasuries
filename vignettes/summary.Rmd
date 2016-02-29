@@ -1,6 +1,6 @@
 ---
 title: "ustreasuries package summary"
-author: "Pratik Biswas, George Fisher SUID 05714524"
+author: "George Fisher SUID 05714524"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -10,49 +10,61 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
+```{r, echo=FALSE}
+knitr::opts_chunk$set(collapse=TRUE,                # hadley
+                      comment = "#>",               # hadley
+                      error=TRUE, purl=FALSE,       # to be able to see errors
+                      fig.width=7.25, fig.height=6) # nice-sized pictures
+```
+
 ## Summary
 
 US Treasury bonds are the standard by which all other bonds in the world are measured:   
 
 * The US Treasury bond market is the most-active and most-liquid securities market in the world   
 * US Treasury bonds are the liabilities of the largest economy in the world  
-* The US is universally seen as the world's safest haven and in times of stress US Treasury bonds are where the world moves its money   
-* The US is deemed almost-certainly secure and therefore the interest paid on US Treasury bonds is used as the 'risk-free' rate in all financial analyses (LIBOR was used for this until the world learned of the corruption in the City of London)
+* The US is the world's safest haven and in times of stress US Treasury bonds are where the world moves its money   
+* The US is deemed almost-certainly secure and therefore the interest paid on US Treasury bonds is used as the 'risk-free' rate in all financial analyses    
 
-On the Internet, there is a lot of static/stale US Treasury bond data and some of these sources show up in various `R` packages. This package provides *real-time* daily **interest-rate** information for the US Treasury yield curve from 1962 to the present and *real-time* daily US Treasury bond **price** information for about 400 different bonds going back to 2010. More data downloads are planned.   
+On the Internet, there is a lot of static/stale US Treasury bond data and some of these sources show up in various `R` packages. This package provides **real-time** daily **interest-rate** information for the US Treasury yield curve from 1962 to the present and **real-time** daily US Treasury bond **price** information for about 400 different bonds going back to 2010. More data downloads are planned.   
 
 In addition to data, this package is steadily adding to its collection of analyses that can be performed on the data: 
 
 * basic bond analysis such as CAGR, YTM, discount factors, etc.   
-* yield-curve and other term-structure display   
 * term-structure and discount-factor derivation using the Nelson-Seigel and Svensson techniques   
 * Black-Scholes-Merton derivative functions including all the 'Greeks'.
 
-The help facility for the package, `?ustreasuries` has a current list of all the facilities available and each function's documentation is current. Several vignettes are also listed.   
+The help facility for the package, **`?ustreasuries`** has a current list of all the facilities available and each function's documentation is current. Several vignettes are also listed.   
 
-We have a current GitHub presence and have made several formal releases of the package as the development process has moved forward: https://github.com/grfiv/ustreasuries The README file is kept current and a Wiki has been built.   
+I have a GitHub account and have made several formal releases of the package as the development process has moved forward: https://github.com/grfiv/ustreasuries The README file is kept current and a Wiki has been built.   
 
-It is our intention to distribute a prime-time version on CRAN when we get to a suitable point.
+The two books   
+
+* *Options, Futures and other Derivatives* by John Hull
+* *Fixed-Income Securities* by Pietro Veronesi
+
+are the canonical texts for derivatives and fixed-income analysis at many graduate courses in quantitative finance, such as my own alma mater MIT. I am in the process of building a series of vignettes that demonstrate how these books' examples were actually derived.   
+
+One of the things I found frustrating about these two books was that the data and processes were simply presented as a *fait accomplis*, probably created by doctoral students under duress; I am creating what I wish I had: code and data that clearly show how the algorithms work in a way that carries on beyond the $\LaTeX$ derivations and the use of toy datasets.  
+
+It is my intention to distribute a prime-time version on CRAN when I get to a suitable point and to make a submission to the R Journal.
 
 ## Authors
 
-The authors of this package are Pratik Biswas and George Fisher. The contributions of each can be seen in the file structure under the `R/` directory:
+The authors of this package are Pratik Biswas and George Fisher. All of the code was written by George Fisher. 
 
-Pratik:   
+In the following two files can be seen the work of Pratik who converted Black-Scholes-Merton functions George Fisher wrote in Python into R; I then aded the *roxygen2* documentation and examples, the *testthat* unit tests and descriptive vignettes:
 
 * BSM.R   
 * BSM_utilities.R   
 
-George:   
+The following files are entirely George Fisher's work:   
 
 * BondMath.R   
 * download_rates.R  
 * PrintYieldCurves.R   
 * ustreasuries.R   
 
-In addition, we made modifications to code found in the YieldCurve package (GSL<=2):   
-
-* Nelson.Siegel.R   
 
 ## Code Samples
 
@@ -62,10 +74,7 @@ The `CMTrates()` function downloads daily Constant Maturity Treasury (CMT) rates
 into a data.frame with   
 
 * One row per day from January 1962 to the most-recently completed business
-day; 1962-2015 data is static, having been drawn from the Federal Reserve’s
-H15 dataset (US Federal Reserve Board), the more-recent data is pulled in
-real time from an XML stream provided by the US Treasury (US Treasury
-Department)   
+day pulled from an XML stream.   
 * Columns
     * **Id** an integer added by the XML download from the Treasury
     * **NEW_DATE** "%Y-%m-%d" formatted date
@@ -73,80 +82,39 @@ Department)
     
 ```{r cmtdownload,message=FALSE}
 library(ustreasuries)
-all_data = CMTrates()
-head(all_data)
-# Note that different maturities have different start dates
-# see ?CMTrates for details
-tail(all_data)
+CMT_data <- CMTrates()
+
 # Note the most-recent date relative to the date of the download
 format(Sys.Date(), "%A %Y-%m-%d")
+
+knitr::kable(tail(CMT_data, n=3L)[2:7], 
+             caption="Sample of CMT Data (percent format: divide by 100 for math)",
+             row.names=FALSE)
 ```   
 
 ### CMT Yield Curves   
 
-Yield curves can tell very interesting stories, particularly those during 'interesting'
-times. Below is a sampling of the CMT yield curves during the time of the 2006-2009
-financial crisis:   
-```{r YC_fincrisis,fig.cap="**Note the extremes: 2006 flat (black) ... odd; 2007 inverted (red) ... hurricane warnings; 2009 steep (blue) ... after the crash and Fed intervention**",fig.width=7,fig.height=7}
-PrintYieldCurves(dplyr::filter(all_data,
-        all_data$NEW_DATE>=as.Date("2006-01-01") &
-        all_data$NEW_DATE<=as.Date("2009-12-31")),
+#### Yield curves can tell very interesting stories, particularly during 'interesting' times. Below is a sampling of the CMT yield curves during the time of the 2006-2009 financial crisis: ####      
+```{r YC_fincrisis,fig.width=7,fig.height=7}
+PrintYieldCurves(dplyr::filter(CMT_data,
+        CMT_data$NEW_DATE>=as.Date("2006-01-01") &
+        CMT_data$NEW_DATE<=as.Date("2009-12-31")),
     rows=c(1, 272, 272*2, 272*3),
     title="Yield Curves Before & During the Financial Crisis")
 ```   
 
-### Fitting CMT Rates with Nelson Seigel
-The Nelson Seigel model (*Nelson and Seigel, 1987*) is described as follows (*Veronesi,
-2010*)   
+## Note the extremes in the curves:
 
-* For a maturity of $T$ in fractional years, the discount factor is given by
-$$Z ( 0, T ) = e^{− r ( 0,T ) T}$$   
-* The equivalent interest rate is derived
-$$r ( 0, T ) = \beta_0 + ( \beta_1 + \beta_2 ) \frac{1-e^{-T/\lambda}}{T/\lambda}-\beta_2 e^{-T/\lambda}$$ 
-* The modeled price, given a semi-annual coupon $c$ and $n$ payments is   
-$$P_{model} =  100 \times \left( \frac{c}{2} \sum_{j=1}^n Z(0, T_j) + Z(0, T_n) \right)  $$
-    
-* The squared difference between the modeled price and the observed price for
-a collection of bonds is minimized to estimate $\{\beta_0, \beta_1, \beta_2, \lambda\}$   
+* ### 2006 (black) ... flat, which is odd ###   
+* ### 2007 (red) ... inverted, which often signals a hurricane warning ###   
+* ### 2009 (blue) ... steep, after the crash and Fed intervention ###   
 
-The *YieldCurve* package (*Consiglio and Guirreri, 2011*) has a **Nelson.Seigel()**
-function that we modified to accomodate our data to produce $\{\beta_0, \beta_1, \beta_2, \lambda\}$ in the following:   
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
-```{r NS_betas}
-rate.CMT <- dplyr::filter(all_data,
-                            all_data$NEW_DATE>=Sys.Date()-10 &
-                            all_data$NEW_DATE<=Sys.Date())
-NSParameters <- Nelson.Siegel(rate=rate.CMT)
-head(NSParameters, n=2L)
-```   
-Using the parameters so derived, a collection of $r ( 0, T )$ were produced with the
-**NSrates()** function, where the column headings represent $T$ in fractional years
-(prefixed by $X$ ) and the data values are in 'percent' format, where 7.82 means
-7.82%, 0.0782:   
+## FedInvest Treasury Bond Data   
 
-```{r NS_rates}
-head(NSrates(NSParameters), n=2L)
-```   
-
-```{r NS_plot,fig.height=7,fig.width=7,fig.cap="**Most-recent yield curve and the Nelson Seigel fit**"}
-Nelson.Siegel.plot(rate.CMT, NSrates(NSParameters), rows=nrow(rate.CMT))
-```
-
-The discount factors $Z(0, T)$ can also be derived
-
-```{r NS_zerosplot,fig.height=7,fig.width=7,fig.cap="**Zeros derived from Nelson Seigel Rates**"}
-n <- dim(NSParameters)[1]
-r <- NSrates(NSParameters)[n,]            # r(0, T)
-Z <- NSzeros(NSrates(NSParameters))[n,]   # Z(0, T)
-
-NSzeros.plot(r, Z)
-```
-
-### FedInvest Treasury Bond Data   
-
-*data.frame* containing the FedInvest data from 2010 to the most-recently completed business day   
-
-The columns of the data.frame returned   
+The US Treasury publishes a daily list of about 400 bonds with their coupons and prices. The `FedInvestData()` function returns a *data.frame* containing the FedInvest data from 2010 to the most-recently completed business day.   
 
 * **CUSIP** Committee on Uniform Security Identification Procedures’ nine-character, alphanumeric security identification code
 * **SECURITY.TYPE**   
@@ -157,7 +125,7 @@ The columns of the data.frame returned
     – TIPS   
     – MARKET BASED FRN      
     
-* **RATE**
+* **RATE** (coupon in percent format)
 * **MATURITY.DATE**
 * **CALL.DATE** All `NA`
 * **BUY**
@@ -168,8 +136,201 @@ The columns of the data.frame returned
 ```{r fedinvest_data, message=FALSE}
 fedinvest_data <- FedInvestData()
 
-head(fedinvest_data)
-tail(fedinvest_data)
+knitr::kable(tail(fedinvest_data, n=3L), 
+             caption="Sample of FedInvest Data",
+             row.names=FALSE)
+```
+
+# Fitting CMT Rates with Models   
+The CMT rates are synthetic, created using splines where the knots are observed rates and the CMT rates are read at discrete points along the curve.    
+
+Real-life situations present us with a lot of dirty data from which we would like to derive rates and discount factors.  There are two primary methods for doing this:   
+
+(1) bootstrap, which means equation-solving with linear algebra: define $Ax = b$ such that  $b$ is a vector of observed prices and $A$ contains observed rates for several maturities; solve for $x$, the vector of $Z(0, T)$.
+
+(2) modeling, for which there are two primary contenders: Nelson Seigel, a four-factor model; and Svensson, a six-factor extension to Nelson Seigel.   
+
+
+The Nelson Seigel (*Nelson and Seigel, 1987*) and Svensson (*Svensson, 1994*) models are described as follows (*Veronesi, 2010*)   
+
+1. For a maturity of $T$ in fractional years, the discount factor is given by
+$$Z ( 0, T ) = e^{− r ( 0,T ) T}$$   
+2. The continuously-compounded interest rate is derived
+    * **Nelson Seigel**   
+$$r ( 0, T ) = \beta_0 + ( \beta_1 + \beta_2 ) \frac{1-e^{-T/\lambda}}{T/\lambda}-\beta_2 e^{-T/\lambda}$$    
+
+    * **Svensson**   
+$$r ( 0, T ) = \beta_0 + ( \beta_1 + \beta_2 ) \frac{1-e^{-T/\lambda_1}}{T/\lambda_1} - \beta_2 e^{-T/\lambda_1} + \beta_3 \left(\frac{1-e^{-T/\lambda_2}}{T/\lambda_2} -   e^{-T/\lambda_2}     \right)$$ 
+    
+3. The modeled price, given a semi-annual coupon $c$ and $n$ payments per year is   
+$$P_{model} =  100 \times \left( \frac{c}{2} \sum_{j=1}^n Z(0, T_j) + Z(0, T_n) \right)  $$
+    
+4. The squared difference between the modeled price and the observed price for
+a collection of bonds is minimized to estimate $\{\beta_0, \beta_1, \beta_2, \lambda\}$ for Nelson Seigel and $\{\beta_0, \beta_1, \beta_2, \beta_3, \lambda_1, \lambda_2\}$ for Svensson.  
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+# The following uses these models to derive the CMT rates
+
+
+## Coerce the FedInvest data into an xts time-series format
+
+```{r daterange, message=FALSE}
+# pick a range of dates to analyze
+# ================================
+start.date <- Sys.Date() - 25
+end.date   <- Sys.Date()
+```
+
+```{r loadfedinvest, message=FALSE}
+# ==================================================================
+# pull the FedInvest data for the range of dates
+# ... omitting TIPS, which are weird
+# ==================================================================
+library(magrittr)
+rate_table_list <- dplyr::filter(fedinvest_data, 
+                                     Date >= start.date &
+                                     Date <= end.date   &
+                                     SECURITY.TYPE != "TIPS") %>%
+    CoerceFedInvest_xts()
+
+rate_table_xts    <- rate_table_list$rate_table_xts
+unique_maturities <- rate_table_list$unique_maturities
+
+# one row per day; each column the average YTM of a maturity
+knitr::kable(as.data.frame(rate_table_xts[1:3, 1:5]), 
+             caption="Sample of FedInvest Data after Coersion to xts Format",
+             row.names=TRUE)
+```
+
+## Choose CMT yield-curve data for comparison
+
+```{r cmtdownload2}
+# ==================================================================
+# pull the CMT rates for a representative date in the selected range
+# to use as a check on how good the models are
+# ==================================================================
+
+# pick a week-day date in the middle of the range
+for (date in seq(start.date, end.date, by=1)) {
+    CMT_date <- as.Date(date, origin="1970-01-01")
+    
+    if (weekdays(CMT_date) %in% c("Monday","Tuesday","Wednesday","Thursday","Friday") &
+        which(CMT_date==seq(start.date, end.date, by=1)) >=
+              length(seq(start.date, end.date, by=1))/2 &
+        CMT_date%in% CMT_data$NEW_DATE)
+        break
+}
+
+# pull out the yield-curve data for the selected date; convert to decimal
+CMT_y <- sapply(dplyr::filter(CMT_data, NEW_DATE==CMT_date)[3:13],
+                function(x) x[[1]]/100)
+
+CMT_y[1:5]
+```
+
+## Apply Nelson Seigel
+
+```{r NS}
+# =============
+# Nelson Siegel
+# =============
+
+# derive the model parameters from the coerced FedInvest data
+NSParameters <- YieldCurve::Nelson.Siegel(rate= rate_table_xts, maturity=unique_maturities)
+
+NSParameters[1:3,]
+
+# model the rates from the middle of the range of dates
+mid_parm <- ceiling(nrow(NSParameters)/2)
+NS_y     <- YieldCurve::NSrates(NSParameters,
+                                maturity=c(1/12, 3/12, 6/12, 1, 2, 3, 5, 7, 10, 20, 30))[mid_parm,]
+
+# ------------------------------------------------------------
+plot(x=1:11, y=NS_y,
+     ylim=c(min(NS_y,CMT_y),max(NS_y,CMT_y)),pch=19,type="b",lty=1,
+     ylab="Yield",xlab=NA,xaxt="n",
+     main=paste0("Term Structure on ",CMT_date, " Actual and Modeled by Nelson Siegel"))
+
+points(x=1:11, y=CMT_y, pch=10)
+lines(x=1:11,  y=CMT_y, lty=2)
+
+legend("topleft",legend=c("Nelson Siegel Model based on FedInvest Data",
+                          "CMT Rates from the Treasury"),
+       pch=c(19,10), lty=c(1,2))
+
+axis(1, at     = axTicks(1),
+     labels = substr(names(CMT_y)[axTicks(1)],4,9))
+grid()
+```
+
+## Svensson
+
+```{r sv}
+# ========
+# SVENSSON
+# ========
+
+# derive the model parameters from the coerced FedInvest data
+SVParameters <- YieldCurve::Svensson(rate= rate_table_xts, maturity=unique_maturities)
+
+SVParameters[1:3,]
+
+# model the rates from the middle of the range of dates
+mid_parm <- ceiling(nrow(SVParameters)/2)
+SV_y     <- YieldCurve::Srates(SVParameters,
+                               maturity=c(1/12, 3/12, 6/12, 1, 2, 3, 5, 7, 10, 20, 30),
+                               whichRate="Spot")[mid_parm,]
+
+# ------------------------------------------------------------
+plot(x=1:11, y=SV_y,
+     ylim=c(min(SV_y,CMT_y),max(SV_y,CMT_y)),pch=19,type="b",lty=1,
+     ylab="Yield",xlab=NA,xaxt="n",
+     main=paste0("Term Structure on ",CMT_date, " Actual and Modeled by Svensson"))
+
+points(x=1:11, y=CMT_y, pch=10)
+lines(x=1:11,  y=CMT_y, lty=2)
+
+legend("topleft",legend=c("Svensson Model based on FedInvest Data",
+                          "CMT Rates from the Treasury"),
+       pch=c(19,10), lty=c(1,2))
+
+axis(1, at     = axTicks(1),
+     labels = substr(names(CMT_y)[axTicks(1)],4,9))
+grid()
+```
+
+# Derive $Z(0, T)$ from Svensson
+```{r derivez0t}
+# derive Z(0, T)
+Z <- NSzeros(SV_y)
+
+# ---------- Plot Z(0, T)
+plot(x=1:11, y=Z,xlab=NA, ylab=NA,xaxt="n",pch=19,col="red",
+     main="Discount Factors and Spot Rates, Derived from Svensson")
+axis(side = 2)
+
+text(x=1.25, y=Z[1], labels=round(Z[1],6), pos=1, col="red")
+text(x=11, y=Z[11], labels=round(Z[11],6), pos=3, col="red")
+
+# ---------- Plot rates
+par(new=T)
+
+plot(x=1:11, y=SV_y,axes=F,xlab=NA, ylab=NA,xaxt="n",pch=19,type="b",lty=1)
+axis(side = 4)
+
+text(x=1.25, y=as.numeric(SV_y)[1], 
+     labels=paste0(round(as.numeric(SV_y)[1]*100,4),"%"), pos=3)
+text(x=10.5, y=as.numeric(SV_y)[11], 
+     labels=paste0(round(as.numeric(SV_y)[11]*100,4),"%"), pos=1)
+
+legend("center",legend=c("Discount Factors", "Rates"),
+       pch=c(19,19), lty=c(NA,1),col=c("red","black"))
+
+axis(1, at     = axTicks(1),
+     labels = substr(names(CMT_y)[axTicks(1)],4,9))
+grid()
 ```
 
 # Environment
